@@ -1,18 +1,17 @@
 /* Webarch Admin Dashboard 
 -----------------------------------------------------------------*/ 
-$(document).ready(function() {		
-	$('#login_toggle').click(function(){
-		$('#frm_login').show();
-		$('#frm_register').hide();
+$(document).ready(function() {
+	$(document).on( "click", "#login_toggle", function() {
+		$('#form-login').show();
+		$('#form-register').hide();
 	})
-	$('#register_toggle').click(function(){
-		$('#frm_login').hide();
-		$('#frm_register').show();
+
+	$(document).on( "click", "#register_toggle", function() {
+		$('#form-login').hide();
+		$('#form-register').show();
 	})
 	
 	$(".lazy").lazyload({
       effect : "fadeIn"
    });
-	
-
 });

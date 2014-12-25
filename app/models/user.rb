@@ -1,6 +1,20 @@
 class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+	# Include default devise modules. Others available are:
+	# :confirmable, :lockable, :timeoutable and :omniauthable
+	devise :database_authenticatable, :registerable, :omniauthable,
+			:recoverable, :rememberable, :trackable, :validatable
+
+	has_many :identities, :dependent => :destroy
+
+
+	def self.find_or_create(auth)
+
+		# If user exists then update else create new user
+		email = auth.info.email || auth.uid + "@twitter.com"
+		user = User.where("email = '#{email}'").first_or_initialize
+		user.save!(:validate => false)
+
+		user
+	end
+
 end

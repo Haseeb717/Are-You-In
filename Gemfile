@@ -5,6 +5,10 @@ source 'https://rubygems.org'
 gem 'rails', '4.1.0'
 
 gem "devise"
+gem "omniauth"
+gem "omniauth-twitter"
+gem "omniauth-facebook"
+
 gem "font-awesome-rails"
 
 # Use sqlite3 as the database for Active Record
@@ -40,5 +44,4 @@ gem 'spring',        group: :development
 # gem 'capistrano-rails', group: :development
 
 # Use debugger
-# gem 'debugger', group: [:development, :test]
-
+gem 'debugger', group: [:development, :test]

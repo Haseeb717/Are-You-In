@@ -30,4 +30,6 @@
 //= require app.js
 //= require jquery-lazyload/jquery.lazyload.min.js
 //= require login_v2.js
-
+//= require parsley.min.js
+//= require modernizr-2.6.2.min.js
+//= require gumby.min.js
