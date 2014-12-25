@@ -10,9 +10,6 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require gumby.css
- *= require style-2.css
- *= require elementTransitions.css
  *= require bootstrap-select2/select2.css
  *= require pace/pace-theme-flash.css
  *= require fullcalendar/fullcalendar.css
