@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
 		# If user exists then update else create new user
 		email = auth.info.email || auth.uid + "@twitter.com"
 		user = User.where("email = '#{email}'").first_or_initialize
+		user.email = email
+		user.name = auth.info.name
 		user.save!(:validate => false)
 
 		user

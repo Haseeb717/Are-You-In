@@ -4648,7 +4648,7 @@ form legend,
 .grid.simple .grid-title .tools a,
 .grid.solid .grid-title .tools a {
   position: relative;
-  background: url('..//assets-app/img/icon/portlet-tray.png') no-repeat;
+  background: url('/assets/icon/portlet-tray.png') no-repeat;
   transition: all 0.1s linear 0s;
 }
 .grid.simple .grid-title .tools > a.remove,
@@ -5139,7 +5139,7 @@ form legend,
 }
 .tiles .controller a {
   position: relative;
-  background: url('/assets-app/img/icon/portlet-tray.png') no-repeat;
+  background: url('/assets/icon/portlet-tray.png') no-repeat;
   transition: all 0.1s linear 0s;
   display: inline-block;
 }
@@ -5472,7 +5472,7 @@ form legend,
 }
 .widget-item .controller a {
   position: relative;
-  background: url('/assets-app/img/icon/portlet-tray.png') no-repeat;
+  background: url('/assets/icon/portlet-tray.png') no-repeat;
   transition: all 0.1s linear 0s;
   display: inline-block;
 }
@@ -5596,7 +5596,7 @@ form legend,
 }
 .widget .controller a {
   position: relative;
-  background: url('/assets-app/img/icon/portlet-tray.png') no-repeat;
+  background: url('/assets/icon/portlet-tray.png') no-repeat;
   transition: all 0.1s linear 0s;
   display: inline-block;
 }
@@ -6202,7 +6202,7 @@ code:hover {
 }
 .nav .tools a {
   position: relative;
-  background: url('/assets-app/img/icon/portlet-tray.png') no-repeat;
+  background: url('/assets/icon/portlet-tray.png') no-repeat;
   transition: all 0.1s linear 0s;
 }
 .nav > .disabled > a:hover,

@@ -9,6 +9,8 @@ gem "omniauth"
 gem "omniauth-twitter"
 gem "omniauth-facebook"
 
+gem "paperclip", "~> 4.2"
+
 gem "font-awesome-rails"
 
 # Use sqlite3 as the database for Active Record

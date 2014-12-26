@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  sport: MyString
+  city: MyString
+  gender: MyString
+  age_group: MyString
+  age_from: 1
+  age_to: 1
+  public_info: false
+
+two:
+  name: MyString
+  sport: MyString
+  city: MyString
+  gender: MyString
+  age_group: MyString
+  age_from: 1
+  age_to: 1
+  public_info: false
