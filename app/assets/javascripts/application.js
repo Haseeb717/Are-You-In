@@ -33,3 +33,4 @@
 //= require parsley.min.js
 //= require modernizr-2.6.2.min.js
 //= require gumby.min.js
+//= require avatar_dropzone.js

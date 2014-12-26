@@ -10,6 +10,8 @@ class CreateTeams < ActiveRecord::Migration
       t.integer :age_to
       t.boolean :public_info, :default => false
 
+      t.integer :user_id
+
       t.timestamps
     end
   end

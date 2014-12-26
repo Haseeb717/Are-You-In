@@ -172,8 +172,7 @@ $(document).ready(function() {
 
 
     // Show and Hide Age Drop Downs for Add Team modal
-
-    $('.toggles input[type=radio]').on('change', function () {
+    $(document).on('change', '.toggles input[type=radio]', function () {
         if (!this.checked) return
         $('.collapse').not($('div.' + $(this).attr('class'))).slideUp();
         $('.collapse.' + $(this).attr('class')).slideDown();
@@ -217,6 +216,11 @@ $(document).ready(function(){
         placement : 'top',
         html : 'true'
     });
+
+    // facing problem in stability of some designed items
+    window.setTimeout(function(){
+        $(".radios-group").addClass("radio").removeClass("radios-group");
+     }, 2000);
 });
 
 // Return validation status from jQuery validate plugin.

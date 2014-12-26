@@ -25,11 +25,11 @@
  *= require responsive.css
  *= require custom-icon-set.css
  *= require default.picker.css
- *= require default.picker.css
  *= require default.date.css
  *= require default.time.css
  *= require bootstrapValidator.css
  *= require ios7-switch.css
 
+ *= require add_team.css
  *= require_self
  */
