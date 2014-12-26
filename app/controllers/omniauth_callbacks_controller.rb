@@ -1,7 +1,6 @@
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
 	def callback
-		debugger
 		auth = request.env["omniauth.auth"]
 		user = current_user || User.find_or_create(auth)
 		identity = Identity.find_or_create(auth, user)

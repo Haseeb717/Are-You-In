@@ -1,11 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
+  resources :users
 
-  resources :users do
-    collection do
-      get "dashboard"
-    end
-  end
+  get "/dashboard", :to => "static#dashboard"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
