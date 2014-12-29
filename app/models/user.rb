@@ -19,4 +19,8 @@ class User < ActiveRecord::Base
 		user
 	end
 
+	def is_team_admin?(team)
+		self.teams.include?(team)
+	end
+
 end

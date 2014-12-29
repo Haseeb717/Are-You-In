@@ -1,22 +1,20 @@
-$(document).on("click", "#create-team", function(event) {
-
-	// event.preventDefault();
-
-	// team_avater = $(".dz-remove").attr("id");
-
-	// if (team_avater == null || team_avater == "") 
-	// 	return;
-
-	// team_name = $("#team_name").val();
-	// sport = $("#sport").val();
-	// city = $("#city").val();
-
-	// gender = $('input[name=gender]:checked', '#add_team').val();
-
-	// age_group = $('input[name=age]:checked', '#add_team').val();
-
-	// age_from = $(".youth #age_from").val();
-	// age_to = $(".youth #age_to").val();
+// $("#add_team").on("shown.bs.modal", function(event) {
+// 	event.preventDefault();
 
 
-});
+// 	// Use Ajax to submit form data
+// 	$.ajax({
+// 		type: "GET",
+// 		url: "/teams/new",
+// 		success: function (data) {
+// 			console.log(data);
+// 			$("#add_team").replaceWith(data);
+// 			$("#add_team").modal("show");
+// 			// $("#add-team-partial").html(data);
+// 		},
+// 		error: function(XMLHttpRequest, textStatus, errorThrown) {
+
+// 		}
+// 	});
+
+// })
