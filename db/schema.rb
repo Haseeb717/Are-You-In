@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 20141226133342) do
   end
 
   create_table "team_avatars", force: true do |t|
-    t.integer  "user_id"
+    t.integer  "team_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "avatar_file_name"

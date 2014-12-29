@@ -12,11 +12,11 @@
             <h4 id="add_team" class="semi-bold">Add a New Team.</h4>
          </div>
          <div class="modal-body">
-            <form id="add_team" class="add-team-form">
+            <%= form_for(@team, :html => { :id = "add_team", :class => "add-team-form") do |f| %>
                <div class="form-wrap">
                   <div class="row form-row form-group">
                      <div class="col-md-12">
-                        <input type="text" name="team_name" class="form-control" placeholder="Team Name"/>
+                        <%= f.text_field :name, :class => "form-control", :placeholder => "Team Name" %>
                      </div>
                      <div class="col-md-12 m-b-10 select-container">
                         <select name="sport" class="source form-control" style="width:100%">
@@ -87,7 +87,7 @@
                      </div>
                   </div>
                </div>
-            </form>
+            <% end %>
             <div id="status">
                <div class="modal-body">
                   <div class="row">
