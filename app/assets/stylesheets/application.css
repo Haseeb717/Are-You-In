@@ -17,7 +17,6 @@
  *= require boostrapv3/css/bootstrap.min.css
  *= require boostrapv3/css/bootstrap-theme.min.css
  *= require bootstrap-datepicker/css/datepicker.css
- *= require font-awesome/css/font-awesome.css
  *= require bootstrap3-dialog-master/css/bootstrap-dialog.css
  *= require dropzone/css/dropzone.css
  *= require animate.min.css
@@ -30,6 +29,6 @@
  *= require bootstrapValidator.css
  *= require ios7-switch.css
 
- *= require add_team.css
+ *= require font-awesome
  *= require_self
  */

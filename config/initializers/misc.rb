@@ -1,0 +1,1 @@
+SPORTS = ["baseball","basketball","volleyball","cricket","cycling","football","soccer","foosball","futsal","golf","gaelic football","hockey","hurling","gymnastics","kickball","rowing","running","soccer","swimming","softball","rugby","tennis","volleyball","athletics"]

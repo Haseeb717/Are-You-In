@@ -1,4 +1,3 @@
-
 $(document).ready(function() {
 
 // ajax start and ajax end, to show loading etc
@@ -44,11 +43,18 @@ $(document).ready(function() {
             // Get the BootstrapValidator instance
             var bv = $form.data('bootstrapValidator');
 
+            avatar = $(".dz-remove").attr("id")
+            if (avatar == null || avatar == undefined)
+                avatar = null;
+
+            postData = $(".add-team-form").serialize().replace("team_name", "name") + "&team_avatar_id=" + avatar;
+
             // Use Ajax to submit form data
              $.ajax({
                  type: "POST",
-                 url: "/",
-                 data: $('#add_team').serialize(),
+                 url: "/teams",
+                 dataType: 'json',
+                 data: postData,
                  success: function (data) {
                     console.log(data);
                      $( ".form-wrap" ).hide( "slow", function() {
@@ -57,6 +63,12 @@ $(document).ready(function() {
                      $( "#status" ).show( "slow", function() {
                         $('.team-page a').append('<div class="help-block">' + data.team_id + '</div>');
                       });
+                 },
+                 error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    $("#create-team").removeAttr("disabled");
+
+                    response = JSON.parse(XMLHttpRequest.responseText);
+                    // response.error
                  }
              });
 
@@ -172,7 +184,8 @@ $(document).ready(function() {
 
 
     // Show and Hide Age Drop Downs for Add Team modal
-    $(document).on('change', '.toggles input[type=radio]', function () {
+
+    $('.toggles input[type=radio]').on('change', function () {
         if (!this.checked) return
         $('.collapse').not($('div.' + $(this).attr('class'))).slideUp();
         $('.collapse.' + $(this).attr('class')).slideDown();
@@ -216,11 +229,6 @@ $(document).ready(function(){
         placement : 'top',
         html : 'true'
     });
-
-    // facing problem in stability of some designed items
-    window.setTimeout(function(){
-        $(".radios-group").addClass("radio").removeClass("radios-group");
-     }, 2000);
 });
 
 // Return validation status from jQuery validate plugin.

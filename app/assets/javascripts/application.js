@@ -11,8 +11,6 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery_ujs
-//= require turbolinks
 
 //= require boostrapv3/js/bootstrap.min.js
 //= require breakpoints.js
@@ -28,9 +26,9 @@
 //= require bootstrapValidator.min.js
 //= require core.js
 //= require app.js
+//= require avatar_dropzone.js
+
 //= require jquery-lazyload/jquery.lazyload.min.js
 //= require login_v2.js
-//= require parsley.min.js
-//= require modernizr-2.6.2.min.js
-//= require gumby.min.js
-//= require avatar_dropzone.js
+
+//= require add_team.js

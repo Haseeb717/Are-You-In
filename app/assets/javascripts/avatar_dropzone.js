@@ -4,6 +4,9 @@ $(document).ready(function(){
 
 	// grap our upload form by its id
 	$("#team-avatar").dropzone({
+		// maximum number of files to upload
+		// still get attached problem
+		maxFiles: 1,
 		// restrict image size to a maximum 1MB
 		maxFilesize: 1,
 		// changed the passed param to one accepted by

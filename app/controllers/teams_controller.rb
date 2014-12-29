@@ -22,8 +22,16 @@ class TeamsController < ApplicationController
 
   def create
     @team = Team.new(team_params)
-    @team.save
-    respond_with(@team)
+    if @team.save
+      current_user.teams << @team
+
+      team_avatar = TeamAvatar.find(params[:team_avatar_id])
+      @team.team_avatars << team_avatar
+
+      render json: { message: "success" }, :status => 200
+    else
+      render json: { error: @team.errors.full_messages.join(',')}, :status => 400
+    end
   end
 
   def update
@@ -42,6 +50,6 @@ class TeamsController < ApplicationController
     end
 
     def team_params
-      params.require(:team).permit(:name, :sport, :city, :gender, :age_group, :age_from, :age_to, :public_info)
+      params.permit(:name, :sport, :city, :gender, :age, :age_from, :age_to, :public_contact_info)
     end
 end
