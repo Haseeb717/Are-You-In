@@ -30,8 +30,7 @@ class TeamsController < ApplicationController
     if @team.save
       current_user.teams << @team
 
-      if params[:team_avatar_id]
-        debugger
+      unless params[:team_avatar_id] == "null" || params[:team_avatar_id] == "undefined"
         team_avatar = TeamAvatar.find(params[:team_avatar_id])
         @team.team_avatars << team_avatar
       end

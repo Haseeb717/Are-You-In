@@ -1,15 +1,15 @@
-#add-event .form-control-feedback {
+#add-event-form .form-control-feedback {
 	top: -35px;
 	right: 15px;
 	float: right;
 	color: #a94442;
 }
 
-#add-event .help-block {
+#add-event-form .help-block {
 	color: #a94442;
 	margin-top: -10px;
 }
 
-#add-event .glyphicon-ok {
+#add-event-form .glyphicon-ok {
 	color: #5BA85F;
 }

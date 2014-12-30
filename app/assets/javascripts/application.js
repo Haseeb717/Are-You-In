@@ -32,4 +32,4 @@
 //= require jquery-lazyload/jquery.lazyload.min.js
 //= require login_v2.js
 
-//= require add_event.js
+//= require events.js
