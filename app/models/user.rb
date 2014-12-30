@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
 	has_many :identities, :dependent => :destroy
 	has_many :teams, :dependent => :destroy
 
+	attr_accessor :login
+
 	def self.find_or_create(auth)
 
 		# If user exists then update else create new user
@@ -22,5 +24,15 @@ class User < ActiveRecord::Base
 	def is_team_admin?(team)
 		self.teams.include?(team)
 	end
+
+	private
+	def self.find_for_database_authentication(warden_conditions)
+      conditions = warden_conditions.dup
+      if login = conditions.delete(:login)
+        where(conditions).where(["phone = :value OR lower(email) = :value", { :value => login.downcase }]).first
+      else
+        where(conditions).first
+      end
+    end
 
 end

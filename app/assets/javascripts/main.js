@@ -284,7 +284,7 @@ $('nav a, .fade-link').click(function(event) {
 
 
 $("form").each(function() {
-$(this).parsley()
+	$(this).parsley()
 });
 
 });

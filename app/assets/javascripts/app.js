@@ -59,10 +59,10 @@ $(document).ready(function() {
                     console.log(data);
                      $( ".form-wrap" ).hide( "slow", function() {
                         // Animation complete.
-                      });                     
-                     $( "#status" ).show( "slow", function() {
-                        $('.team-page a').append('<div class="help-block">' + data.team_id + '</div>');
                       });
+
+                     $("#status").html(data.message);
+                     $( "#status" ).show( "slow");
                  },
                  error: function(XMLHttpRequest, textStatus, errorThrown) {
                     $("#create-team").removeAttr("disabled");

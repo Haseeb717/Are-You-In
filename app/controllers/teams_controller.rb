@@ -9,7 +9,8 @@ class TeamsController < ApplicationController
   end
 
   def show
-    @team_avatar = @team.team_avatars.last
+    @team_avatar = @team.team_avatars.last || TeamAvatar.new
+    @event = Event.new
 
     respond_with(@team)
   end
@@ -30,11 +31,13 @@ class TeamsController < ApplicationController
       current_user.teams << @team
 
       if params[:team_avatar_id]
+        debugger
         team_avatar = TeamAvatar.find(params[:team_avatar_id])
         @team.team_avatars << team_avatar
       end
 
-      render json: { message: "success" }, :status => 200
+      message = render_to_string(:partial => "teams/team_status", :layout => false )
+      render json: { :message => message }, :status => 200
     else
       render json: { error: @team.errors.full_messages.join(',')}, :status => 400
     end

@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery_ujs
 
 //= require boostrapv3/js/bootstrap.min.js
 //= require breakpoints.js
@@ -31,4 +32,4 @@
 //= require jquery-lazyload/jquery.lazyload.min.js
 //= require login_v2.js
 
-//= require add_team.js
+//= require add_event.js

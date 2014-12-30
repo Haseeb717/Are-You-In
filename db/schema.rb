@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141226133342) do
+ActiveRecord::Schema.define(version: 20141230082145) do
+
+  create_table "events", force: true do |t|
+    t.string   "title"
+    t.string   "type"
+    t.string   "opponent"
+    t.date     "date"
+    t.time     "time"
+    t.text     "note"
+    t.integer  "team_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "identities", force: true do |t|
     t.integer  "user_id"

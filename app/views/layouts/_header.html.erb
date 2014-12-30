@@ -102,7 +102,7 @@
 					<li class="quicklinks">
 						<a data-toggle="dropdown" class="dropdown-toggle pull-right" href="#" id="user-options">		
 							<div class="user-name-drop">
-								<span> Admin Name </span>
+								<span> <%= current_user.name %> </span>
 								<i class="fa fa-angle-down"></i>
 							</div>
 						</a>
@@ -120,10 +120,7 @@
 							</li>
 							<li class="divider"> </li>
 							<li>
-								<a href="{path=LOGOUT}">
-									<i class="fa fa-power-off"></i>
-									&nbsp;&nbsp;Logout
-								</a>
+								<a href="<%= destroy_user_session_path %>" data-method="delete"><i class="fa fa-power-off"></i>&nbsp;&nbsp;Logout</a>
 							</li>
 						</ul>
 					</li>

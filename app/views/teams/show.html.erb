@@ -22,13 +22,16 @@
                                   <div class="overlayer bottom-right fullwidth">
                                       <div class="overlayer-wrapper">
                                           <div class="tiles gradient-black p-l-20 p-r-20 p-b-20 p-t-20">
-                                              <div class="pull-right"> <a href="#" class="hashtags transparent"> #soccer </a> 
+                                              <div class="pull-right">
+                                                <a href="#" class="hashtags transparent">
+                                                  <%= "##{@team.sport.downcase}" %>
+                                                </a> 
                                               </div>
                                               <div class="clearfix"></div>
                                           </div>
                                       </div>
                                   </div>
-                                  <img src="/assets/others/soccer-m-1.jpg" alt="" class="lazy hover-effect-img image-responsive-width">
+                                  <img src="<%= @team_avatar && @team_avatar.avatar.url %>" alt="" class="lazy hover-effect-img image-responsive-width">
                               </div>
                               <div class="tiles white team-profile">
                                   <% if current_user.is_team_admin?(@team) %>
@@ -41,7 +44,7 @@
 
                                   <div class="tiles-body">
                                       <h3><%= @team.name.upcase %></h3>
-                                      <p><%= "#{@team.gender.capitalize} #{@team.sport.capitalize} - Age: #{@team.age_to} - #{@team.age_from}" %> </p>
+                                      <p><%= "#{@team.gender && @team.gender.capitalize} #{@team.sport && @team.sport.capitalize} - Age: #{@team.age_to} - #{@team.age_from}" %> </p>
                                       
                                       <p><%= @team.city.capitalize %></p>
                                   </div>
@@ -548,6 +551,6 @@
 <!-- END CONTENT -->
 
 <%= render :partial => "teams/form" %>
+<%= render :partial => "events/form" %>
 
-<?php include 'inc/app_add_event.php';?>
 <?php include 'inc/app_add_player.php';?>

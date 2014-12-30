@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 	before_action :authenticate_user!
 	before_filter :configure_permitted_parameters, if: :devise_controller?
 
-	before_filter :header_information
+	before_filter :header_information, :if => :user_signed_in?
 
 	def header_information
 		@teams = current_user.teams
@@ -15,6 +15,7 @@ class ApplicationController < ActionController::Base
 	protected
 	def configure_permitted_parameters
 		devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:email, :password, :password_confirmation, :name, :phone) }
+		devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:login, :email, :phone, :password, :remember_me) }
     end
 
 	private

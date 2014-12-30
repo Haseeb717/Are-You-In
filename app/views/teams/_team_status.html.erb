@@ -1,0 +1,25 @@
+<div class="modal-body">
+	<div class="row">
+		<div class="col-xs-12 align-center">
+			<h4> <i class="fa fa-check"></i>
+				Team <%= @team.name.capitalize if @team.name %> Successfully Added
+			</h4>
+			<p> Next step is to add players to your team </p>
+
+			<a href="<%= @team.new_record? ? "#" : team_path(@team) %>"> Click here to manage team </a>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="checkbox">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<a href="<%= @team.new_record? ? "#" : team_path(@team) %>" class="btn team-page btn-primary">
+					Go to Team Page
+				</a>
+				<a href="#" class="btn btn-primary add-another">Add Another Team</a>
+			</div>
+		</div>
+	</div>
+</div>

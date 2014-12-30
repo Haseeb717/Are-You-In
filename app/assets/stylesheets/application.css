@@ -29,6 +29,8 @@
  *= require bootstrapValidator.css
  *= require ios7-switch.css
 
+ *= require events.css
+
  *= require font-awesome
  *= require_self
  */

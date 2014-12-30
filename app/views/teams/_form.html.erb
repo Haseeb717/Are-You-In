@@ -5,8 +5,8 @@
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             <%= form_for(@team_avatar, html: { multipart: true, class: "dropzone team-pic no-margin", :id => "team-avatar"}) do |f|  %>
                <i class="fa fa-users fa-7x"></i>
+               
                <div class="fallback">
-                  <%= image_tag @team_avatar.avatar.url(:thumb) %>
                   <%= f.file_field :avatar %>
                </div>
             <% end %>
@@ -87,7 +87,7 @@
                      <div class="row form-row">
                         <div class="col-md-7">
                            <div class="checkbox text-left">
-                              <input id="public_contact_info" type="checkbox" name="public_contact_info" value="1">
+                              <input id="public_contact_info" type="checkbox" name="public_contact_info" value="<%= @team.public_contact_info %>">
                               <label for="public_contact_info">Allow team to see each others contact info</label>
                            </div>
                         </div>
@@ -104,26 +104,7 @@
 
 
             <div id="status">
-               <div class="modal-body">
-                  <div class="row">
-                     <div class="col-xs-12 align-center">
-                        <h4><i class="fa fa-check"></i> Team Successfully Added</h4>
-                        <p>Next step is to add players to your team</p>
-                        <a href="/teams/">Click here to manage team</a>
-                     </div>
-                  </div>
-               </div>
-               <div class="modal-footer">
-                  <div class="row">
-                     <div class="col-md-12">
-                        <div class="checkbox">
-                           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                           <a href="#" class="btn team-page btn-primary">Go to Team Page</a>
-                           <a href="#" class="btn btn-primary add-another">Add Another Team</a>
-                        </div>
-                     </div>
-                  </div>
-               </div>
+               <%= render :partial => "teams/team_status" %>
             </div>
          </div>
          <!-- /.modal-content -->
