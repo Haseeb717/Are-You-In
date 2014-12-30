@@ -27,323 +27,109 @@
 
                   <div class="visibleoverflow transparent">
 
+                     <% @events.each do |group| %>
                         <div class="cal-day">
+                           <% date = group.first.strftime("%A, %b #{group.first.day.ordinalize}") %>
+                           <% events = group.last %>
 
-                           <h3>Monday, Dec 15th</h3>
+                           <h3> <%= date %> </h3>
+                           <% events.each do |event| %>
 
-                           <div class="event-wrap widget-item style-b">
-                              <div class="row">
-                                 <div class="tiles white border-right sm-bottom-30">
+                              <div class="event-wrap widget-item style-b">
+                                 <input type="hidden" class="event_id" name="event_id" value="<%= event.id %>">
 
-                                       <div class="controller pull-right"> 
-                                          <a href="javascript:;" class="edit"><i class="fa fa-pencil-square-o"></i></a> 
-                                        </div>
+                                 <div class="row">
+                                    <div class="tiles white border-right sm-bottom-30">
 
-                                    <div class="col-md-6 col-lg-6 col-sm-5 col-xs-12 p-b-15 p-t-15">
-                                       <div><h2>6:30<span class="time-day">PM</span></h2> <h3>Practice</h3></div>
-                                       <h5 class="event-team-name"><span>Group:</span> Hanahan Lakers</h5>
-                                       <h5 class="event-team-name"><span>Where:</span> Field B, Hanahan <a href="#">(map)</a></h5>
+                                          <div class="controller pull-right"> 
+                                             <a href="javascript:;" class="edit"><i class="fa fa-pencil-square-o"></i></a> 
+                                           </div>
 
-                                    </div>
-
-                                    <div class="col-md-6 col-lg-6 col-sm-7 col-xs-12 p-b-15 p-t-15">
-
-                                       <div class="run listit">
-
-                                          <p class="event-ins in"><i class="fa fa-check"></i> 
-
-                                             <a href="#" tabindex="0" class="run-count" data-toggle="popover" data-trigger="focus" title="" data-content="Mike Klein, Patrick, Allen, Sam, Jeff, Mike, Flo"><strong>5</strong> IN</a>
-
-                                          </p>
-
-                                          <p class="event-ins maybe"><i class="fa fa-question-circle"></i>  
-
-                                             <a href="#" tabindex="0" class="run-count" data-toggle="popover" data-trigger="focus" title="" data-content="Mike K., Jeff U., Steve K., Paul S."><strong>2</strong> MAYBE</a>
-
-                                          </p>
-
-                                          <p class="event-ins out"><i class="fa fa-times-circle"></i> 
-
-                                             <a href="#" tabindex="0" class="run-count" data-toggle="popover" data-trigger="focus" title="" data-content="Patrick M."><strong>2</strong> OUT</a>
-
-                                          </p>
-
+                                       <div class="col-md-6 col-lg-6 col-sm-5 col-xs-12 p-b-15 p-t-15">
+                                          <div>
+                                             <h2>
+                                                <%= event.time.strftime("%I") %>
+                                                <span class="time-day">
+                                                   <%= event.time.strftime("%p") %>
+                                                </span>
+                                             </h2>
+                                             <h3>
+                                                <%= event.category.capitalize if event.category %>
+                                             </h3>
+                                          </div>
+                                          <h5 class="event-team-name">
+                                             <span>Group:</span>
+                                             <%= event.team.name.titleize %>
+                                          </h5>
+                                          <h5 class="event-team-name">
+                                             <span>Where:</span>
+                                             <%= event.team.city.titleize if event.team.city %>
+                                             <a href="#">(map)</a>
+                                          </h5>
                                        </div>
 
-                                       <p class="run-question">Are you In?!</p>
+                                       <div class="col-md-6 col-lg-6 col-sm-7 col-xs-12 p-b-15 p-t-15">
 
-                                          <div class="run-btns">
-                                             <div class="toggle-in left source-code">
-                                                <!--BootstrapDialog.alert({
-                                                   title: 'I am IN',
-                                                   message: 'I confirm that I can make the came on Monday August 17th, at 18:30 at City Gym.',
-                                                   closable: false, // <-- Default value is true
-                                                   buttonLabel: 'Confirm that I am IN'
-                                                   });-->
-                                             </div>
+                                          <div class="run listit">
 
-                                             <div class="toggle-maybe left source-code">
-                                                <!--BootstrapDialog.alert({
-                                                   title: 'I am IN',
-                                                   message: 'I confirm that I can make the came on Monday August 17th, at 18:30 at City Gym.',
-                                                   closable: false, // <-- Default value is true
-                                                   buttonLabel: 'Confirm that I am IN'
-                                                   });-->
-                                             </div>
+                                             <p class="event-ins in"><i class="fa fa-check"></i> 
 
-                                             <div class="toggle-out left source-code">
-                                                <!--BootstrapDialog.alert({
-                                                   title: 'I am IN',
-                                                   message: 'I confirm that I can make the came on Monday August 17th, at 18:30 at City Gym.',
-                                                   closable: false, // <-- Default value is true
-                                                   buttonLabel: 'Confirm that I am IN'
-                                                   });-->
-                                             </div>
+                                                <a href="#" tabindex="0" class="run-count" data-toggle="popover" data-trigger="focus" title="" data-content="Mike Klein, Patrick, Allen, Sam, Jeff, Mike, Flo"><strong>5</strong> IN</a>
+
+                                             </p>
+
+                                             <p class="event-ins maybe"><i class="fa fa-question-circle"></i>  
+
+                                                <a href="#" tabindex="0" class="run-count" data-toggle="popover" data-trigger="focus" title="" data-content="Mike K., Jeff U., Steve K., Paul S."><strong>2</strong> MAYBE</a>
+
+                                             </p>
+
+                                             <p class="event-ins out"><i class="fa fa-times-circle"></i> 
+
+                                                <a href="#" tabindex="0" class="run-count" data-toggle="popover" data-trigger="focus" title="" data-content="Patrick M."><strong>2</strong> OUT</a>
+
+                                             </p>
+
                                           </div>
 
+                                          <p class="run-question">Are you In?!</p>
+
+                                             <div class="run-btns">
+                                                <div class="toggle-in left source-code">
+                                                   <!--BootstrapDialog.alert({
+                                                      title: 'I am IN',
+                                                      message: 'I confirm that I can make the came on Monday August 17th, at 18:30 at City Gym.',
+                                                      closable: false, // <-- Default value is true
+                                                      buttonLabel: 'Confirm that I am IN'
+                                                      });-->
+                                                </div>
+
+                                                <div class="toggle-maybe left source-code">
+                                                   <!--BootstrapDialog.alert({
+                                                      title: 'I am IN',
+                                                      message: 'I confirm that I can make the came on Monday August 17th, at 18:30 at City Gym.',
+                                                      closable: false, // <-- Default value is true
+                                                      buttonLabel: 'Confirm that I am IN'
+                                                      });-->
+                                                </div>
+
+                                                <div class="toggle-out left source-code">
+                                                   <!--BootstrapDialog.alert({
+                                                      title: 'I am IN',
+                                                      message: 'I confirm that I can make the came on Monday August 17th, at 18:30 at City Gym.',
+                                                      closable: false, // <-- Default value is true
+                                                      buttonLabel: 'Confirm that I am IN'
+                                                      });-->
+                                                </div>
+                                             </div>
+
+                                       </div>
                                     </div>
                                  </div>
                               </div>
-                           </div>
-
+                           <% end %>
                         </div>
-
-                        <div class="cal-day">
-
-                           <h3>Tuesday, Dec 16th</h3>
-
-                           <div class="event-wrap widget-item style-b">
-                              <div class="row">
-                                 <div class="tiles white border-right sm-bottom-30">
-
-                                       <div class="controller pull-right"> 
-                                          <a href="javascript:;" class="edit"><i class="fa fa-pencil-square-o"></i></a> 
-                                        </div>
-
-                                    <div class="col-md-6 col-lg-6 col-sm-5 col-xs-12 p-b-15 p-t-15">
-                                       <div><h2>6:30<span class="time-day">PM</span></h2> <h3>Practice</h3></div>
-                                       <h5 class="event-team-name"><span>Group:</span> Hanahan Lakers</h5>
-                                       <h5 class="event-team-name"><span>Where:</span> Field B, Hanahan <a href="#">(map)</a></h5>
-
-                                    </div>
-
-                                    <div class="col-md-6 col-lg-6 col-sm-7 col-xs-12 p-b-15 p-t-15">
-
-                                       <div class="run listit">
-
-                                          <p class="event-ins in"><i class="fa fa-check"></i> 
-
-                                             <a href="#" tabindex="0" class="run-count" data-toggle="popover" data-trigger="focus" title="" data-content="Mike Klein, Patrick, Allen, Sam, Jeff, Mike, Flo"><strong>5</strong> IN</a>
-
-                                          </p>
-
-                                          <p class="event-ins maybe"><i class="fa fa-question-circle"></i>  
-
-                                             <a href="#" tabindex="0" class="run-count" data-toggle="popover" data-trigger="focus" title="" data-content="Mike K., Jeff U., Steve K., Paul S."><strong>2</strong> MAYBE</a>
-
-                                          </p>
-
-                                          <p class="event-ins out"><i class="fa fa-times-circle"></i> 
-
-                                             <a href="#" tabindex="0" class="run-count" data-toggle="popover" data-trigger="focus" title="" data-content="Patrick M."><strong>2</strong> OUT</a>
-
-                                          </p>
-
-                                       </div>
-
-                                       <p class="run-question">Are you In?</p>
-
-                                          <div class="run-btns">
-                                             <div class="toggle-in left source-code">
-                                                <!--BootstrapDialog.alert({
-                                                   title: 'I am IN',
-                                                   message: 'I confirm that I can make the came on Monday August 17th, at 18:30 at City Gym.',
-                                                   closable: false, // <-- Default value is true
-                                                   buttonLabel: 'Confirm that I am IN'
-                                                   });-->
-                                             </div>
-
-                                             <div class="toggle-maybe left source-code">
-                                                <!--BootstrapDialog.alert({
-                                                   title: 'I am IN',
-                                                   message: 'I confirm that I can make the came on Monday August 17th, at 18:30 at City Gym.',
-                                                   closable: false, // <-- Default value is true
-                                                   buttonLabel: 'Confirm that I am IN'
-                                                   });-->
-                                             </div>
-
-                                             <div class="toggle-out left source-code">
-                                                <!--BootstrapDialog.alert({
-                                                   title: 'I am IN',
-                                                   message: 'I confirm that I can make the came on Monday August 17th, at 18:30 at City Gym.',
-                                                   closable: false, // <-- Default value is true
-                                                   buttonLabel: 'Confirm that I am IN'
-                                                   });-->
-                                             </div>
-                                          </div>
-
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-
-                        </div>
-
-                        <div class="cal-day">
-
-                           <h3>Friday, Nov 15th</h3>
-
-                           <div class="event-wrap widget-item style-b">
-                              <div class="row">
-                                 <div class="tiles white border-right sm-bottom-30">
-
-                                       <div class="controller pull-right"> 
-                                          <a href="javascript:;" class="edit"><i class="fa fa-pencil-square-o"></i></a> 
-                                        </div>
-
-                                    <div class="col-md-6 col-lg-6 col-sm-5 col-xs-12 p-b-15 p-t-15">
-                                       <div><h2>6:30<span class="time-day">PM</span></h2> <h3>Practice</h3></div>
-                                       <h5 class="event-team-name"><span>Group:</span> Hanahan Lakers</h5>
-                                       <h5 class="event-team-name"><span>Where:</span> Field B, Hanahan <a href="#">(map)</a></h5>
-
-                                    </div>
-
-                                    <div class="col-md-6 col-lg-6 col-sm-7 col-xs-12 p-b-15 p-t-15">
-
-                                       <div class="run listit">
-
-                                          <p class="event-ins in"><i class="fa fa-check"></i> 
-
-                                             <a href="#" tabindex="0" class="run-count" data-toggle="popover" data-trigger="focus" title="" data-content="Mike Klein, Patrick, Allen, Sam, Jeff, Mike, Flo"><strong>5</strong> IN</a>
-
-                                          </p>
-
-                                          <p class="event-ins maybe"><i class="fa fa-question-circle"></i>  
-
-                                             <a href="#" tabindex="0" class="run-count" data-toggle="popover" data-trigger="focus" title="" data-content="Mike K., Jeff U., Steve K., Paul S."><strong>2</strong> MAYBE</a>
-
-                                          </p>
-
-                                          <p class="event-ins out"><i class="fa fa-times-circle"></i> 
-
-                                             <a href="#" tabindex="0" class="run-count" data-toggle="popover" data-trigger="focus" title="" data-content="Patrick M."><strong>2</strong> OUT</a>
-
-                                          </p>
-
-                                       </div>
-
-                                       <p class="run-question">Are you In?</p>
-
-                                          <div class="run-btns">
-                                             <div class="toggle-in left source-code">
-                                                <!--BootstrapDialog.alert({
-                                                   title: 'I am IN',
-                                                   message: 'I confirm that I can make the came on Monday August 17th, at 18:30 at City Gym.',
-                                                   closable: false, // <-- Default value is true
-                                                   buttonLabel: 'Confirm that I am IN'
-                                                   });-->
-                                             </div>
-
-                                             <div class="toggle-maybe left source-code">
-                                                <!--BootstrapDialog.alert({
-                                                   title: 'I am IN',
-                                                   message: 'I confirm that I can make the came on Monday August 17th, at 18:30 at City Gym.',
-                                                   closable: false, // <-- Default value is true
-                                                   buttonLabel: 'Confirm that I am IN'
-                                                   });-->
-                                             </div>
-
-                                             <div class="toggle-out left source-code">
-                                                <!--BootstrapDialog.alert({
-                                                   title: 'I am IN',
-                                                   message: 'I confirm that I can make the came on Monday August 17th, at 18:30 at City Gym.',
-                                                   closable: false, // <-- Default value is true
-                                                   buttonLabel: 'Confirm that I am IN'
-                                                   });-->
-                                             </div>
-                                          </div>
-
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-
-                           <div class="event-wrap widget-item style-b">
-                              <div class="row">
-                                 <div class="tiles white border-right sm-bottom-30">
-
-                                       <div class="controller pull-right"> 
-                                          <a href="javascript:;" class="edit"><i class="fa fa-pencil-square-o"></i></a> 
-                                        </div>
-
-                                    <div class="col-md-6 col-lg-6 col-sm-5 col-xs-12 p-b-15 p-t-15">
-                                       <div><h2>8:30<span class="time-day">PM</span></h2> <h3>Game vs The Pirates</h3></div>
-                                       <h5 class="event-team-name"><span>Group:</span> Hanahan Lakers</h5>
-                                       <h5 class="event-team-name"><span>Where:</span> Field B, Hanahan <a href="#">(map)</a></h5>
-                                       <h5 class="event-team-name"><span>Note:</span> Parents meeting after game</h5>
-
-                                    </div>
-
-                                    <div class="col-md-6 col-lg-6 col-sm-7 col-xs-12 p-b-15 p-t-15">
-
-                                       <div class="run listit">
-
-                                          <p class="event-ins in"><i class="fa fa-check"></i> 
-
-                                             <a href="#" tabindex="0" class="run-count" data-toggle="popover" data-trigger="focus" title="" data-content="Mike Klein, Patrick, Allen, Sam, Jeff, Mike, Flo"><strong>5</strong> IN</a>
-
-                                          </p>
-
-                                          <p class="event-ins maybe"><i class="fa fa-question-circle"></i>  
-
-                                             <a href="#" tabindex="0" class="run-count" data-toggle="popover" data-trigger="focus" title="" data-content="Mike K., Jeff U., Steve K., Paul S."><strong>2</strong> MAYBE</a>
-
-                                          </p>
-
-                                          <p class="event-ins out"><i class="fa fa-times-circle"></i> 
-
-                                             <a href="#" tabindex="0" class="run-count" data-toggle="popover" data-trigger="focus" title="" data-content="Patrick M."><strong>2</strong> OUT</a>
-
-                                          </p>
-
-                                       </div>
-
-                                       <p class="run-question">Are you In?</p>
-
-                                          <div class="run-btns">
-                                             <div class="toggle-in left source-code">
-                                                <!--BootstrapDialog.alert({
-                                                   title: 'I am IN',
-                                                   message: 'I confirm that I can make the came on Monday August 17th, at 18:30 at City Gym.',
-                                                   closable: false, // <-- Default value is true
-                                                   buttonLabel: 'Confirm that I am IN'
-                                                   });-->
-                                             </div>
-
-                                             <div class="toggle-maybe left source-code">
-                                                <!--BootstrapDialog.alert({
-                                                   title: 'I am IN',
-                                                   message: 'I confirm that I can make the came on Monday August 17th, at 18:30 at City Gym.',
-                                                   closable: false, // <-- Default value is true
-                                                   buttonLabel: 'Confirm that I am IN'
-                                                   });-->
-                                             </div>
-
-                                             <div class="toggle-out left source-code">
-                                                <!--BootstrapDialog.alert({
-                                                   title: 'I am IN',
-                                                   message: 'I confirm that I can make the came on Monday August 17th, at 18:30 at City Gym.',
-                                                   closable: false, // <-- Default value is true
-                                                   buttonLabel: 'Confirm that I am IN'
-                                                   });-->
-                                             </div>
-                                          </div>
-
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
+                     <% end %>
 
 
                   </div>

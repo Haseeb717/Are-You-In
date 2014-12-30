@@ -21,10 +21,22 @@ class EventsController < ApplicationController
   end
 
   def create
-    debugger
     @event = Event.new(event_params)
-    @event.save
-    respond_with(@event)
+    begin
+      if @event.save
+        unless params[:team_id] == "null" || params[:team_id] == "undefined"
+           @team = Team.find(params[:team_id])
+
+           @team.events << @event
+        end
+
+        render json: { :event => @event }, :status => 200
+      else
+        render json: { error: @event.errors.full_messages.join(',')}, :status => 400
+      end      
+    rescue Exception => ex
+      render json: { error: ex.message}, :status => 400
+    end
   end
 
   def update
@@ -43,6 +55,6 @@ class EventsController < ApplicationController
     end
 
     def event_params
-      params.require(:event).permit(:title, :type, :opponent, :date, :time, :note)
+      params.permit(:title, :category, :opponent, :date, :time, :note, :team_id)
     end
 end

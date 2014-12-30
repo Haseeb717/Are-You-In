@@ -6,24 +6,24 @@
         <i class="fa fa-calendar-o fa-7x"></i>
         <h4 id="add_event" class="semi-bold">Add an Event.</h4>
       </div>
-      <%= form_for(@event, :html => {:id => "add-event"}) do |f| %>
+      <%= form_for(@event, :html => {:id => "add-event-form"}) do |f| %>
         <div class="modal-body">
           <div class="row form-row">
             <div class="col-md-12">
-              <input type="text" class="form-control" name="event_title" placeholder="Event Title">
+              <input type="text" class="form-control" name="title" placeholder="Event Title">
             </div>
           </div>
 
           <div class="row form-row">
             <div class="col-md-12">
               <div class="radio no-brd toggles">
-                <input id="practice" type="radio" name="event_type" value="practice" checked="checked">
+                <input id="practice" type="radio" name="category" value="practice" checked="checked">
                 <label for="practice">Practice</label>
-                <input id="game" type="radio" name="event_type" class="game" value="game">
+                <input id="game" type="radio" name="category" class="game" value="game">
                 <label for="game">Game</label>                
-                <input id="pickup" type="radio" name="event_type" value="pickup">
+                <input id="pickup" type="radio" name="category" value="pickup">
                 <label for="pickup">Pickup</label>    
-                <input id="other" type="radio" name="event_type" value="other">
+                <input id="other" type="radio" name="category" value="other">
                 <label for="other">Other</label>                                        
               </div>
             </div>
@@ -31,7 +31,7 @@
 
           <div class="row form-row collapse game">
             <div class="col-md-12">
-              <input type="text" class="form-control" name="event_opponent" placeholder="Opponent">
+              <input type="text" class="form-control" name="opponent" placeholder="Opponent">
             </div>
           </div>
 
@@ -47,6 +47,10 @@
           <div class="row form-row">
             <div class="col-md-12">
               <textarea id="text-editor" name="note" placeholder="Enter Note about this Event ..." class="form-control" rows="3"></textarea>
+            </div>
+          </div>
+          <div class="row form-row">
+            <div class="col-md-12" id="event-message">
             </div>
           </div>
         </div>

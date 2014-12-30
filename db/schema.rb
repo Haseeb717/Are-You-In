@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 20141230135137) do
 
   create_table "events", force: true do |t|
     t.string   "title"
-    t.string   "type"
+    t.string   "category"
     t.string   "opponent"
     t.date     "date"
     t.time     "time"

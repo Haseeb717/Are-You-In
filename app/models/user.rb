@@ -22,6 +22,15 @@ class User < ActiveRecord::Base
 		user
 	end
 
+	def get_all_events
+		events = Array.new
+		self.teams.each do |team|
+			events = events + team.events
+		end
+		
+		events.sort_by(&:time).group_by(&:date)
+	end
+
 	def is_team_admin?(team)
 		self.teams.include?(team)
 	end
