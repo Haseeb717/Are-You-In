@@ -31,7 +31,7 @@
 
  *= require events.css
  *= require static.css
-
+ *= require add_player.css
  *= require font-awesome
  *= require_self
  */

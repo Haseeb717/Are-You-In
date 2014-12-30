@@ -14,7 +14,7 @@ class PlayersController < ApplicationController
 
   # GET /players/new
   def new
-    @player_avatar = Team.new
+    @player_avatar = PLayerAvatar.new
     @player = User.new
   end
 
@@ -26,7 +26,7 @@ class PlayersController < ApplicationController
   # POST /players.json
   def create
     @player = User.new(player_params)
-
+    puts "newwwwwwwwwwwwwwwwwwwwwwwwwwww"
     respond_to do |format|
       if @player.save
         format.html { redirect_to @player, notice: 'Player was successfully created.' }
