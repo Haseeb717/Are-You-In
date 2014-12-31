@@ -1,0 +1,2 @@
+class PlayerAvatarsController < ApplicationController
+end

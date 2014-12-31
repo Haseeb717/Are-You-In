@@ -5,8 +5,9 @@ class User < ActiveRecord::Base
 			:recoverable, :rememberable, :trackable, :validatable
 
 	has_many :identities, :dependent => :destroy
-	has_many :teams, :dependent => :destroy
-
+	has_and_belongs_to_many :teams
+	has_many :player_avatars, :dependent => :destroy
+	
 	attr_accessor :login
 
 	def self.find_or_create(auth)

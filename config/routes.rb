@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   resources :teams
   resources :team_avatars
-
+  resources :players
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
   resources :users
 
