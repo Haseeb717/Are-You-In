@@ -12,6 +12,9 @@ class TeamsController < ApplicationController
     @team_avatar = @team.team_avatars.last || TeamAvatar.new
     @event = Event.new
 
+    @player_avatar = PlayerAvatar.new
+    @player = User.new
+
     respond_with(@team)
   end
 
