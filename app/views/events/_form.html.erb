@@ -1,4 +1,4 @@
-<div class="modal fade" id="add_event" tabindex="-1" role="dialog" aria-labelledby="add_event" aria-hidden="true">
+<div class="modal fade" id="add_event<%= event.id %>" tabindex="-1" role="dialog" aria-labelledby="add_event" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content event-modal">
       <div class="modal-header">
@@ -6,11 +6,11 @@
         <i class="fa fa-calendar-o fa-7x"></i>
         <h4 id="add_event" class="semi-bold">Add an Event.</h4>
       </div>
-      <%= form_for(@event, :html => {:id => "add-event-form"}) do |f| %>
+      <%= form_for(event, :html => {:id => "add-event-form"}) do |f| %>
         <div class="modal-body">
           <div class="row form-row">
             <div class="col-md-12">
-              <input type="text" class="form-control" name="title" placeholder="Event Title">
+              <input type="text" class="form-control" name="title" placeholder="Event Title" value="<%= event.title %>">
             </div>
           </div>
 
@@ -31,22 +31,22 @@
 
           <div class="row form-row collapse game">
             <div class="col-md-12">
-              <input type="text" class="form-control" name="opponent" placeholder="Opponent">
+              <input type="text" class="form-control" name="opponent" placeholder="Opponent" value="<%= event.opponent %>">
             </div>
           </div>
 
           <div class="row form-row">
             <div class="col-md-6">
-              <input type="text" name="date" class="datepicker form-control" placeholder="Date">
+              <input type="text" name="date" class="datepicker form-control" placeholder="Date" value="<%= event.date.strftime('%e %B, %Y') if event.date %>">
             </div>
             <div class="col-md-6">
-              <input type="text" name="time" class="timepicker form-control" placeholder="Time">
+              <input type="text" name="time" class="timepicker form-control" placeholder="Time" value="<%= event.time.strftime('%I:%M %p') if event.time %>" >
             </div>
 
           </div>
           <div class="row form-row">
             <div class="col-md-12">
-              <textarea id="text-editor" name="note" placeholder="Enter Note about this Event ..." class="form-control" rows="3"></textarea>
+              <textarea id="text-editor" name="note" placeholder="Enter Note about this Event ..." class="form-control" rows="3"> <%= event.note %> </textarea>
             </div>
           </div>
           <div class="row form-row">

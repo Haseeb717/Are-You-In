@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:show, :edit, :update, :destroy]
+  before_action :set_event, only: [:show, :edit, :update, :destroy, :rvsp]
 
   respond_to :html
 
@@ -37,6 +37,11 @@ class EventsController < ApplicationController
     rescue Exception => ex
       render json: { error: ex.message}, :status => 400
     end
+  end
+
+  def rvsp
+    debugger
+    vsd = "aaaa"
   end
 
   def update

@@ -1,325 +1,317 @@
-
 <%= render :partial => "layouts/dashboard_header" %>
 
-   <!-- BEGIN CONTENT -->
-   <div class="page-container row-fluid">
-      <?php include 'inc/app_snp_leftnav.php';?>
-      <!-- BEGIN PAGE CONTAINER-->
-      <div class="page-content">
-         <div class="content dashboard m-b-10">
+<!-- BEGIN CONTENT -->
+<div class="page-container row-fluid">
 
-            <div class="row">
-               <div class="col-md-4 col-sm-12 col-lg-3 m-b-15">
+	<?php include 'inc/app_snp_leftnav.php';?>
 
-                   <select id="source" style="width:100%;">
-                    <option value="">Select Team to Filter: Viewing All</option>
-                    <option value="CT">Hanahan Hawks</option>
-                    <option value="DE">Bourne Group</option>
-                    <option value="FL">Hanahan Lakers</option>
-                    <option value="FL">Saturday Morning Basketball</option>
-                  </select>
+	<!-- BEGIN PAGE CONTAINER-->
+	<div class="page-content">
+		<div class="content dashboard m-b-10">
 
-               </div>
-            </div>
+			<div class="row">
+				<div class="col-md-4 col-sm-12 col-lg-3 m-b-15">
+					<select id="source" style="width:100%;">
+						<option value="">Select Team to Filter: Viewing All</option>
+						<% @teams.each do |team| %>
+							<option value="<%= team.id%>"> <%= team.name.titleize if team.name %> </option>
+						<% end %>
+					</select>
+				</div>
+			</div>
 
-            <div class="row">
-               <div class="col-md-6 col-sm-12">
+			<div class="row">
+				<div class="col-md-6 col-sm-12">
+					<div class="visibleoverflow transparent">
 
-                  <div class="visibleoverflow transparent">
+						<% @events.each do |group| %>
+						<% date = group.first %>
+						<% events = group.last %>
+						<div class="cal-day">
+							<h3>
+								<%= date.strftime("%A, %b #{group.first.day.ordinalize}") %>
+							</h3>
+									
+							<% events.each do |event| %>
+							<div class="event-wrap widget-item style-b">
+								<input type="hidden" class="event_id" name="event_id" value="<%= event.id %>">
 
-                     <% @events.each do |group| %>
-                        <div class="cal-day">
-                           <% date = group.first.strftime("%A, %b #{group.first.day.ordinalize}") %>
-                           <% events = group.last %>
+								<div class="row">
+									<div class="tiles white border-right sm-bottom-30">
+										<div class="controller pull-right">
+											<a data-toggle="modal" data-target="#add_event<%= event.id %>" class="edit" href="#">
+												<i class="fa fa-pencil-square-o"></i>
+											</a>
+										</div>
 
-                           <h3> <%= date %> </h3>
-                           <% events.each do |event| %>
+										<div class="col-md-6 col-lg-6 col-sm-5 col-xs-12 p-b-15 p-t-15">
+											<div>
+												<h2>
+													<%= event.time.strftime("%I") %>
+													<span class="time-day">
+														<%= event.time.strftime("%p") %>
+													</span>
+												</h2>
+												<h3>
+													<%= event.category.capitalize if event.category %>
+												</h3>
+											</div>
+											
+											<h5 class="event-team-name">
+												<span>Group:</span>
+												<%= event.team.name.titleize %>
+											</h5>
+											<h5 class="event-team-name">
+												<span>Where:</span>
+												<%= event.team.city.titleize if event.team.city %>
+												<a href="#">(map)</a>
+											</h5>
+										</div>
 
-                              <div class="event-wrap widget-item style-b">
-                                 <input type="hidden" class="event_id" name="event_id" value="<%= event.id %>">
+										<div class="col-md-6 col-lg-6 col-sm-7 col-xs-12 p-b-15 p-t-15">
+											<div class="run listit">
+												<p class="event-ins in">
+													<i class="fa fa-check"></i> 
+													<a href="#" tabindex="0" class="run-count" data-toggle="popover" data-trigger="focus" title="" data-content="Mike Klein, Patrick, Allen, Sam, Jeff, Mike, Flo"><strong>5</strong> IN</a>
+												</p>
 
-                                 <div class="row">
-                                    <div class="tiles white border-right sm-bottom-30">
+												<p class="event-ins maybe">
+													<i class="fa fa-question-circle"></i>
+													<a href="#" tabindex="0" class="run-count" data-toggle="popover" data-trigger="focus" title="" data-content="Mike K., Jeff U., Steve K., Paul S."><strong>2</strong> MAYBE</a>
+												</p>
 
-                                          <div class="controller pull-right"> 
-                                             <a href="javascript:;" class="edit"><i class="fa fa-pencil-square-o"></i></a> 
-                                           </div>
+												<p class="event-ins out">
+													<i class="fa fa-times-circle"></i>
+													<a href="#" tabindex="0" class="run-count" data-toggle="popover" data-trigger="focus" title="" data-content="Patrick M."><strong>2</strong> OUT</a>
+												</p>
+											</div>
+											
+											<p class="run-question">Are you In?!</p>
+											<div class="run-btns">
+												<div class="toggle-in left source-code">
+													I confirm that I can came on <%= event.date.strftime("%A %B #{event.date.day.ordinalize}") if event.date %>, at <%= event.time.strftime('%I:%M %p') if event.time %> at <%= event.team.city if event.team %>.
+												</div>
+												<button class="btn in-btn">In</button>
 
-                                       <div class="col-md-6 col-lg-6 col-sm-5 col-xs-12 p-b-15 p-t-15">
-                                          <div>
-                                             <h2>
-                                                <%= event.time.strftime("%I") %>
-                                                <span class="time-day">
-                                                   <%= event.time.strftime("%p") %>
-                                                </span>
-                                             </h2>
-                                             <h3>
-                                                <%= event.category.capitalize if event.category %>
-                                             </h3>
-                                          </div>
-                                          <h5 class="event-team-name">
-                                             <span>Group:</span>
-                                             <%= event.team.name.titleize %>
-                                          </h5>
-                                          <h5 class="event-team-name">
-                                             <span>Where:</span>
-                                             <%= event.team.city.titleize if event.team.city %>
-                                             <a href="#">(map)</a>
-                                          </h5>
-                                       </div>
+												<div class="toggle-maybe left source-code">
+													<!--BootstrapDialog.alert({
+														title: 'Maybe',
+														message: 'I confirm that I can came on Monday August 17th, at 18:30 at City Gym.',
+														closable: false,
+														buttonLabel: 'Maybe, I am not sure'
+													});-->
+												</div>
+												<button class="btn maybe-btn">Maybe</button>
 
-                                       <div class="col-md-6 col-lg-6 col-sm-7 col-xs-12 p-b-15 p-t-15">
+												<div class="toggle-out left source-code">
+													<!--BootstrapDialog.alert({
+														title: 'I am OUT',
+														message: 'I confirm that I can came on Monday August 17th, at 18:30 at City Gym.',
+														closable: false,
+														buttonLabel: 'Confirm that I am OUT'
+													});-->
+												</div>
+												<button class="btn out-btn">Out</button>
 
-                                          <div class="run listit">
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 
-                                             <p class="event-ins in"><i class="fa fa-check"></i> 
+							<%= render :partial => "events/form", :locals => { :event => event } %>
 
-                                                <a href="#" tabindex="0" class="run-count" data-toggle="popover" data-trigger="focus" title="" data-content="Mike Klein, Patrick, Allen, Sam, Jeff, Mike, Flo"><strong>5</strong> IN</a>
+							<% end %>
+						</div>
+						<% end %>
+					</div>
+				</div>
+				<!-- END COL 12 -->
 
-                                             </p>
+					<div class="col-md-6 col-sm-12">
 
-                                             <p class="event-ins maybe"><i class="fa fa-question-circle"></i>  
-
-                                                <a href="#" tabindex="0" class="run-count" data-toggle="popover" data-trigger="focus" title="" data-content="Mike K., Jeff U., Steve K., Paul S."><strong>2</strong> MAYBE</a>
-
-                                             </p>
-
-                                             <p class="event-ins out"><i class="fa fa-times-circle"></i> 
-
-                                                <a href="#" tabindex="0" class="run-count" data-toggle="popover" data-trigger="focus" title="" data-content="Patrick M."><strong>2</strong> OUT</a>
-
-                                             </p>
-
-                                          </div>
-
-                                          <p class="run-question">Are you In?!</p>
-
-                                             <div class="run-btns">
-                                                <div class="toggle-in left source-code">
-                                                   <!--BootstrapDialog.alert({
-                                                      title: 'I am IN',
-                                                      message: 'I confirm that I can make the came on Monday August 17th, at 18:30 at City Gym.',
-                                                      closable: false, // <-- Default value is true
-                                                      buttonLabel: 'Confirm that I am IN'
-                                                      });-->
-                                                </div>
-
-                                                <div class="toggle-maybe left source-code">
-                                                   <!--BootstrapDialog.alert({
-                                                      title: 'I am IN',
-                                                      message: 'I confirm that I can make the came on Monday August 17th, at 18:30 at City Gym.',
-                                                      closable: false, // <-- Default value is true
-                                                      buttonLabel: 'Confirm that I am IN'
-                                                      });-->
-                                                </div>
-
-                                                <div class="toggle-out left source-code">
-                                                   <!--BootstrapDialog.alert({
-                                                      title: 'I am IN',
-                                                      message: 'I confirm that I can make the came on Monday August 17th, at 18:30 at City Gym.',
-                                                      closable: false, // <-- Default value is true
-                                                      buttonLabel: 'Confirm that I am IN'
-                                                      });-->
-                                                </div>
-                                             </div>
-
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                           <% end %>
-                        </div>
-                     <% end %>
-
-
-                  </div>
-               </div>
-               <!-- END COL 12 -->
-
-               <div class="col-md-6 col-sm-12">
-
-                     <div class="grid simple ">
-                          <h3>Schedule: <span>All</span></h3>
-                         <div class="grid-body no-border no-padding">
-                              <div class="table-responsive">
-                                 <table class="table table-condensed team-schedule">
-                                     <thead>
-                                         <tr>
-                                             <th style="width:16%">Team</th>
-                                             <th style="width:10%">Date</th>
-                                             <th style="width:4%">Time</th>
-                                             <th style="width:16%">Event</th>
-                                             <th style="width:15%">Site</th>
-                                             <th style="width:4%">Score</th>
-                                             <th style="width:3%">W/L</th>
-                                         </tr>
-                                     </thead>
-                                     <tbody>
-                                         <tr>
-                                             <td class="v-align-middle">Hanahan Hawks</td>
-                                             <td class="v-align-middle">Mon 17/11</td>
-                                             <td class="v-align-middle">7:30</td>
-                                             <td class="v-align-middle muted">Fly & Form Structures</td>
-                                             <td class="muted">Jones Center</td>
-                                             <td class="v-align-middle">62:48</td>
-                                             <td class="v-align-middle">W</td>
-                                         </tr>
-                                         <tr>
-                                             <td class="v-align-middle">Saturday Basketball</td>
-                                             <td class="v-align-middle">Mon 11/24</td>
-                                             <td class="v-align-middle">8:30</td>
-                                             <td class="v-align-middle muted">Pug Life</td>
-                                             <td class="muted">Park West-M</td>
-                                             <td class="v-align-middle"></td>
-                                             <td class="v-align-middle"></td>
-                                         </tr>
-                                         <tr>
-                                             <td class="v-align-middle">Hanahan Galaxy</td>
-                                             <td class="v-align-middle">Mon 12/01</td>
-                                             <td class="v-align-middle">7:30</td>
-                                             <td class="v-align-middle muted">MtP Misfits</td>
-                                             <td class="muted">Jones Center</td>
-                                             <td class="v-align-middle"></td>
-                                             <td class="v-align-middle"></td>
-                                         </tr>
-                                         <tr>
-                                             <td class="v-align-middle">Bourne Group</td>
-                                             <td class="v-align-middle">Med 12/03</td>
-                                             <td class="v-align-middle">8:30</td>
-                                             <td class="v-align-middle muted">New Leaf</td>
-                                             <td class="muted">Park West-M</td>
-                                             <td class="v-align-middle"></td>
-                                             <td class="v-align-middle"></td>
-                                         </tr>
-                                         <tr>
-                                             <td class="v-align-middle">Bourne Group</td>
-                                             <td class="v-align-middle">Mon 12/08</td>
-                                             <td class="v-align-middle">7:30</td>
-                                             <td class="v-align-middle muted">LCSwingbeds.com</td>
-                                             <td class="muted">Jones Center</td>
-                                             <td class="v-align-middle"></td>
-                                             <td class="v-align-middle"></td>
-                                         </tr>
-                                         <tr>
-                                             <td class="v-align-middle">Hanahwn Hawks</td>
-                                             <td class="v-align-middle">Mon 12/15</td>
-                                             <td class="v-align-middle">8:30</td>
-                                             <td class="v-align-middle muted">Fly & Form Structures</td>
-                                             <td class="muted">Jones Center</td>
-                                             <td class="v-align-middle"></td>
-                                             <td class="v-align-middle"></td>
-                                         </tr>
+							<div class="grid simple ">
+								  <h3>Schedule: <span>All</span></h3>
+								 <div class="grid-body no-border no-padding">
+										<div class="table-responsive">
+											<table class="table table-condensed team-schedule">
+												 <thead>
+													  <tr>
+															<th style="width:16%">Team</th>
+															<th style="width:10%">Date</th>
+															<th style="width:4%">Time</th>
+															<th style="width:16%">Event</th>
+															<th style="width:15%">Site</th>
+															<th style="width:4%">Score</th>
+															<th style="width:3%">W/L</th>
+													  </tr>
+												 </thead>
+												 <tbody>
+													  <tr>
+															<td class="v-align-middle">Hanahan Hawks</td>
+															<td class="v-align-middle">Mon 17/11</td>
+															<td class="v-align-middle">7:30</td>
+															<td class="v-align-middle muted">Fly & Form Structures</td>
+															<td class="muted">Jones Center</td>
+															<td class="v-align-middle">62:48</td>
+															<td class="v-align-middle">W</td>
+													  </tr>
+													  <tr>
+															<td class="v-align-middle">Saturday Basketball</td>
+															<td class="v-align-middle">Mon 11/24</td>
+															<td class="v-align-middle">8:30</td>
+															<td class="v-align-middle muted">Pug Life</td>
+															<td class="muted">Park West-M</td>
+															<td class="v-align-middle"></td>
+															<td class="v-align-middle"></td>
+													  </tr>
+													  <tr>
+															<td class="v-align-middle">Hanahan Galaxy</td>
+															<td class="v-align-middle">Mon 12/01</td>
+															<td class="v-align-middle">7:30</td>
+															<td class="v-align-middle muted">MtP Misfits</td>
+															<td class="muted">Jones Center</td>
+															<td class="v-align-middle"></td>
+															<td class="v-align-middle"></td>
+													  </tr>
+													  <tr>
+															<td class="v-align-middle">Bourne Group</td>
+															<td class="v-align-middle">Med 12/03</td>
+															<td class="v-align-middle">8:30</td>
+															<td class="v-align-middle muted">New Leaf</td>
+															<td class="muted">Park West-M</td>
+															<td class="v-align-middle"></td>
+															<td class="v-align-middle"></td>
+													  </tr>
+													  <tr>
+															<td class="v-align-middle">Bourne Group</td>
+															<td class="v-align-middle">Mon 12/08</td>
+															<td class="v-align-middle">7:30</td>
+															<td class="v-align-middle muted">LCSwingbeds.com</td>
+															<td class="muted">Jones Center</td>
+															<td class="v-align-middle"></td>
+															<td class="v-align-middle"></td>
+													  </tr>
+													  <tr>
+															<td class="v-align-middle">Hanahwn Hawks</td>
+															<td class="v-align-middle">Mon 12/15</td>
+															<td class="v-align-middle">8:30</td>
+															<td class="v-align-middle muted">Fly & Form Structures</td>
+															<td class="muted">Jones Center</td>
+															<td class="v-align-middle"></td>
+															<td class="v-align-middle"></td>
+													  </tr>
 
 
-                                     </tbody>
-                                 </table>
-                              </div>
-                         </div>
-                     </div> <!-- END Schedule -->
+												 </tbody>
+											</table>
+										</div>
+								 </div>
+							</div> <!-- END Schedule -->
 
 
-                     <div class="tiles white com-widget">
-                      <div class="tiles-body">
-                        <div class="title-header">
-                          <div class="controller"> <a href="javascript:;" class="reload"></a> </div>
-                          <div class="tiles-title"> TEAM FEED </div>
-                        </div>
-                        <div class="message-wrap">
-                          <div class="user-profile"> <img src="/assets/profiles/c.jpg" alt="" data-src="/assets/profiles/c.jpg" data-src-retina="/assets/profiles/c2x.jpg" width="35" height="35"> </div>
-                          <div class="message-wrapper">
-                            <div class="heading"> David Nester</div>
-                            <div class="date"> Just now </div>
-                            <div class="text-description"> Photos are canceled, we will do team pictures on January 12th and individuals whenever. </div>
-                            <div class="feed-function">
-                              <a class="reply-trigger" href="#"><i class="fa fa-reply"></i>Reply</a>
-                              <a class="reply-trigger" href="#"><i class="fa fa-reply-all"></i>Reply All</a>
-                              <div class="reply-wrap" style="display:none;">
-                                <div class="title-header">
-                                  <div class="controller"> <a href="javascript:;" class="remove reply-trigger"></a> </div>
-                                </div>
+							<div class="tiles white com-widget">
+							 <div class="tiles-body">
+								<div class="title-header">
+								  <div class="controller"> <a href="javascript:;" class="reload"></a> </div>
+								  <div class="tiles-title"> TEAM FEED </div>
+								</div>
+								<div class="message-wrap">
+								  <div class="user-profile"> <img src="/assets/profiles/c.jpg" alt="" data-src="/assets/profiles/c.jpg" data-src-retina="/assets/profiles/c2x.jpg" width="35" height="35"> </div>
+								  <div class="message-wrapper">
+									 <div class="heading"> David Nester</div>
+									 <div class="date"> Just now </div>
+									 <div class="text-description"> Photos are canceled, we will do team pictures on January 12th and individuals whenever. </div>
+									 <div class="feed-function">
+										<a class="reply-trigger" href="#"><i class="fa fa-reply"></i>Reply</a>
+										<a class="reply-trigger" href="#"><i class="fa fa-reply-all"></i>Reply All</a>
+										<div class="reply-wrap" style="display:none;">
+										  <div class="title-header">
+											 <div class="controller"> <a href="javascript:;" class="remove reply-trigger"></a> </div>
+										  </div>
 
-                                <form>
-                                  <textarea>text here...</textarea>
-                                  <button type="button" class="btn btn-blue btn-small">Send to David</button>
-                                </form>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="clearfix"></div>
-                        </div>
-                        <div class="message-wrap">
-                          <div class="user-profile"> <img src="/assets/profiles/h.jpg" alt="" data-src="/assets/profiles/h.jpg" data-src-retina="/assets/profiles/h2x.jpg" width="35" height="35"> </div>
-                          <div class="message-wrapper">
-                            <div class="heading">Jim Smith </div>
-                            <div class="date"> Yesterday </div>
-                            <div class="text-description"> This is a reminder that we practice today from 3 to 4:30 at loftis Field. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
-                            <div class="feed-function">
-                              <a class="reply-trigger" href="#"><i class="fa fa-reply"></i>Reply</a>
-                              <a class="reply-trigger" href="#"><i class="fa fa-reply-all"></i>Reply All</a>
-                              <div class="reply-wrap" style="display:none;">
-                                <div class="title-header">
-                                  <div class="controller"> <a href="javascript:;" class="remove reply-trigger"></a> </div>
-                                </div>
+										  <form>
+											 <textarea>text here...</textarea>
+											 <button type="button" class="btn btn-blue btn-small">Send to David</button>
+										  </form>
+										</div>
+									 </div>
+								  </div>
+								  <div class="clearfix"></div>
+								</div>
+								<div class="message-wrap">
+								  <div class="user-profile"> <img src="/assets/profiles/h.jpg" alt="" data-src="/assets/profiles/h.jpg" data-src-retina="/assets/profiles/h2x.jpg" width="35" height="35"> </div>
+								  <div class="message-wrapper">
+									 <div class="heading">Jim Smith </div>
+									 <div class="date"> Yesterday </div>
+									 <div class="text-description"> This is a reminder that we practice today from 3 to 4:30 at loftis Field. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+									 <div class="feed-function">
+										<a class="reply-trigger" href="#"><i class="fa fa-reply"></i>Reply</a>
+										<a class="reply-trigger" href="#"><i class="fa fa-reply-all"></i>Reply All</a>
+										<div class="reply-wrap" style="display:none;">
+										  <div class="title-header">
+											 <div class="controller"> <a href="javascript:;" class="remove reply-trigger"></a> </div>
+										  </div>
 
-                                <form>
-                                  <textarea>text here...</textarea>
-                                  <button type="button" class="btn btn-blue btn-small">Send to All</button>
-                                </form>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="clearfix"></div>
-                        </div>
-                        <div class="message-wrap">
-                          <div class="user-profile"> <img src="/assets/profiles/h.jpg" alt="" data-src="/assets/profiles/h.jpg" data-src-retina="/assets/profiles/h2x.jpg" width="35" height="35"> </div>
-                          <div class="message-wrapper">
-                            <div class="heading"> Anton Maurer </div>
-                            <div class="date"> Yesterday </div>
-                            <div class="text-description"> Great game yesterday. Keep it up! </div>
-                            <div class="feed-function">
-                              <a class="reply-trigger" href="#"><i class="fa fa-reply"></i>Reply</a>
-                              <a class="reply-trigger" href="#"><i class="fa fa-reply-all"></i>Reply All</a>
-                              <div class="reply-wrap" style="display:none;">
-                                <div class="title-header">
-                                  <div class="controller"> <a href="javascript:;" class="remove reply-trigger"></a> </div>
-                                </div>
+										  <form>
+											 <textarea>text here...</textarea>
+											 <button type="button" class="btn btn-blue btn-small">Send to All</button>
+										  </form>
+										</div>
+									 </div>
+								  </div>
+								  <div class="clearfix"></div>
+								</div>
+								<div class="message-wrap">
+								  <div class="user-profile"> <img src="/assets/profiles/h.jpg" alt="" data-src="/assets/profiles/h.jpg" data-src-retina="/assets/profiles/h2x.jpg" width="35" height="35"> </div>
+								  <div class="message-wrapper">
+									 <div class="heading"> Anton Maurer </div>
+									 <div class="date"> Yesterday </div>
+									 <div class="text-description"> Great game yesterday. Keep it up! </div>
+									 <div class="feed-function">
+										<a class="reply-trigger" href="#"><i class="fa fa-reply"></i>Reply</a>
+										<a class="reply-trigger" href="#"><i class="fa fa-reply-all"></i>Reply All</a>
+										<div class="reply-wrap" style="display:none;">
+										  <div class="title-header">
+											 <div class="controller"> <a href="javascript:;" class="remove reply-trigger"></a> </div>
+										  </div>
 
-                                <form>
-                                  <textarea>text here...</textarea>
-                                  <button type="button" class="btn btn-blue btn-small">Send To Anton</button>
-                                </form>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="clearfix"></div>
-                        </div>
-                      </div>
-                    </div>
+										  <form>
+											 <textarea>text here...</textarea>
+											 <button type="button" class="btn btn-blue btn-small">Send To Anton</button>
+										  </form>
+										</div>
+									 </div>
+								  </div>
+								  <div class="clearfix"></div>
+								</div>
+							 </div>
+						  </div>
 
-                    <div class="tiles white com-widget com-post">
-                      <div class="tiles-body">
-                      <div class="message-wrap">
-                      <div class="profile-img-wrapper pull-left"> <img src="/assets/profiles/avatar_small.jpg" alt="" data-src="/assets/profiles/avatar_small.jpg" data-src-retina="/assets/profiles/avatar_small2x.jpg" width="35" height="35"> </div>
-                      <div class="inline pull-right" style="width:86%">
-                        <div class="input-group transparent ">
-                          <input type="text" class="form-control" placeholder="Write a message">
-                          <span class="input-group-addon"> <i class="fa fa-camera"></i> </span> </div>
-                      </div>
-                      <div class="clearfix"></div>
-                      </div>
-                      </div>
-                    </div> <!-- END Feed -->
-
-
-               </div>
-
-            </div>
-            <!-- END RO -->
-         </div>
-      </div>
-      <!-- END PAGE CONTAINER -->
-   </div>
-   <!-- END CONTENT --> 
+						  <div class="tiles white com-widget com-post">
+							 <div class="tiles-body">
+							 <div class="message-wrap">
+							 <div class="profile-img-wrapper pull-left"> <img src="/assets/profiles/avatar_small.jpg" alt="" data-src="/assets/profiles/avatar_small.jpg" data-src-retina="/assets/profiles/avatar_small2x.jpg" width="35" height="35"> </div>
+							 <div class="inline pull-right" style="width:86%">
+								<div class="input-group transparent ">
+								  <input type="text" class="form-control" placeholder="Write a message">
+								  <span class="input-group-addon"> <i class="fa fa-camera"></i> </span> </div>
+							 </div>
+							 <div class="clearfix"></div>
+							 </div>
+							 </div>
+						  </div> <!-- END Feed -->
 
 
-<%= render :partial => "teams/form" %>
+					</div>
+
+				</div>
+				<!-- END RO -->
+			</div>
+		</div>
+		<!-- END PAGE CONTAINER -->
+	</div>
+	<!-- END CONTENT --> 
+
+
+<%= render :partial => "teams/form", :locals => { :team => Team.new, :team_avatar => TeamAvatar.new } %>

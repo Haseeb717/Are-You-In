@@ -54,7 +54,7 @@
 							<% @teams.each do |team| %>
 								<li>
 									<a href="<%= team_path(team) %>">
-										<%= team.name.capitalize %>
+										<%= team.name.titleize %>
 									</a>
 								</li>
 							<% end %>

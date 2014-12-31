@@ -42,4 +42,51 @@ $(document).ready(function() {
 		$("form .help-block", this).remove();
 		$("form .form-control-feedback", this).remove();
 	});
+
+
+
+	$(document.body).on("click", ".run-btns button", function (event) {
+		event_id = $(".event_id", $(this).parents(".event-wrap")).val();
+		if (event_id == undefined || event_id == null || event_id == "")
+			return;
+
+		if ($(this).hasClass("in-btn")) {
+			// in case of participation
+			text = $(this).siblings(".toggle-in").text().trim();
+
+			BootstrapDialog.alert({
+				title: "I am IN",
+				message: text,
+				closable: false,
+				buttonLabel: "Confirm that I am IN",
+				callback: function(result) {
+					// user pressed confirmation button
+					sendRVSPResponse(event_id, "in");
+
+            	}
+			});
+		}
+		else if ($(this).hasClass("maybe-btn")) {
+			alert("btn-maybe");
+		}
+		else if ($(this).hasClass("out-btn")) {
+			alert("btn-out");
+		}
+	});
+
+	function sendRVSPResponse(event_id, response) {
+		$.ajax({
+			type: "POST",
+			url: "/events/" + event_id + "/rvsp",
+			dataType: "JSON",
+			data: postData,
+			success: function (data) {
+				console.log(data);
+
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				console.log(XMLHttpRequest.responseText);
+			}
+		});
+	}
 });

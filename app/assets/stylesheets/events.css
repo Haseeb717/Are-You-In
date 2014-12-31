@@ -13,3 +13,7 @@
 #add-event-form .glyphicon-ok {
 	color: #5BA85F;
 }
+
+.source-code {
+	display: none;
+}

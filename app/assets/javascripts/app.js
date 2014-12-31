@@ -8,7 +8,7 @@ $(document).ready(function() {
   $("#loading").hide();
 
 
-    $('#add_team').bootstrapValidator({
+    $('#add-team-form').bootstrapValidator({
         feedbackIcons: {
             valid: 'glyphicon glyphicon-ok',
             invalid: 'glyphicon glyphicon-remove',
@@ -139,47 +139,49 @@ $(document).ready(function() {
     });
 
 
-    $('.source-code').each(function(index){
-        var $section = $(this);
-        var code = $(this).html().replace('<!--', '').replace('-->', '');
+    // // IN event fired
+    // $('.source-code').each(function(index){
+    //     var $section = $(this);
+    //     var code = $(this).html().replace('<!--', '').replace('-->', '');
                 
-        // Run code
-        if($section.hasClass('toggle-in')){
-            var $button = $('<button class="btn first in-btn">In</button>');
-            $button.on('click', {code: code}, function(event){
-                eval(event.data.code);
-            });
-            $button.insertAfter($section);
-        }
-    });
+    //     // Run code
+    //     if($section.hasClass('toggle-in')){
+    //         var $button = $('<button class="btn first in-btn">In</button>');
+    //         $button.on('click', {code: code}, function(event){
+    //             eval(event.data.code);
+    //             // $(".event_id", $(this).closest(".event-wrap")).val();
+    //         });
+    //         $button.insertAfter($section);
+    //     }
+    // });
 
-    $('.source-code').each(function(index){
-        var $section = $(this);
-        var code = $(this).html().replace('<!--', '').replace('-->', '');
+    // $('.source-code').each(function(index){
+    //     var $section = $(this);
+    //     var code = $(this).html().replace('<!--', '').replace('-->', '');
                 
-        // Run code
-        if($section.hasClass('toggle-maybe')){
-            var $button = $('<button class="btn maybe-btn">Maybe</button>');
-            $button.on('click', {code: code}, function(event){
-                eval(event.data.code);
-            });
-            $button.insertAfter($section);
-        }
-    });
+    //     // Run code
+    //     if($section.hasClass('toggle-maybe')){
+    //         var $button = $('<button class="btn maybe-btn">Maybe</button>');
+    //         $button.on('click', {code: code}, function(event){
+    //             eval(event.data.code);
+    //         });
+    //         $button.insertAfter($section);
+    //     }
+    // });
 
-    $('.source-code').each(function(index){
-        var $section = $(this);
-        var code = $(this).html().replace('<!--', '').replace('-->', '');
+    // $('.source-code').each(function(index){
+    //     var $section = $(this);
+    //     var code = $(this).html().replace('<!--', '').replace('-->', '');
                 
-        // Run code
-        if($section.hasClass('toggle-out')){
-            var $button = $('<button class="btn out-btn">Out</button>');
-            $button.on('click', {code: code}, function(event){
-                eval(event.data.code);
-            });
-            $button.insertAfter($section);
-        }
-    });
+    //     // Run code
+    //     if($section.hasClass('toggle-out')){
+    //         var $button = $('<button class="btn out-btn">Out</button>');
+    //         $button.on('click', {code: code}, function(event){
+    //             eval(event.data.code);
+    //         });
+    //         $button.insertAfter($section);
+    //     }
+    // });
 
 
 

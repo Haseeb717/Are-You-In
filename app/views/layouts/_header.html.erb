@@ -63,7 +63,7 @@
 						<ul class="dropdown-menu" role="menu">
 							<% @teams.each do |team| %>
 								<li>
-									<a href="<%= team_path(team) %>"> <%= team.name.capitalize %> </a>
+									<a href="<%= team_path(team) %>"> <%= team.name.titleize %> </a>
 								</li>
 							<% end %>
 							<li class="divider"> </li>
