@@ -1,8 +1,13 @@
 class PlayerAvatarsController < ApplicationController
 	before_filter :player_avatar_params, :only => [:create]
 
+	def new
+		@player_avatar = PlayerAvatar.new
+	end
+
 	def create
-		@player_avatar = PLayerAvatar.create(player_avatar_params)
+		puts "create"
+		@player_avatar = PlayerAvatar.create(player_avatar_params)
 		if @player_avatar.save
 			# send success header
 			render json: { message: "success", fileID: @player_avatar.id }, :status => 200
@@ -13,7 +18,7 @@ class PlayerAvatarsController < ApplicationController
 	end
 
 	def destroy
-		@player_avatar = PLayerAvatar.find(params[:id])
+		@player_avatar = PlayerAvatar.find(params[:id])
 		if @player_avatar.destroy
 			render json: { message: "File deleted from server" }
 		else
@@ -25,4 +30,5 @@ class PlayerAvatarsController < ApplicationController
 	def player_avatar_params
 		params.require(:player_avatar).permit(:avatar)
 	end
+
 end
