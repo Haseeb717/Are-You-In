@@ -36,12 +36,35 @@ class UsersController < ApplicationController
 		respond_with(@user)
 	end
 
+	def player
+		
+		password_length = 8
+		password = Devise.friendly_token.first(password_length)
+		
+		parameters =params["list_name"]
+		p = parameters.split(',')
+		team_id = p[4]
+		user = User.where(:email=>p[1]).first_or_create
+		user.update_attributes({
+			:name=>p[0],
+			:phone=>p[2],
+			:gender=>p[3],
+			:password=>password
+					
+		})
+		team = Team.find(team_id)
+		user.teams << team
+		@ab = "Saved"
+		render :json => @ab
+	end
+
+
 	private
 		def set_user
 			@user = User.find(params[:id])
 		end
 
 		def user_params
-			params.require(:user).permit(:name, :phone)
+			params.require(:user).permit(:name, :phone, :email, :gender, :password)
 		end
 end

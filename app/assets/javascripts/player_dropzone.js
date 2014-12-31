@@ -1,9 +1,8 @@
 $(document).ready(function(){
 	// disable auto discover
 	Dropzone.autoDiscover = false;
-	
-	// grap our upload form by its id
-	$(".team-avatar").dropzone({
+
+	$("#player-avatar").dropzone({
 		// maximum number of files to upload
 		// still get attached problem
 		maxFiles: 1,
@@ -11,7 +10,7 @@ $(document).ready(function(){
 		maxFilesize: 1,
 		// changed the passed param to one accepted by
 		// our rails app
-		paramName: "team_avatar[avatar]",
+		paramName: "player_avatar[avatar]",
 		// show remove links on each image upload
 		addRemoveLinks: true,
 		// if the upload was successful
@@ -31,7 +30,7 @@ $(document).ready(function(){
 			// make a DELETE ajax request to delete the file
 			$.ajax({
 				type: "DELETE",
-				url: "/team_avatars/" + id,
+				url: "/player_avatars/" + id,
 				success: function(data){
 
 					$(".dz-preview").remove();
@@ -39,5 +38,8 @@ $(document).ready(function(){
 				}
 			});
 		}
-	});	
+	});
+
+	// grap our upload form by its id
+	
 });

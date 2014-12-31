@@ -26,7 +26,6 @@ class PlayersController < ApplicationController
   # POST /players.json
   def create
     @player = User.new(player_params)
-    puts "newwwwwwwwwwwwwwwwwwwwwwwwwwww"
     respond_to do |format|
       if @player.save
         format.html { redirect_to @player, notice: 'Player was successfully created.' }
