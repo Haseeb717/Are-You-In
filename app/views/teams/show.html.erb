@@ -36,9 +36,9 @@
                               <div class="tiles white team-profile">
                                   <% if current_user.is_team_admin?(@team) %>
                                     <div class="controller pull-right"> 
-                                      <a data-toggle="modal" data-target="#add_team" class="add-team-modal edit" href="#">
+                                      <a data-toggle="modal" data-target="#add_team<%=@team.id%>" class="add-team-modal edit" href="#">
                                         <i class="fa fa-pencil-square-o"></i> edit
-                                        </a> 
+                                      </a> 
                                     </div>
                                   <% end %>
 
@@ -403,6 +403,9 @@
 </div>
 <!-- END CONTENT -->
 
-<%= render :partial => "teams/form" %>
+<!-- for editing team  -->
+<%= render :partial => "teams/form", :locals => { :team => @team, :team_avatar => @team_avatar } %>
+
+<%= render :partial => "teams/form", :locals => { :team => Team.new, :team_avatar => TeamAvatar.new } %>
 <%= render :partial => "events/form" %>
 <%= render :partial => "players/form" %>

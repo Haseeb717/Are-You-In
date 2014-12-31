@@ -3,7 +3,7 @@ $(document).ready(function(){
 	Dropzone.autoDiscover = false;
 
 	// grap our upload form by its id
-	$("#team-avatar").dropzone({
+	$(".team-avatar").dropzone({
 		// maximum number of files to upload
 		// still get attached problem
 		maxFiles: 1,
