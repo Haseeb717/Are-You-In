@@ -8,7 +8,9 @@ Rails.application.routes.draw do
   resources :player_avatars
 
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
-  resources :users
+  resources :users do
+    post "/player", :to => "users#player"
+  end
 
   get "/dashboard", :to => "static#dashboard"
 

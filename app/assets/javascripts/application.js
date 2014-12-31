@@ -28,8 +28,8 @@
 //= require core.js
 //= require app.js
 //= require avatar_dropzone.js
-
+//= require add_player.js
 //= require jquery-lazyload/jquery.lazyload.min.js
 //= require login_v2.js
-
+//= require player_dropzone.js
 //= require events.js
