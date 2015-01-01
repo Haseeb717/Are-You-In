@@ -505,7 +505,7 @@
 				<%= form_for(resource, as: resource_name, url: session_path(resource_name), :html => {:id => "form-login", :class => "styled"}) do |f| %>
 
 					<div class="form-field">
-						<%= f.text_field :login, :id => "email", :class => "form-control required", :placeholder => "Email" %>
+						<%= f.text_field :login, :id => "email", :class => "form-control required", :placeholder => "Email or Phone" %>
 					</div>
 					<div class="form-field">
 						<%= f.password_field :password, autocomplete: "off", :id => "login_pass", :class => "form-control required", :placeholder => "Password" %>

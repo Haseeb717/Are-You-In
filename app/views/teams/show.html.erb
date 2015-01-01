@@ -36,9 +36,9 @@
                               <div class="tiles white team-profile">
                                   <% if current_user.is_team_admin?(@team) %>
                                     <div class="controller pull-right"> 
-                                      <a data-toggle="modal" data-target="#add_team" class="add-team-modal edit" href="#">
+                                      <a data-toggle="modal" data-target="#add_team<%=@team.id%>" class="add-team-modal edit" href="#">
                                         <i class="fa fa-pencil-square-o"></i> edit
-                                        </a> 
+                                      </a> 
                                     </div>
                                   <% end %>
 
@@ -47,7 +47,7 @@
                                       <h3><%= @team.name.titleize %></h3>
                                       <p><%= "#{@team.gender && @team.gender.capitalize} #{@team.sport && @team.sport.capitalize} - Age: #{@team.age_to} - #{@team.age_from}" %> </p>
                                       
-                                      <p><%= @team.city.capitalize %></p>
+                                      <p><%= @team.city.titleize %></p>
                                   </div>
                               </div>
                           </div>
@@ -199,96 +199,9 @@
                            <h3> <%= date %> </h3>
 
                            <% events.each do |event| %>
-                           <div class="event-wrap widget-item style-b">
-                            <input type="hidden" class="event_id" name="event_id" value="<%= event.id %>">
-                              <div class="row">
-                                 <div class="tiles white border-right sm-bottom-30">
+                            <%= render :partial => "events/event_details", :locals => { :event => event } %>
 
-                                       <div class="controller pull-right"> 
-                                          <a href="javascript:;" class="edit"><i class="fa fa-pencil-square-o"></i></a> 
-                                        </div>
-
-                                    <div class="col-md-6 col-lg-6 col-sm-5 col-xs-12 p-b-15 p-t-15">
-                                      <div>
-                                        <h2>
-                                          <%= event.time.strftime("%I") %>
-                                          <span class="time-day"><%= event.time.strftime("%p") %></span>
-                                        </h2>
-                                        <h3>
-                                          <%= event.category.capitalize if event.category %>
-                                        </h3>
-                                      </div>
-                                       <h5 class="event-team-name">
-                                        <span>Group:</span>
-                                        <%= event.team.name.titleize %>
-                                       </h5>
-                                       <h5 class="event-team-name">
-                                        <span>Where:</span> 
-                                          <%= event.team.city.titleize if event.team.city %> 
-                                          <a href="#">(map)</a>
-                                        </h5>
-
-                                    </div>
-
-                                    <div class="col-md-6 col-lg-6 col-sm-7 col-xs-12 p-b-15 p-t-15">
-
-                                       <div class="run listit">
-
-                                          <p class="event-ins in"><i class="fa fa-check"></i> 
-
-                                             <a href="#" tabindex="0" class="run-count" data-toggle="popover" data-trigger="focus" title="" data-content="Mike Klein, Patrick, Allen, Sam, Jeff, Mike, Flo"><strong>5</strong> IN</a>
-
-                                          </p>
-
-                                          <p class="event-ins maybe"><i class="fa fa-question-circle"></i>  
-
-                                             <a href="#" tabindex="0" class="run-count" data-toggle="popover" data-trigger="focus" title="" data-content="Mike K., Jeff U., Steve K., Paul S."><strong>2</strong> MAYBE</a>
-
-                                          </p>
-
-                                          <p class="event-ins out"><i class="fa fa-times-circle"></i> 
-
-                                             <a href="#" tabindex="0" class="run-count" data-toggle="popover" data-trigger="focus" title="" data-content="Patrick M."><strong>2</strong> OUT</a>
-
-                                          </p>
-
-                                       </div>
-
-                                       <p class="run-question">Are you In?!</p>
-
-                                          <div class="run-btns">
-                                             <div class="toggle-in left source-code">
-                                                <!--BootstrapDialog.alert({
-                                                   title: 'I am IN',
-                                                   message: 'I confirm that I can make the came on Monday August 17th, at 18:30 at City Gym.',
-                                                   closable: false, // <-- Default value is true
-                                                   buttonLabel: 'Confirm that I am IN'
-                                                   });-->
-                                             </div>
-
-                                             <div class="toggle-maybe left source-code">
-                                                <!--BootstrapDialog.alert({
-                                                   title: 'I am IN',
-                                                   message: 'I confirm that I can make the came on Monday August 17th, at 18:30 at City Gym.',
-                                                   closable: false, // <-- Default value is true
-                                                   buttonLabel: 'Confirm that I am IN'
-                                                   });-->
-                                             </div>
-
-                                             <div class="toggle-out left source-code">
-                                                <!--BootstrapDialog.alert({
-                                                   title: 'I am IN',
-                                                   message: 'I confirm that I can make the came on Monday August 17th, at 18:30 at City Gym.',
-                                                   closable: false, // <-- Default value is true
-                                                   buttonLabel: 'Confirm that I am IN'
-                                                   });-->
-                                             </div>
-                                          </div>
-
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
+                            <%= render :partial => "events/form", :locals => { :event => event } %>
                           <% end %>
 
                         </div>
@@ -403,6 +316,9 @@
 </div>
 <!-- END CONTENT -->
 
-<%= render :partial => "teams/form" %>
-<%= render :partial => "events/form" %>
+<!-- for editing team  -->
+<%= render :partial => "teams/form", :locals => { :team => @team, :team_avatar => @team_avatar } %>
+
+<%= render :partial => "teams/form", :locals => { :team => Team.new, :team_avatar => TeamAvatar.new } %>
+<%= render :partial => "events/form", :locals => { :event => Event.new} %>
 <%= render :partial => "players/form" %>

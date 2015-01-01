@@ -26,8 +26,12 @@
 						<div class="iconset top-settings"></div>	 
 					</a>
 					<ul class="dropdown-menu pull-right" role="menu" aria-labelledby="user-options">
-						<li> <a href="/user"> Account Profile </a> </li>
-						<li> <a href="/user/edit"> Edit Account</a> </li>
+                      <li>
+                        <a href="<%= user_path(current_user) %>">Account Profile</a>
+                      </li>
+                      <li>
+                        <a href="<%= edit_user_path(current_user) %>">Edit Account</a>
+                      </li>
 						<li class="divider"> </li>
 						<li>
 							<a data-toggle="modal" data-target="#add_team" class="add-team-modal" href="#">
@@ -63,7 +67,7 @@
 						<ul class="dropdown-menu" role="menu">
 							<% @teams.each do |team| %>
 								<li>
-									<a href="<%= team_path(team) %>"> <%= team.name.capitalize %> </a>
+									<a href="<%= team_path(team) %>"> <%= team.name.titleize %> </a>
 								</li>
 							<% end %>
 							<li class="divider"> </li>
@@ -107,12 +111,12 @@
 							</div>
 						</a>
 						<ul class="dropdown-menu pull-right" role="menu" aria-labelledby="user-options">
-							<li>
-								<a href="/user"> Account Profile </a>
-							</li>
-							<li>
-								<a href="/user/edit"> Edit Account </a>
-							</li>
+	                      <li>
+	                        <a href="<%= user_path(current_user) %>">Account Profile</a>
+	                      </li>
+	                      <li>
+	                        <a href="<%= edit_user_path(current_user) %>">Edit Account</a>
+	                      </li>
 							<li class="divider"> </li>
 							<li>
 								<a href="#" data-toggle="modal" data-target="#add_team"> <i class="fa fa-plus-circle"> </i>&nbsp;&nbsp;

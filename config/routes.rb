@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :events
+  resources :events do
+    member do
+      post "rsvp"
+    end
+  end
 
   resources :teams
   resources :team_avatars

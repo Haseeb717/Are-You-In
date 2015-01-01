@@ -1,67 +1,85 @@
-<div class="modal fade" id="add_event" tabindex="-1" role="dialog" aria-labelledby="add_event" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content event-modal">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <i class="fa fa-calendar-o fa-7x"></i>
-        <h4 id="add_event" class="semi-bold">Add an Event.</h4>
-      </div>
-      <%= form_for(@event, :html => {:id => "add-event-form"}) do |f| %>
-        <div class="modal-body">
-          <div class="row form-row">
-            <div class="col-md-12">
-              <input type="text" class="form-control" name="title" placeholder="Event Title">
-            </div>
-          </div>
+<div class="modal fade" id="add_event<%= event.id %>" tabindex="-1" role="dialog" aria-labelledby="add_event" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content event-modal">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					×
+				</button>
+				<i class="fa fa-calendar-o fa-7x"></i>
+				<h4 id="" class="semi-bold">Add an Event.</h4>
+			</div>
+			<% form_id = event.new_record? ? "add-event-form" : "" %>
 
-          <div class="row form-row">
-            <div class="col-md-12">
-              <div class="radio no-brd toggles">
-                <input id="practice" type="radio" name="category" value="practice" checked="checked">
-                <label for="practice">Practice</label>
-                <input id="game" type="radio" name="category" class="game" value="game">
-                <label for="game">Game</label>                
-                <input id="pickup" type="radio" name="category" value="pickup">
-                <label for="pickup">Pickup</label>    
-                <input id="other" type="radio" name="category" value="other">
-                <label for="other">Other</label>                                        
-              </div>
-            </div>
-          </div>
+			<%= form_for(event, :html => {:id => form_id}) do |f| %>
+				<div class="modal-body">
+					<div class="row form-row">
+						<div class="col-md-12">
+							<input type="text" class="form-control" name="title" placeholder="Event Title" value="<%= event.title %>">
+						</div>
+					</div>
 
-          <div class="row form-row collapse game">
-            <div class="col-md-12">
-              <input type="text" class="form-control" name="opponent" placeholder="Opponent">
-            </div>
-          </div>
+					<div class="row form-row">
+						<div class="col-md-12">
+							<div class="radio no-brd toggles">
+								<input id="practice" type="radio" name="category" value="practice" checked="checked">
+								<label for="practice">Practice</label>
+								<input id="game" type="radio" name="category" class="game" value="game">
+								<label for="game">Game</label>								
+								<input id="pickup" type="radio" name="category" value="pickup">
+								<label for="pickup">Pickup</label>		
+								<input id="other" type="radio" name="category" value="other">
+								<label for="other">Other</label>
+							</div>
+						</div>
+					</div>
 
-          <div class="row form-row">
-            <div class="col-md-6">
-              <input type="text" name="date" class="datepicker form-control" placeholder="Date">
-            </div>
-            <div class="col-md-6">
-              <input type="text" name="time" class="timepicker form-control" placeholder="Time">
-            </div>
+					<div class="row form-row collapse game">
+						<div class="col-md-12">
+							<input type="text" class="form-control" name="opponent" placeholder="Opponent" value="<%= event.opponent %>">
+						</div>
+					</div>
 
-          </div>
-          <div class="row form-row">
-            <div class="col-md-12">
-              <textarea id="text-editor" name="note" placeholder="Enter Note about this Event ..." class="form-control" rows="3"></textarea>
-            </div>
-          </div>
-          <div class="row form-row">
-            <div class="col-md-12" id="event-message">
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Add Event</button>
-        </div>
-      </div>
-    <% end %>
-    <!-- /.modal-content -->
-  </div>
-  <!-- /.modal-dialog -->
+					<div class="row form-row">
+						<div class="col-md-6">
+							<input type="text" name="event_date" class="datepicker form-control" placeholder="Date" value="<%= event.date.strftime('%e %B, %Y') if event.date %>">
+						</div>
+						<div class="col-md-6">
+							<input type="text" name="event_time" class="timepicker form-control" placeholder="Time" value="<%= event.time.strftime('%I:%M %p') if event.time %>" >
+						</div>
+
+					</div>
+					<div class="row form-row">
+						<div class="col-md-12">
+							<textarea id="text-editor" name="note" placeholder="Enter Note about this Event ..." class="form-control" rows="3"> <%= event.note %> </textarea>
+						</div>
+					</div>
+					<div class="row form-row">
+						<div class="col-md-12" id="event-message">
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<% if event.new_record? %>
+						<button type="button" class="btn btn-default" data-dismiss="modal">
+							Close
+						</button>
+						<button type="submit" class="btn btn-primary">Add Event</button>
+					<% else %>
+						<input type="hidden" class="event_id" name="event_id" value="<%= event.id %>">
+
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-danger .event-reomve">
+							Remove Event
+						</button>
+						<button type="submit" class="btn btn-primary .event-update">
+							Update Event
+						</button>
+					<% end %>
+				</div>
+			</div>
+		<% end %>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->

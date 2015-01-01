@@ -8,8 +8,6 @@ class StaticController < ApplicationController
 	end
 
 	def dashboard
-		@team = Team.new
-		@team_avatar = TeamAvatar.new		
 	end
 
 	private

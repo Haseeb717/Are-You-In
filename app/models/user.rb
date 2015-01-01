@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
 	has_many :identities, :dependent => :destroy
 	has_and_belongs_to_many :teams
 	has_many :player_avatars, :dependent => :destroy
+	has_many :rsvps, :dependent => :destroy
 	
 	attr_accessor :login
 
@@ -28,7 +29,7 @@ class User < ActiveRecord::Base
 			events = events + team.events
 		end
 		
-		events.sort_by(&:time).group_by(&:date)
+		events.uniq.sort_by(&:time).group_by(&:date)
 	end
 
 	def is_team_admin?(team)

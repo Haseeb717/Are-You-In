@@ -6,7 +6,9 @@ $(document).ready(function() {
 			validating: 'glyphicon glyphicon-refresh'
 		},
 		fields: {
-			title: { validators: { notEmpty: { message: 'The Event Title is required' } } }
+			title: { validators: { notEmpty: { message: 'The event title is required' } } },
+			event_date: { validators: { notEmpty: { message: 'The event date is required' } } },
+			event_time: { validators: { notEmpty: { message: 'The event time is required' } } }
 		}
 	}).on("success.form.bv", function(event) {
 		// Prevent form submission
@@ -32,6 +34,7 @@ $(document).ready(function() {
 	});
 
 
+
 	$("#add_event").on("shown.bs.modal", function(event) {
 		// renew form
 
@@ -42,4 +45,80 @@ $(document).ready(function() {
 		$("form .help-block", this).remove();
 		$("form .form-control-feedback", this).remove();
 	});
+
+
+
+	$(document.body).on("click", ".run-btns button", function (event) {
+		event_id = $(".event_id", $(this).parents(".event-wrap")).val();
+		responseElement = $(this).parent().siblings(".listit");
+		if (event_id == undefined || event_id == null || event_id == "")
+			return;
+
+		if ($(this).hasClass("in-btn")) {
+			// in case of participation
+			text = $(this).siblings(".toggle-in").text().trim();
+
+			BootstrapDialog.alert({
+				title: "I am IN",
+				message: text,
+				closable: true,
+				buttonLabel: "Confirm that I am IN",
+				callback: function(result) {
+					// user pressed confirmation button
+					saveRVSPResponse(event_id, "in", responseElement);
+				}
+			});
+		}
+		else if ($(this).hasClass("maybe-btn")) {
+			// in case of not sure
+			text = $(this).siblings(".toggle-maybe").text().trim();
+
+			BootstrapDialog.alert({
+				title: "Maybe, Not Sure",
+				message: text,
+				closable: true,
+				buttonLabel: "Not sure yet, Remind me again",
+				callback: function(result) {
+					// user pressed confirmation button
+					saveRVSPResponse(event_id, "maybe", responseElement);
+				}
+			});
+		}
+		else if ($(this).hasClass("out-btn")) {
+			// in case of not participation
+			text = $(this).siblings(".toggle-out").text().trim();
+
+			BootstrapDialog.alert({
+				title: "I am Out",
+				message: text,
+				closable: true,
+				buttonLabel: "Confirm that I am Out",
+				callback: function(result) {
+					// user pressed confirmation button
+					saveRVSPResponse(event_id, "out", responseElement);
+				}
+			});
+		}
+	});
+
+	function saveRVSPResponse(event_id, response, Element) {
+		$.ajax({
+			type: "POST",
+			url: "/events/" + event_id + "/rsvp",
+			dataType: "HTML",
+			data: {
+				response: response
+			},
+			success: function (data) {
+				console.log(data);
+				$(Element).html(data);
+
+				// bind popover effect on dynamic elements
+				$(".run-count").popover({ placement : "top", html : "true" });
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				console.log(XMLHttpRequest.responseText);
+			}
+		});
+	}
 });

@@ -1,0 +1,14 @@
+<div class="toggle-in left source-code">
+	I confirm that I can came on <%= event.date.strftime("%A %B #{event.date.day.ordinalize}") if event.date %>, at <%= event.time.strftime('%I:%M %p') if event.time %> at <%= event.team.city if event.team %>.
+</div>
+<button class="btn in-btn">In</button>
+
+<div class="toggle-maybe left source-code">
+	I am not sure that I can came on <%= event.date.strftime("%A %B #{event.date.day.ordinalize}") if event.date %>, at <%= event.time.strftime('%I:%M %p') if event.time %> at <%= event.team.city if event.team %>.
+</div>
+<button class="btn maybe-btn">Maybe</button>
+
+<div class="toggle-out left source-code">
+	I cannot attend event on <%= event.date.strftime("%A %B #{event.date.day.ordinalize}") if event.date %>, at <%= event.time.strftime('%I:%M %p') if event.time %> at <%= event.team.city if event.team %>.
+</div>
+<button class="btn out-btn">Out</button>
