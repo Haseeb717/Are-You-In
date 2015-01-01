@@ -6,7 +6,9 @@ $(document).ready(function() {
 			validating: 'glyphicon glyphicon-refresh'
 		},
 		fields: {
-			title: { validators: { notEmpty: { message: 'The Event Title is required' } } }
+			title: { validators: { notEmpty: { message: 'The event title is required' } } },
+			event_date: { validators: { notEmpty: { message: 'The event date is required' } } },
+			event_time: { validators: { notEmpty: { message: 'The event time is required' } } }
 		}
 	}).on("success.form.bv", function(event) {
 		// Prevent form submission
@@ -30,6 +32,7 @@ $(document).ready(function() {
 			}
 		});
 	});
+
 
 
 	$("#add_event").on("shown.bs.modal", function(event) {

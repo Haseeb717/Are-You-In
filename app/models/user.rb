@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
 			events = events + team.events
 		end
 		
-		events.sort_by(&:time).group_by(&:date)
+		events.uniq.sort_by(&:time).group_by(&:date)
 	end
 
 	def is_team_admin?(team)
