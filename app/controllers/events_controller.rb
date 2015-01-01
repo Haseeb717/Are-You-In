@@ -52,8 +52,12 @@ class EventsController < ApplicationController
 	end
 
 	def destroy
-		@event.destroy
-		respond_with(@event)
+		begin
+			@event.destroy
+			render json: { :message => "success" }, :status => 200
+		rescue Exception => ex
+			render json: { :error => ex.message }, :status => 400
+		end
 	end
 
 	private

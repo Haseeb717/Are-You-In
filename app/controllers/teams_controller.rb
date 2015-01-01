@@ -30,10 +30,11 @@ class TeamsController < ApplicationController
 
   def create
     @team = Team.new(team_params)
+    @team.admin = current_user
     if @team.save
       current_user.teams << @team
 
-      unless params[:team_avatar_id] == "null" || params[:team_avatar_id] == "undefined"
+      unless params[:team_avatar_id] == "null" || params[:team_avatar_id] == "undefined" || params[:team_avatar_id].nil?
         team_avatar = TeamAvatar.find(params[:team_avatar_id])
         @team.team_avatars << team_avatar
       end

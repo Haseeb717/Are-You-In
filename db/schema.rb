@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141231103122) do
+ActiveRecord::Schema.define(version: 20150101112451) do
+
+  create_table "event_invitations", force: true do |t|
+    t.string   "token"
+    t.integer  "sender_id"
+    t.integer  "reciever_id"
+    t.integer  "event_id"
+    t.datetime "sent_at"
+    t.datetime "respond_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "events", force: true do |t|
     t.string   "title"
@@ -74,6 +85,7 @@ ActiveRecord::Schema.define(version: 20141231103122) do
     t.integer  "age_to"
     t.boolean  "public_contact_info", default: false
     t.integer  "user_id"
+    t.integer  "admin_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

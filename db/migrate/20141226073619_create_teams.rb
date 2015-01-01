@@ -11,6 +11,7 @@ class CreateTeams < ActiveRecord::Migration
       t.boolean :public_contact_info, :default => false
 
       t.integer :user_id
+      t.integer :admin_id
 
       t.timestamps
     end
