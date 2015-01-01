@@ -47,6 +47,7 @@ $(document).ready(function() {
 
 	$(document.body).on("click", ".run-btns button", function (event) {
 		event_id = $(".event_id", $(this).parents(".event-wrap")).val();
+		responseElement = $(this).parent().siblings(".listit");
 		if (event_id == undefined || event_id == null || event_id == "")
 			return;
 
@@ -57,32 +58,60 @@ $(document).ready(function() {
 			BootstrapDialog.alert({
 				title: "I am IN",
 				message: text,
-				closable: false,
+				closable: true,
 				buttonLabel: "Confirm that I am IN",
 				callback: function(result) {
 					// user pressed confirmation button
-					sendRVSPResponse(event_id, "in");
-
-            	}
+					saveRVSPResponse(event_id, "in", responseElement);
+				}
 			});
 		}
 		else if ($(this).hasClass("maybe-btn")) {
-			alert("btn-maybe");
+			// in case of not sure
+			text = $(this).siblings(".toggle-maybe").text().trim();
+
+			BootstrapDialog.alert({
+				title: "Maybe, Not Sure",
+				message: text,
+				closable: true,
+				buttonLabel: "Not sure yet, Remind me again",
+				callback: function(result) {
+					// user pressed confirmation button
+					saveRVSPResponse(event_id, "maybe", responseElement);
+				}
+			});
 		}
 		else if ($(this).hasClass("out-btn")) {
-			alert("btn-out");
+			// in case of not participation
+			text = $(this).siblings(".toggle-out").text().trim();
+
+			BootstrapDialog.alert({
+				title: "I am Out",
+				message: text,
+				closable: true,
+				buttonLabel: "Confirm that I am Out",
+				callback: function(result) {
+					// user pressed confirmation button
+					saveRVSPResponse(event_id, "out", responseElement);
+				}
+			});
 		}
 	});
 
-	function sendRVSPResponse(event_id, response) {
+	function saveRVSPResponse(event_id, response, Element) {
 		$.ajax({
 			type: "POST",
-			url: "/events/" + event_id + "/rvsp",
-			dataType: "JSON",
-			data: postData,
+			url: "/events/" + event_id + "/rsvp",
+			dataType: "HTML",
+			data: {
+				response: response
+			},
 			success: function (data) {
 				console.log(data);
+				$(Element).html(data);
 
+				// bind popover effect on dynamic elements
+				$(".run-count").popover({ placement : "top", html : "true" });
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
 				console.log(XMLHttpRequest.responseText);

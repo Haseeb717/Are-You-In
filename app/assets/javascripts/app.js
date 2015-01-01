@@ -99,44 +99,44 @@ $(document).ready(function() {
 
 // creates a modal from button
 
-    $('.source-code').each(function(index){
-        var $section = $(this);
-        var code = $(this).html().replace('<!--', '').replace('-->', '');
+    // $('.source-code').each(function(index){
+    //     var $section = $(this);
+    //     var code = $(this).html().replace('<!--', '').replace('-->', '');
                 
-        // Run code
-        if($section.hasClass('in')){
-            var $button = $('<div class="slide-primary"><input type="checkbox" name="switch" class="ios" checked="checked"/></div>');
-            $button.on('click', {code: code}, function(event){
-                eval(event.data.code);
-            });
-            $button.insertAfter($section);
+    //     // Run code
+    //     if($section.hasClass('in')){
+    //         var $button = $('<div class="slide-primary"><input type="checkbox" name="switch" class="ios" checked="checked"/></div>');
+    //         $button.on('click', {code: code}, function(event){
+    //             eval(event.data.code);
+    //         });
+    //         $button.insertAfter($section);
 
-            var Switch = require('ios7-switch')
-                    , checkbox = $button.find('.ios')[0]
-                    , mySwitch = new Switch(checkbox);
-             mySwitch.toggle();
-                  mySwitch.el.addEventListener('click', function(e){
-                    e.preventDefault();
-                    mySwitch.toggle();
-                  }, false);
+    //         var Switch = require('ios7-switch')
+    //                 , checkbox = $button.find('.ios')[0]
+    //                 , mySwitch = new Switch(checkbox);
+    //          mySwitch.toggle();
+    //               mySwitch.el.addEventListener('click', function(e){
+    //                 e.preventDefault();
+    //                 mySwitch.toggle();
+    //               }, false);
 
-        }
-    });
+    //     }
+    // });
 
 
-    $('.source-code').each(function(index){
-        var $section = $(this);
-        var code = $(this).html().replace('<!--', '').replace('-->', '');
+    // $('.source-code').each(function(index){
+    //     var $section = $(this);
+    //     var code = $(this).html().replace('<!--', '').replace('-->', '');
                 
-        // Run code
-        if($section.hasClass('maybe')){
-            var $button = $('<a href="#">Not sure yet, remind me again</a>');
-            $button.on('click', {code: code}, function(event){
-                eval(event.data.code);
-            });
-            $button.insertAfter($section);
-        }
-    });
+    //     // Run code
+    //     if($section.hasClass('maybe')){
+    //         var $button = $('<a href="#">Not sure yet, remind me again</a>');
+    //         $button.on('click', {code: code}, function(event){
+    //             eval(event.data.code);
+    //         });
+    //         $button.insertAfter($section);
+    //     }
+    // });
 
 
     // // IN event fired

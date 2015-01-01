@@ -1,0 +1,48 @@
+<div class="event-wrap widget-item style-b">
+	<input type="hidden" class="event_id" name="event_id" value="<%= event.id %>">
+
+	<div class="row">
+		<div class="tiles white border-right sm-bottom-30">
+			<div class="controller pull-right">
+				<a data-toggle="modal" data-target="#add_event<%= event.id %>" class="edit" href="#">
+					<i class="fa fa-pencil-square-o"></i>
+				</a>
+			</div>
+
+			<div class="col-md-6 col-lg-6 col-sm-5 col-xs-12 p-b-15 p-t-15">
+				<div>
+					<h2>
+						<%= event.time.strftime("%I") %>
+						<span class="time-day">
+							<%= event.time.strftime("%p") %>
+						</span>
+					</h2>
+					<h3>
+						<%= event.category.capitalize if event.category %>
+					</h3>
+				</div>
+				
+				<h5 class="event-team-name">
+					<span>Group:</span>
+					<%= event.team.name.titleize %>
+				</h5>
+				<h5 class="event-team-name">
+					<span>Where:</span>
+					<%= event.team.city.titleize if event.team.city %>
+					<a href="#">(map)</a>
+				</h5>
+			</div>
+
+			<div class="col-md-6 col-lg-6 col-sm-7 col-xs-12 p-b-15 p-t-15">
+				<div class="run listit">
+					<%= render :partial => "events/rsvp_list", :locals => { :event => event } %>
+				</div>
+				
+				<p class="run-question">Are you In?!</p>
+				<div class="run-btns">
+					<%= render :partial => "events/rsvp_questions", :locals => { :event => event } %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
