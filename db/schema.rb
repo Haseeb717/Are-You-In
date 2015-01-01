@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 20150101112451) do
   end
 
   create_table "player_avatars", force: true do |t|
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "avatar_file_name"
