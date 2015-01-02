@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
 	before_action :set_event, only: [:show, :edit, :update, :destroy, :rsvp]
+	after_action :send_invitations, :only => [:create]
 
 	respond_to :html
 
@@ -61,11 +62,31 @@ class EventsController < ApplicationController
 	end
 
 	private
-		def set_event
-			@event = Event.find(params[:id])
+	def send_invitations
+		begin
+			if @event.errors.empty?
+				@event.team.users.each do |user|
+					unless @event.team.is_admin?(user)
+						invitation = EventInvitation.create(:sender => current_user,
+							:reciever => user,
+							:event => @event,
+							:token => Digest::MD5.hexdigest(current_user.email + user.email + @event.id.to_s + Time.now.to_s)
+						)
+						debugger
+						EventInvitationMailer.send_invitation(invitation).deliver!
+					end
+				end
+			end
+		rescue Exception => ex
+			
 		end
+	end
 
-		def event_params
-			params.permit(:title, :category, :opponent, :date, :time, :note, :team_id)
-		end
+	def set_event
+		@event = Event.find(params[:id])
+	end
+
+	def event_params
+		params.permit(:title, :category, :opponent, :date, :time, :note, :team_id)
+	end
 end

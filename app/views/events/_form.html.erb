@@ -41,10 +41,10 @@
 
 					<div class="row form-row">
 						<div class="col-md-6">
-							<input type="text" name="event_date" class="datepicker form-control" placeholder="Date" value="<%= event.date.strftime('%e %B, %Y') if event.date %>">
+							<input type="text" name="date" class="datepicker form-control" placeholder="Date" value="<%= event.date.strftime('%e %B, %Y') if event.date %>">
 						</div>
 						<div class="col-md-6">
-							<input type="text" name="event_time" class="timepicker form-control" placeholder="Time" value="<%= event.time.strftime('%I:%M %p') if event.time %>" >
+							<input type="text" name="time" class="timepicker form-control" placeholder="Time" value="<%= event.time.strftime('%I:%M %p') if event.time %>" >
 						</div>
 
 					</div>

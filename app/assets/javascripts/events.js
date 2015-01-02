@@ -6,9 +6,7 @@ $(document).ready(function() {
 			validating: 'glyphicon glyphicon-refresh'
 		},
 		fields: {
-			title: { validators: { notEmpty: { message: 'The event title is required' } } },
-			event_date: { validators: { notEmpty: { message: 'The event date is required' } } },
-			event_time: { validators: { notEmpty: { message: 'The event time is required' } } }
+			title: { validators: { notEmpty: { message: 'The event title is required' } } }
 		}
 	}).on("success.form.bv", function(event) {
 		// Prevent form submission
@@ -37,9 +35,8 @@ $(document).ready(function() {
 
 	$("#add_event").on("shown.bs.modal", function(event) {
 		// renew form
-
 		$("form", this).find("input[type=text], textarea").val("");
-		$("form button", this).removeAttr("disabled");
+		// $("form button", this).removeAttr("disabled");
 		$("#event-message").html("");
 
 		$("form .help-block", this).remove();

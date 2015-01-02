@@ -3,6 +3,10 @@ class Event < ActiveRecord::Base
 	has_many :rsvps, :dependent => :destroy
 	has_many :event_invitations, :dependent => :destroy
 
+	validates :title, :presence => true, :length => { :minimum => 5}
+	validates_presence_of :date
+	validates :time, :presence => true
+
 	def users_in
 		self.rsvps.in.collect{|rsvp| rsvp.user.name}.join(", ")
 	end

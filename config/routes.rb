@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   end
 
   get "/dashboard", :to => "static#dashboard"
+  get "/invitation_response", :to => "static#invitation_response"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

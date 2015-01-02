@@ -1,0 +1,16 @@
+<h2> Hi <%= @reciever.name.titleize %> </h2>
+<p>
+	You are being invited by <%= @sender.name.titleize %> to attent event <%= @event.title.titleize %> on <%= @event.date.strftime('%A %d %B, %Y') %> at <%= @team.city.titleize if @team.city %> at <%= @event.time.strftime('%I:%M %p') %>
+</p>
+
+<p>
+	Are You In <br/>
+
+	<a href="<%= invitation_response_path(:token => @invitation.token, :status => 'yes') %>" class="btn btn-primary"> Yes </a>
+
+	<a href="<%= invitation_response_path(:token => @invitation.token, :status => 'maybe') %>" class="btn btn-primary"> Maybe </a>
+
+	<a href="<%= invitation_response_path(:token => @invitation.token, :status => 'no') %>" class="btn btn-primary"> No </a>
+
+
+</p>
