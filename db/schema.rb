@@ -102,6 +102,8 @@ ActiveRecord::Schema.define(version: 20150101112451) do
     t.string   "name"
     t.string   "phone"
     t.string   "gender"
+    t.string   "first_name"
+    t.string   "last_name"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "email",                  default: "", null: false

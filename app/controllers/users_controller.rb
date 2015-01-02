@@ -42,10 +42,12 @@ class UsersController < ApplicationController
 		password_length = 8
 		password = Devise.friendly_token.first(password_length)
 		team_id = params["team_id"]
-
+		byebug
 		user = User.where(:email=>params["user"]["email"]).first_or_create
 		user.update_attributes({
-			:name=>params["user"]["name"],
+			:name=>params["user"]["first_name"]+" "+params["user"]["last_name"],
+			:first_name=>params["user"]["first_name"],
+			:last_name=>params["user"]["last_name"],
 			:phone=>params["user"]["phone"],
 			:gender=>params["user"]["gender"],
 			:password=>password,
