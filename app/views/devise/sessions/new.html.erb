@@ -26,7 +26,10 @@
         <%= form_for(resource, as: resource_name, url: session_path(resource_name), :html => {:id => "form-login", :class => "animated fadeIn styled"}) do |f| %>
 
           <%= devise_error_messages! if !registration %>
+          
 
+
+          
             <div class="row form-row m-l-20 m-r-20 xs-m-l-10 xs-m-r-10">
               <div class="col-md-6 col-sm-6 ">
                 <%= f.text_field :login, :id => "email",  :class => "form-control required", :placeholder => "Email" %>
@@ -47,7 +50,7 @@
           <div class="row p-t-10 m-l-20 m-r-20 xs-m-l-10 xs-m-r-10">
             <div class="control-group col-md-10">
               <div class="checkbox checkbox check-success">
-                <a href="#">Trouble login in?</a> &nbsp;&nbsp;
+                <a href="#" class="forgot_password">Trouble login in?</a> &nbsp;&nbsp;
                 <%= f.check_box :remember_me, :id => "checkbox1", :value => "1" %>
                 <label for="checkbox1">Keep me reminded </label>
               </div>
@@ -86,6 +89,22 @@
             </div>
           </div>
         <% end %>
+
+        <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, :id => "forget_password", :class => "animated fadeIn hide-me" }) do |f| %>
+
+          <div class="row form-row m-l-20 m-r-20 xs-m-l-10 xs-m-r-10">
+            <div class="col-md-12 col-xs-12">
+              <%= f.email_field :email, :id => "email", :class => "form-control required", :placeholder => "Email" %>
+            </div>
+            <div class="col-md-12 col-xs-12">
+              <button type="submit" class="btn btn-info btn-md btn-cons" style="background-color: #4e9352;" >Send Instruction</button>
+            </div>
+
+            
+          </div>   
+        <% end %>
+
+
       </div>
         </div>   
     </div>
