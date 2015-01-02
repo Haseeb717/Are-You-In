@@ -34,4 +34,3 @@
 //= require add_player.js
 //= require player_dropzone.js
 //= require events.js
-//= require forgot_password.js
