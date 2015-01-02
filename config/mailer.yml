@@ -1,0 +1,17 @@
+defaults: &defaults
+  from: "no-reply@are-you.in"
+  username: "paksols@gmail.com"
+  password: "123jkl123jkl"
+  host:	"localhost:3000"
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  from: "no-reply@are-you.in"
+  username: "paksols@gmail.com"
+  password: "123jkl123jkl"
+  host:	"localhost:3000"

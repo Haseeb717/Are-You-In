@@ -10,6 +10,10 @@ class StaticController < ApplicationController
 	def dashboard
 	end
 
+	def invitation_response
+		
+	end
+
 	private
 	def redirect_if_current_user
 		redirect_to after_sign_in_path_for(current_user) if current_user

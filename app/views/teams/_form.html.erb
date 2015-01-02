@@ -13,7 +13,8 @@
             <h4 id="" class="semi-bold">Add a New Team.</h4>
          </div>
          <div class="modal-body">
-            <%= form_for(team, :html => { :id => "", :class => "add-team-form"}) do |f| %>
+            <% form_id = team.new_record? ? "add-team-form" : "" %>
+            <%= form_for(team, :html => { :id => form_id, :class => "add-team-form"}) do |f| %>
                <div class="form-wrap">
                   <div class="row form-row form-group">
                      <div class="col-md-12">
@@ -82,6 +83,9 @@
                            <% end %>
                         </select>
                      </div>
+                     <div class="message help-block">
+                        
+                     </div>
                   </div>
                   <div class="modal-footer">
                      <div class="row form-row">
@@ -94,7 +98,9 @@
                         <div class="col-md-5">
                            <div class="checkbox">
                               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                              <button type="submit" id="create-team" class="btn btn-primary">Create Team</button>
+                              <button type="submit" class="btn btn-primary create">
+                                 Create Team
+                              </button>
                            </div>
                         </div>
                      </div>
