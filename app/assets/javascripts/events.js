@@ -47,7 +47,6 @@ $(document).ready(function() {
 	});
 
 
-
 	$(document.body).on("click", ".run-btns button", function (event) {
 		event_id = $(".event_id", $(this).parents(".event-wrap")).val();
 		responseElement = $(this).parent().siblings(".listit");
@@ -121,4 +120,45 @@ $(document).ready(function() {
 			}
 		});
 	}
+
+
+	// remove event
+	$(document.body).on("click", ".event-remove", function(event) {
+		event.preventDefault();
+		event_id = $(this).siblings(".event_id").val();
+
+		$.ajax({
+			type: "DELETE",
+			url: "/events/" + event_id,
+			dataType: "JSON",
+			success: function (data) {
+				console.log(data);
+				// remove from UI
+				$(".event_id[value='" + event_id + "']").parents(".event-wrap.widget-item").remove();
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				console.log(XMLHttpRequest.responseText);
+			}
+		});
+	});
+
+	// update event
+	$(document.body).on("click", ".event-update", function(event) {
+		event.preventDefault();
+		event_id = $(this).siblings(".event_id").val();
+
+		$.ajax({
+			type: "DELETE",
+			url: "/events/" + event_id,
+			dataType: "JSON",
+			success: function (data) {
+				console.log(data);
+
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				console.log(XMLHttpRequest.responseText);
+			}
+		});
+	});
+	
 });

@@ -44,7 +44,7 @@
 
                                   <div class="tiles-body">
                                       <%= hidden_field_tag "team_id", @team.id %>
-                                      <h3><%= @team.name.titleize %></h3>
+                                      <h3><%= @team.name.titleize if @team.name %></h3>
                                       <p><%= "#{@team.gender && @team.gender.capitalize} #{@team.sport && @team.sport.capitalize} - Age: #{@team.age_to} - #{@team.age_from}" %> </p>
                                       
                                       <p><%= @team.city.titleize %></p>
