@@ -1,0 +1,154 @@
+<!-- for errors display -->
+<% signup_notice = request.path_parameters[:controller].include?("registrations") %>
+<% signin_notice = request.path_parameters[:controller].include?("session") %>
+<% password_reset_notice = request.path_parameters[:controller].include?("password") %>
+<% action = request.path_parameters[:action] %>
+
+<!-- for form display -->
+<% signup = signup_notice ? "" : "hide-me" %>
+<% signin = signin_notice ? "" : "hide-me" %>
+<% reset_password = "hide-me" %>
+<% new_password = "hide-me" %>
+
+<% if password_reset_notice and action == "new" %>
+	<% new_password = "" %>
+<% elsif password_reset_notice and action == "edit" %>
+	<% reset_password = "" %>
+<% elsif password_reset_notice %>
+	<% signin = "" %>
+	<% signin_notice = true %>
+<% end %>
+
+
+<div class="error-body no-top lazy login-background" data-original="/assets/login-bg-2.jpg" >
+	<div class="container">
+		<div class="row login-container animated fadeInUp">
+			<div class="col-md-7 col-md-offset-2 tiles white no-padding">
+				<a href="/" class="cancel-btn"></a>
+				<div class="p-t-30 p-l-40 p-b-20 xs-p-t-10 xs-p-l-10 xs-p-b-10"> 
+					<h2 class="normal">Sign in to are u in</h2>
+					<p> You can use 
+						<%= link_to "Facebook", user_omniauth_authorize_path(:facebook) %> 
+						, 
+						<%= link_to "Twitter", user_omniauth_authorize_path(:twitter) %> 
+						or your email to sign in.<br>
+					</p>
+					<p class="p-b-20">
+						Sign up Now! for webarch accounts, it's free and always will be..
+					</p>
+					
+					<button type="button" class="btn btn-cons" id="login_toggle">
+						Login
+					</button>
+					 or&nbsp;&nbsp;
+					<button type="button" class="btn btn-cons" id="register_toggle">
+						Create an account
+					</button>
+				</div>
+				<div class="tiles grey p-t-20 p-b-20 text-black">
+					<%= form_for(resource, as: resource_name, url: session_path(resource_name), :html => {:id => "form-login", :class => "animated fadeIn styled #{signin}"}) do |f| %>
+					<%= devise_error_messages! if signin_notice %>
+
+						<div class="row form-row m-l-20 m-r-20 xs-m-l-10 xs-m-r-10">
+							<div class="col-md-6 col-sm-6 ">
+								<%= f.text_field :login, :id => "email", :class => "form-control required", :placeholder => "Email" %>
+							</div>
+							<div class="col-md-6 col-sm-6">
+								<%= f.password_field :password, autocomplete: "off", :id => "login_pass", :class => "form-control required", :placeholder => "Password" %>
+							</div>
+						</div>
+
+						<div class="row form-row m-l-20 m-r-20 xs-m-l-10 xs-m-r-10">
+							<div class="col-md-12 ">
+								<button type="submit" class="btn btn-primary btn-md btn-cons">
+									Login
+								</button>
+							</div>
+						</div>
+
+						<div class="row p-t-10 m-l-20 m-r-20 xs-m-l-10 xs-m-r-10">
+							<div class="control-group col-md-10">
+								<div class="checkbox checkbox check-success">
+									<a href="#" id="forgot_toggle">
+										Trouble login in?
+									</a>
+									&nbsp;&nbsp;
+									<%= f.check_box :remember_me, :id => "checkbox1", :value => "1" %>
+									<label for="checkbox1">Keep me reminded </label>
+								</div>
+							</div>
+						</div>
+					<% end %>
+
+					<%= form_for(resource, as: resource_name, url: registration_path(resource_name), :html => { :id => "form-register", :class => "animated fadeIn #{signup}" }) do |f| %>
+
+						<%= devise_error_messages! if signup_notice %>
+
+						<div class="row form-row m-l-20 m-r-20 xs-m-l-10 xs-m-r-10">
+							<div class="col-md-4 col-xs-12">
+								<%= f.text_field :name, :id => "name", :class => "form-control required", :placeholder => "Name" %>
+							</div>
+							<div class="col-md-4 col-xs-12">
+								<%= f.email_field :email, :id => "reg_mail", :class => "form-control required", :placeholder => "Email" %>
+							</div>
+
+							<div class="col-md-4 col-xs-12">
+								<%= f.text_field :phone, :id => "phone", :"data-parsley-type" => "number", :class => "form-control required", :placeholder => "Phone" %>
+							</div>
+							<div class="col-md-4 col-xs-12">
+								<%= f.password_field :password, autocomplete: "off", :id => "reg_pass", :class => "form-control required", :placeholder => "Password" %>
+							</div>
+
+							<div class="col-md-4 col-xs-12">
+								<%= f.password_field :password_confirmation, autocomplete: "off", :id => "reg_pass", :class => "form-control required", :placeholder => "Confirm Password" %>
+							</div>
+						</div>
+						<div class="row form-row m-l-20 m-r-20 xs-m-l-10 xs-m-r-10">
+							<div class="col-md-12 ">
+								<button type="submit" class="btn btn-info btn-md btn-cons">
+									Join us, Free
+								</button>
+							</div>
+						</div>
+					<% end %>
+
+					<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, :id => "form-forgot-password", :class => "animated fadeIn #{new_password}" }) do |f| %>
+					
+					<%= devise_error_messages! if password_reset_notice %>
+
+						<div class="row form-row m-l-20 m-r-20 xs-m-l-10 xs-m-r-10">
+							<div class="col-md-12 col-xs-12">
+								<%= f.email_field :email, :id => "email", :class => "form-control required", :placeholder => "Email" %>
+							</div>
+							<div class="col-md-12 col-xs-12">
+								<button type="submit" class="btn btn-success btn-md btn-cons" >
+									Send Instruction
+								</button>
+							</div>
+						</div>
+					<% end %>
+
+					<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, :id => "form-new-password", :class => "animated fadeIn #{reset_password}" }) do |f| %>
+					<%= devise_error_messages! if password_reset_notice %>
+						<%= f.hidden_field :reset_password_token %>
+
+						<div class="row form-row m-l-20 m-r-20 xs-m-l-10 xs-m-r-10">
+							<div class="col-md-12 col-xs-12">
+								<%= f.password_field :password, :class => "form-control required", :placeholder => "Password" %>
+							</div>
+							<div class="col-md-12 col-xs-12">
+								<%= f.password_field :password_confirmation, :class => "form-control required", :placeholder => "Confirm Password" %>
+							</div>
+
+							<div class="col-md-12 col-xs-12">
+								<button type="submit" class="btn btn-success btn-md btn-cons" >
+									Change my password
+								</button>
+							</div>
+						</div>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
