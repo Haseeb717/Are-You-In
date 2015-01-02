@@ -19,4 +19,8 @@ class Event < ActiveRecord::Base
 		self.rsvps.maybe.collect{|rsvp| rsvp.user.name}.join(", ")
 	end
 
+	def is_admin?(user)
+		self.team.is_admin?(user)
+	end
+
 end
