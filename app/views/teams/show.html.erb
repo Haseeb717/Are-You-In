@@ -31,10 +31,11 @@
                                           </div>
                                       </div>
                                   </div>
+                                  
                                   <img src="<%= @team_avatar && @team_avatar.avatar.url %>" alt="" class="lazy hover-effect-img image-responsive-width">
                               </div>
                               <div class="tiles white team-profile">
-                                  <% if @team.is_admin?(current_user) %>
+                                  <% if @team.admin?(current_user) %>
                                     <div class="controller pull-right"> 
                                       <a data-toggle="modal" data-target="#add_team<%=@team.id%>" class="add-team-modal edit" href="#">
                                         <i class="fa fa-pencil-square-o"></i> edit

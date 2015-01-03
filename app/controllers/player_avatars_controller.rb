@@ -1,12 +1,7 @@
 class PlayerAvatarsController < ApplicationController
 	before_filter :player_avatar_params, :only => [:create]
 
-	def new
-		@player_avatar = PlayerAvatar.new
-	end
-
 	def create
-		puts "create"
 		@player_avatar = PlayerAvatar.create(player_avatar_params)
 		if @player_avatar.save
 			# send success header

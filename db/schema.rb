@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 20150101112451) do
 
   create_table "team_avatars", force: true do |t|
     t.integer  "team_id"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "avatar_file_name"
@@ -102,6 +103,8 @@ ActiveRecord::Schema.define(version: 20150101112451) do
     t.string   "name"
     t.string   "phone"
     t.string   "gender"
+    t.string   "first_name"
+    t.string   "last_name"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "email",                  default: "", null: false

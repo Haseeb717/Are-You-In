@@ -1,0 +1,13 @@
+<% unless team_avatar.new_record? %>
+	<input type="hidden" class="team_id" name="team_id" value="<%= team_avatar.team.id %>">
+	<input type="hidden" class="avatar_path" name="avatar_path" value="<%= team_avatar.avatar.url %>">
+	<input type="hidden" class="size" name="size" value="<%= File.size(Pathname.new(team_avatar.avatar.path)) %>">
+	<input type="hidden" class="name" name="name" value="<%= team_avatar.avatar.instance.avatar_file_name %>">
+<% end %>
+
+<%= form_for(team_avatar, html: { multipart: true, class: "dropzone team-pic no-margin team-avatar"}) do |f|  %>
+	<i class="fa fa-users fa-7x"></i>
+	<div class="fallback">
+    	<%= f.file_field :avatar %>
+	</div>
+<% end %>

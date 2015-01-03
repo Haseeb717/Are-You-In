@@ -30,8 +30,8 @@
 //= require jquery-lazyload/jquery.lazyload.min.js
 //= require login_v2.js
 
-//= require player_avatars.js
-//= require add_player.js
-//= require player_dropzone.js
-//= require events.js
 //= require teams.js
+//= require team_avatars.js
+//= require events.js
+//= require players.js
+//= require player_avatars.js

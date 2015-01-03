@@ -1,119 +1,24 @@
 $(document).ready(function() {
 
 	// ajax start and ajax end, to show loading etc
-
 	$("#loading").show(); 
 	$("#loading").hide();
 
 });
 
-
-
-  // Add another Team function
-
-  $( ".add-another" ).click(function() {
-
-	 $( ".form-wrap" ).show( "slow", function() {
-
+// Add another Team function
+$( ".add-another" ).click(function() {
+	$( ".form-wrap" ).show( "slow", function() {
 		$(".form-wrap").each (function(){
-		  $(this).reset();
-		  $(".select2-container").select2("val", "");
+			$(this).reset();
+			$(".select2-container").select2("val", "");
 		});
+	});
 
-	  });					 
-	 $( "#status" ).hide( "slow", function() {
+	$( "#status" ).hide( "slow", function() {
 		// Animation complete.
-	  });
-
-  });
-
-
-// creates a modal from button
-
-	// $(".source-code").each(function(index){
-	//	 var $section = $(this);
-	//	 var code = $(this).html().replace("<!--", "").replace("-->", "");
-				
-	//	 // Run code
-	//	 if($section.hasClass("in")){
-	//		 var $button = $("<div class="slide-primary"><input type="checkbox" name="switch" class="ios" checked="checked"/></div>");
-	//		 $button.on("click", {code: code}, function(event){
-	//			 eval(event.data.code);
-	//		 });
-	//		 $button.insertAfter($section);
-
-	//		 var Switch = require("ios7-switch")
-	//				 , checkbox = $button.find(".ios")[0]
-	//				 , mySwitch = new Switch(checkbox);
-	//		  mySwitch.toggle();
-	//			   mySwitch.el.addEventListener("click", function(e){
-	//				 e.preventDefault();
-	//				 mySwitch.toggle();
-	//			   }, false);
-
-	//	 }
-	// });
-
-
-	// $(".source-code").each(function(index){
-	//	 var $section = $(this);
-	//	 var code = $(this).html().replace("<!--", "").replace("-->", "");
-				
-	//	 // Run code
-	//	 if($section.hasClass("maybe")){
-	//		 var $button = $("<a href="#">Not sure yet, remind me again</a>");
-	//		 $button.on("click", {code: code}, function(event){
-	//			 eval(event.data.code);
-	//		 });
-	//		 $button.insertAfter($section);
-	//	 }
-	// });
-
-
-	// // IN event fired
-	// $(".source-code").each(function(index){
-	//	 var $section = $(this);
-	//	 var code = $(this).html().replace("<!--", "").replace("-->", "");
-				
-	//	 // Run code
-	//	 if($section.hasClass("toggle-in")){
-	//		 var $button = $("<button class="btn first in-btn">In</button>");
-	//		 $button.on("click", {code: code}, function(event){
-	//			 eval(event.data.code);
-	//			 // $(".event_id", $(this).closest(".event-wrap")).val();
-	//		 });
-	//		 $button.insertAfter($section);
-	//	 }
-	// });
-
-	// $(".source-code").each(function(index){
-	//	 var $section = $(this);
-	//	 var code = $(this).html().replace("<!--", "").replace("-->", "");
-				
-	//	 // Run code
-	//	 if($section.hasClass("toggle-maybe")){
-	//		 var $button = $("<button class="btn maybe-btn">Maybe</button>");
-	//		 $button.on("click", {code: code}, function(event){
-	//			 eval(event.data.code);
-	//		 });
-	//		 $button.insertAfter($section);
-	//	 }
-	// });
-
-	// $(".source-code").each(function(index){
-	//	 var $section = $(this);
-	//	 var code = $(this).html().replace("<!--", "").replace("-->", "");
-				
-	//	 // Run code
-	//	 if($section.hasClass("toggle-out")){
-	//		 var $button = $("<button class="btn out-btn">Out</button>");
-	//		 $button.on("click", {code: code}, function(event){
-	//			 eval(event.data.code);
-	//		 });
-	//		 $button.insertAfter($section);
-	//	 }
-	// });
-
+	});
+});
 
 
 	// Show and Hide Age Drop Downs for Add Team modal

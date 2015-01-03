@@ -6,9 +6,12 @@ class User < ActiveRecord::Base
 
 	has_many :identities, :dependent => :destroy
 	has_and_belongs_to_many :teams
+	has_many :team_avatars, :dependent => :destroy
 	has_many :player_avatars, :dependent => :destroy
 	has_many :event_invitations, :dependent => :destroy
 	has_many :rsvps, :dependent => :destroy
+
+	before_save { |user| user.name = user.first_name + user.last_name if user.name == "" }
 	
 	attr_accessor :login
 

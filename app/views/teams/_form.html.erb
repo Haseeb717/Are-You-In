@@ -6,13 +6,12 @@
 					×
 				</button>
 				
-				<%= form_for(team_avatar, html: { multipart: true, class: "dropzone team-pic no-margin team-avatar"}) do |f|  %>
-					<i class="fa fa-users fa-7x"></i>
-					
-					<div class="fallback">
-						<%= f.file_field :avatar %>
-					</div>
+				<% if team_avatar.new_record? %>
+					<%= render :partial => "team_avatars/form", :locals => {:team_avatar => team_avatar } %>
+				<% else %>
+					<%= render :partial => "team_avatars/show", :locals => {:team_avatar => team_avatar } %>
 				<% end %>
+
 				<h4 id="" class="semi-bold">Add a New Team.</h4>
 			</div>
 
@@ -131,9 +130,13 @@
 						</div>
 					</div>
 				<% end %>
-				<div id="status">
-					<%= render :partial => "teams/team_status", :locals => { :team => team } %>
-				</div>
+
+				<% if team.new_record? %>
+					<div id="status">
+						<%= render :partial => "teams/team_status", :locals => { :team => team } %>
+					</div>
+				<% end %>
+
 			</div>
 			<!-- /.modal-content -->
 		</div>

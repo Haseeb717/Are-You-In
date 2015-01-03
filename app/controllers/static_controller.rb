@@ -11,7 +11,22 @@ class StaticController < ApplicationController
 	end
 
 	def invitation_response
-		
+		@invitation = EventInvitation.where(:token => params[:token]).first
+		status = params[:status]
+
+		if @invitation
+			@rsvp = @invitation.event.rsvps.user_rvsp(@invitation.reciever).first_or_initialize
+			if @rsvps and Rsvp.states.include?(states.downcase)
+				@rsvps.update_attributes(:response => status.downcase)
+				@invitation.update_attributes(:respond_at => Time.now)
+			end
+
+			if invitation.reciever != current_user
+				sign_out current_user
+			end
+		else
+
+		end
 	end
 
 	private

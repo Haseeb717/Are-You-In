@@ -9,8 +9,9 @@ class EventInvitationMailer < ActionMailer::Base
 		@reciever = invitation.reciever
 		@event = invitation.event
 		@team = @event.team
+		name = (@reciever.name || @reciever.first_name).titleize
 		
-		mail(:to => "#{@reciever.name.titleize} <#{@reciever.email}>", :subject => "#{@sender.name.titleize} has invited you on #{@event.title.titleize}")
+		mail(:to => "#{name} <#{@reciever.email}>", :subject => "#{@sender.name.titleize} has invited you on #{@event.title.titleize}")
 	end
 
 

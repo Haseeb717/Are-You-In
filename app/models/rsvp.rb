@@ -9,5 +9,9 @@ class Rsvp < ActiveRecord::Base
 	scope :maybe, -> { where(:response => "maybe") }
 	scope :out, -> { where(:response => "out") }
 
+	def self.states
+		["in", "maybe", "out"]
+	end
+
 	# scope :rsvp, lambda { |user_id, team_id| where(:user_id => user_id, :team_id => team_id)  }
 end

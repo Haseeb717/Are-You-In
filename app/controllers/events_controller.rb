@@ -66,13 +66,12 @@ class EventsController < ApplicationController
 		begin
 			if @event.errors.empty?
 				@event.team.users.each do |user|
-					unless @event.team.is_admin?(user)
+					unless @event.team.admin?(user)
 						invitation = EventInvitation.create(:sender => current_user,
 							:reciever => user,
 							:event => @event,
 							:token => Digest::MD5.hexdigest(current_user.email + user.email + @event.id.to_s + Time.now.to_s)
 						)
-						debugger
 						EventInvitationMailer.send_invitation(invitation).deliver!
 					end
 				end

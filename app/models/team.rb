@@ -9,7 +9,7 @@ class Team < ActiveRecord::Base
 	validates_presence_of :sport
 	validates :city, :presence => true
 
-	def is_admin?(user)
+	def admin?(user)
 		self.admin == user
 	end
 end

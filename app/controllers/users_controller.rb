@@ -36,38 +36,6 @@ class UsersController < ApplicationController
 		respond_with(@user)
 	end
 
-	def player
-		
-
-		password_length = 8
-		password = Devise.friendly_token.first(password_length)
-		team_id = params["team_id"]
-		byebug
-		user = User.where(:email=>params["user"]["email"]).first_or_create
-		user.update_attributes({
-			:name=>params["user"]["first_name"]+" "+params["user"]["last_name"],
-			:first_name=>params["user"]["first_name"],
-			:last_name=>params["user"]["last_name"],
-			:phone=>params["user"]["phone"],
-			:gender=>params["user"]["gender"],
-			:password=>password,
-			:password_confirmation => password
-					
-		})
-		
-		unless params["player_avatar_id"] == "null" || params["player_avatar_id"] == "undefined"
-        	player_avatar = PlayerAvatar.find(params["player_avatar_id"])
-        	byebug
-        	user.player_avatars << player_avatar
-      	end
-      	
-		team = Team.find(team_id)
-		user.teams << team
-		@ab = "Player Added"
-		render :json => @ab
-	end
-
-
 	private
 		def set_user
 			@user = User.find(params[:id])

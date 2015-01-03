@@ -4,6 +4,7 @@ class TeamAvatarsController < ApplicationController
 	def create
 		@team_avatar = TeamAvatar.create(team_avatar_params)
 		if @team_avatar.save
+			current_user.team_avatars << @team_avatar
 			# send success header
 			render json: { message: "success", fileID: @team_avatar.id }, :status => 200
 		else
@@ -14,8 +15,9 @@ class TeamAvatarsController < ApplicationController
 
 	def destroy
 		@team_avatar = TeamAvatar.find(params[:id])
-		if @team_avatar.destroy
-			render json: { message: "File deleted from server" }
+		if @team_avatar.user == current_user && @team_avatar.destroy
+			html = render_to_string(:partial => "team_avatars/form", :locals => { :team_avatar => TeamAvatar.new }, :layout => false )
+			render json: { message: "File deleted from server", :design => html }
 		else
 			render json: { message: @team_avatar.errors.full_messages.join(',') }
 		end

@@ -1,9 +1,25 @@
-$(document).ready(function() {
+$(document).ready(function(){
+	// disable auto discover
+	Dropzone.autoDiscover = false;
+	applyDropZoneToTeamAvatars();
 
-	applyDropZoneToPlayerAvatars();
+	$(document.body).on("click", ".remove-team-avatar", function () {
+		id = $(this).attr("id");
+		// make a DELETE ajax request to delete the file
+		$.ajax({
+			type: "DELETE",
+			url: "/team_avatars/" + id,
+			success: function(data) {
+				$(".display-team-avatar").replaceWith(data.design);
+				console.log(data.message);
+				applyDropZoneToTeamAvatars();
+			}
+		});
+	});
 
-	function applyDropZoneToPlayerAvatars() {
-		$("#player-avatar").dropzone({
+	function applyDropZoneToTeamAvatars() {
+		// grap our upload form by its id
+		$(".team-avatar").dropzone({
 			// maximum number of files to upload
 			// still get attached problem
 			maxFiles: 1,
@@ -11,7 +27,7 @@ $(document).ready(function() {
 			maxFilesize: 1,
 			// changed the passed param to one accepted by
 			// our rails app
-			paramName: "player_avatar[avatar]",
+			paramName: "team_avatar[avatar]",
 			// show remove links on each image upload
 			addRemoveLinks: true,
 			// if the upload was successful
@@ -31,8 +47,8 @@ $(document).ready(function() {
 				// make a DELETE ajax request to delete the file
 				$.ajax({
 					type: "DELETE",
-					url: "/player_avatars/" + id,
-					success: function(data){
+					url: "/team_avatars/" + id,
+					success: function(data) {
 
 						$(".dz-preview").remove();
 						console.log(data.message);
@@ -41,4 +57,5 @@ $(document).ready(function() {
 			}
 		});
 	}
+
 });

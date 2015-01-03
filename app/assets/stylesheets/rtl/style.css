@@ -1926,7 +1926,7 @@ span.iconset {
   display: block;
 }
 .iconset {
-  background: url("..//assets-app/img/icon/top-tray.png") no-repeat;
+  background: url("../assets/icon/top-tray.png") no-repeat;
   position: relative;
   top: 1px;
 }

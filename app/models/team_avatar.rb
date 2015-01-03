@@ -1,9 +1,10 @@
 class TeamAvatar < ActiveRecord::Base
 	belongs_to :team
+	belongs_to :user
 	
 	has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" },
 					  :path => ":rails_root/public/team/:id/:style/:basename.:extension",
-					  :url => "/avatar/:id/:style/:basename.:extension"
+					  :url => "/team/:id/:style/:basename.:extension"
 	
 	validates_attachment :avatar, 
 		:presence => true,
