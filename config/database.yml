@@ -22,7 +22,7 @@ test:
 
 production:
   adapter: mysql2
-  database: rails
+  database: run_db
   host: localhost
   username: rails
   password: jKy5txaiPX
