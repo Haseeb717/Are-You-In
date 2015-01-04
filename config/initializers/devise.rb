@@ -4,7 +4,7 @@ Devise.setup do |config|
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
-  # config.secret_key = 'f0de3c98fd2ee8ebb30b538810fe8c570a6ba6fecd263477105c100d5600ba05bf42c7b230a17e9531a1aa23b1d875648cc9a4e901a11b5b8c53116ed009607a'
+  config.secret_key = "7eef85fec80280d267caa0d0595e520e027094853e87e0884b20cf0d9aab0dc09b914062d3d0ca374b75776514492e596d5225b0274a1a64a00a5bfbf83c6783"
 
   config.omniauth :facebook, FACEBOOK_CONFIG[:app_id], FACEBOOK_CONFIG[:app_secret], { scope: "email,user_about_me,user_birthday,user_education_history,user_friends,user_hometown,user_location,user_notes,user_work_history,friends_about_me,friends_birthday,friends_education_history,friends_hometown,friends_location,friends_notes,friends_work_history", :client_options => {:ssl => {:ca_path => '/etc/ssl/certs'}}}
   config.omniauth :twitter, TWITTER_CONFIG[:app_id], TWITTER_CONFIG[:app_secret]
