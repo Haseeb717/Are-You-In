@@ -1,6 +1,3 @@
-©/*!
-* direction.less v0.1.0
-*/
 @media only screen and (min-width: 1824px) {
   body {
     height: 100%;
@@ -1041,7 +1038,7 @@
     padding-right: 8px !important;
   }
 }
-/*** Retina Display Images **/
+
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 200/100), only screen and (min-device-pixel-ratio: 2) {
   .grid.simple .grid-title .tools a {
     background: url('/assets-app/img/icon/portlet-tray-2x.png');
