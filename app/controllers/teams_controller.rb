@@ -87,6 +87,8 @@ class TeamsController < ApplicationController
 					password = Devise.friendly_token.first(8)
 					user.assign_attributes(:password => password, :password_confirmation => password)
 					user.save!
+
+					UserMailer.registration_request(current_user, user, password).deliver!
 				end
 
 				@team.users << user unless @team.users.include?(user)
@@ -96,6 +98,7 @@ class TeamsController < ApplicationController
 					player_avatar = PlayerAvatar.find(params[:player_avatar_id])
 					user.player_avatars << player_avatar
 				end
+
 
 				design = render_to_string(:partial => "teams/team_players", :locals => { :team => @team }, :layout => false )
 				render json: { :message => "Player #{user.email} has been successfully added.", :design => design }, :status => 200

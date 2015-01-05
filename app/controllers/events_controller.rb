@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
 	before_action :set_event, only: [:show, :edit, :update, :destroy, :rsvp]
-	after_action :send_invitations, :only => [:create]
+	after_action :invite_players, :only => [:create]
 
 	respond_to :html
 
@@ -62,7 +62,7 @@ class EventsController < ApplicationController
 	end
 
 	private
-	def send_invitations
+	def invite_players
 		begin
 			if @event.errors.empty?
 				@event.team.users.each do |user|

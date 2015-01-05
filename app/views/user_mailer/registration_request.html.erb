@@ -1,0 +1,14 @@
+<p> Hi <%= (@reciever.name || @reciever.first_name).titleize %> </p>
+<p>
+	You are being invited by <%= @sender.name.titleize %> to become a player of this system.
+	Your data is:-
+	<ul>
+		<li>First Name: <%= @reciever.first_name %></li>
+		<li>Last Name: <%= @reciever.last_name %></li>
+		<li>Phone: <%= @reciever.phone %></li>
+		<li>Temporary Password: <%= @password %></li>
+		<li><%= link_to "sign-in", root_url %></li>
+	</ul>
+	
+</p>
+
