@@ -1,0 +1,29 @@
+<div class="title-header">
+	<div class="controller pull-right">
+		<a data-toggle="modal" data-target="#add_player" href="#" class="">
+			<i class="fa fa-plus-circle"> </i> Add Player
+		</a>
+	</div>
+	
+	<div class="tiles-title"> TEAM </div>
+</div>
+
+<% team.users.each do |player| %>
+	<% pic = player.player_avatars.empty? ? "/users/missing.png" : player.player_avatars.last.avatar(:thumb) %>
+	<a class="team-member" href="<%= user_path(player) %>">
+		<div class="friend-profile-pic">
+			<div class="user-profile-pic-normal">
+				<img width="35" height="35" src="<%= pic %>" data-src="<%= pic %>" data-src-retina="<%= pic %>" alt="">
+			</div>
+		</div>
+		<div class="friend-details-wrapper">
+			<div class="friend-name">
+				<%= player.name.titleize if player.name %>
+			</div>
+			<div class="friend-description">
+				<%= player.email %>
+			</div>
+		</div>
+	</a>
+<% end %>
+<div class="clearfix"></div>
