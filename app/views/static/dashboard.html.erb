@@ -1,14 +1,12 @@
-<%= render :partial => "layouts/dashboard_header" %>
+<%= render :partial => "layouts/header" %>
 
 <!-- BEGIN CONTENT -->
 <div class="page-container row-fluid">
-
 	<?php include 'inc/app_snp_leftnav.php';?>
 
 	<!-- BEGIN PAGE CONTAINER-->
 	<div class="page-content">
 		<div class="content dashboard m-b-10">
-
 			<div class="row">
 				<div class="col-md-4 col-sm-12 col-lg-3 m-b-15">
 					<select id="source" style="width:100%;">
@@ -23,22 +21,19 @@
 			<div class="row">
 				<div class="col-md-6 col-sm-12">
 					<div class="visibleoverflow transparent">
-
 						<% @events.each do |group| %>
-						<% date = group.first %>
-						<% events = group.last %>
-						<div class="cal-day">
-							<h3>
-								<%= date.strftime("%A, %b #{group.first.day.ordinalize}") %>
-							</h3>
-									
-							<% events.each do |event| %>
-								<%= render :partial => "events/event_details", :locals => { :event => event } %>
-
-								<%= render :partial => "events/form", :locals => { :event => event } %>
-
-							<% end %>
-						</div>
+							<% date = group.first %>
+							<% events = group.last %>
+							<div class="cal-day">
+								<h3>
+									<%= date.strftime("%A, %b #{group.first.day.ordinalize}") %>
+								</h3>
+										
+								<% events.each do |event| %>
+									<%= render :partial => "events/event_details", :locals => { :event => event } %>
+									<%= render :partial => "events/form", :locals => { :event => event } %>
+								<% end %>
+							</div>
 						<% end %>
 					</div>
 				</div>

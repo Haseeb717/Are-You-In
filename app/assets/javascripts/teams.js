@@ -8,7 +8,7 @@ $(document).ready(function() {
 			validating: "glyphicon glyphicon-refresh"
 		},
 		fields: {
-			team_name: { validators: { notEmpty: { message: "The team name is required" }, stringLength: { min: 5, message: "The length of team name should be greate then 5." } } },
+			team_name: { validators: { notEmpty: { message: "The team name is required" }, stringLength: { min: 5, message: "The length of team name should be greater or equal to 5." } } },
 			sport: { validators: { notEmpty: { message: "The sport is required" } } },
 			city: { validators: { notEmpty: { message: "The city is required" } } }
 		}
@@ -131,8 +131,8 @@ $(document).ready(function() {
 	});
 
 	$("#add_team").on("hidden.bs.modal", function(event) {
+		// renew team form
 
-		// renew form
 		$.ajax({
 			type: "GET",
 			url: "/teams/new",
@@ -148,5 +148,4 @@ $(document).ready(function() {
 			}
 		});
 	});
-
 });
