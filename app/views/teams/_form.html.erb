@@ -17,8 +17,7 @@
 			</div>
 
 			<div class="modal-body">
-				<% form_id = team.new_record? ? "add-team-form" : "" %>
-				<%= form_for(team, :html => { :id => form_id, :class => "add-team-form"}) do |f| %>
+				<%= form_for(team, :html => { :id => "add-team-form#{team.id}", :class => "add-team-form"}) do |f| %>
 					<div class="form-wrap">
 						<div class="row form-row form-group">
 							<div class="col-md-12">
@@ -123,7 +122,7 @@
 												Delete Team
 											</button>
 
-											<button type="button" class="btn btn-success team-update">
+											<button type="submit" class="btn btn-success team-update" data-dismiss="modal">
 												Update Team
 											</button>
 										<% end %>

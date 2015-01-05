@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	// form validation fields
 	// insert new team on successfull validation
-	$("#add-team-form").bootstrapValidator({
+	$(".add-team-form").bootstrapValidator({
 		feedbackIcons: {
 			valid: "glyphicon glyphicon-ok",
 			invalid: "glyphicon glyphicon-remove",
@@ -35,7 +35,8 @@ $(document).ready(function() {
 			dataType: "JSON",
 			data: postData,
 			success: function (data) {
-				console.log(data);
+				// console.log(data);
+
 				$("#add-team-form .form-wrap").hide( "slow", function() {
 					// Animation complete.
 				});
@@ -44,8 +45,8 @@ $(document).ready(function() {
 				$("#status").show();
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				// console.log(response);
 				response = JSON.parse(XMLHttpRequest.responseText);
-				console.log(response);
 
 				$("#add-team-form .create").removeAttr("disabled");
 				$("#add-team-form .message").html(response.error);
@@ -73,24 +74,54 @@ $(document).ready(function() {
 		});
 	});
 
+
+	// update form validator
 	// Update Team
-	$(document.body).on("click", ".team-update", function(event) {
-		event.preventDefault();
+	$(".add-team-form").each(function() {
+		// new form will be handled above by another function
+		if ($(this).attr("id") != "add-team-form") {
+			
+			$(this).bootstrapValidator({
+				feedbackIcons: {
+					valid: "glyphicon glyphicon-ok",
+					invalid: "glyphicon glyphicon-remove",
+					validating: "glyphicon glyphicon-refresh"
+				},
+				fields: {
+					team_name: { validators: { notEmpty: { message: "The team name is required" }, stringLength: { min: 5, message: "The length of team name should be greate then 5." } } },
+					sport: { validators: { notEmpty: { message: "The sport is required" } } },
+					city: { validators: { notEmpty: { message: "The city is required" } } }
+				}
+			}).on("success.form.bv", function(event) {
+				event.preventDefault();
 
-		team_id = $(this).siblings(".team_id").val();
+				team_id = $(this).attr("action").slice(-1);
+				avatar_form = $("form", $(this).parents(".team-modal")).eq(0);
 
-		$.ajax({
-			type: "PUT",
-			url: "/teams/" + team_id,
-			dataType: "JSON",
-			success: function (data) {
-				console.log(data);
-				window.location = "/";
-			},
-			error: function(XMLHttpRequest, textStatus, errorThrown) {
-				console.log(XMLHttpRequest.responseText);
-			}
-		});
+				// team image if any
+				avatar = $(".dz-remove", avatar_form).attr("id");
+				if (avatar == null || avatar == undefined)
+					avatar = null;
+
+				// append team avatar in post request
+				postData = $(this).serialize().replace("team_name", "name") + "&team_avatar_id=" + avatar;
+
+				$.ajax({
+					type: "PUT",
+					url: "/teams/" + team_id,
+					dataType: "JSON",
+					data: postData,
+					success: function (data) {
+						console.log(data);
+
+
+					},
+					error: function(XMLHttpRequest, textStatus, errorThrown) {
+						console.log(XMLHttpRequest.responseText);
+					}
+				});
+			});
+		}
 	});
 
 	// Show and Hide Age Drop Downs for Add Team modal

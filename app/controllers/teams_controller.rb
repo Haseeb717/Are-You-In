@@ -47,8 +47,22 @@ class TeamsController < ApplicationController
 	end
 
 	def update
-		@team.update(team_params)
-		respond_with(@team)
+		begin
+			if @team.admin?(current_user)
+				@team.update(team_params)
+
+				unless params[:team_avatar_id] == "null" || params[:team_avatar_id] == "undefined" || params[:team_avatar_id].nil?
+					team_avatar = TeamAvatar.find(params[:team_avatar_id])
+					@team.team_avatars << team_avatar
+				end
+				
+				render json: { :message => "Team #{@team.name.titleize} updated successfully." }, :status => 200
+			else
+				render json: { :alert => "You don't have permissions to update team #{@team.name.titleize}." }, :status => 200
+			end			
+		rescue Exception => ex
+			render json: { :error => ex.message }, :status => 400
+		end
 	end
 
 	def destroy
