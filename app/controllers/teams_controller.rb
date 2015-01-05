@@ -39,8 +39,7 @@ class TeamsController < ApplicationController
 				@team.team_avatars << team_avatar
 			end
 
-			design = render_to_string(:partial => "teams/team_status", :locals => { :team => @team }, :layout => false )
-			render json: { :design => design }, :status => 200
+			render json: { :team => @team }, :status => 200
 		else
 			render json: { error: @team.errors.full_messages.join(',')}, :status => 400
 		end

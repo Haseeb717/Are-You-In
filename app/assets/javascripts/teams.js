@@ -37,12 +37,8 @@ $(document).ready(function() {
 			success: function (data) {
 				// console.log(data);
 
-				$("#add-team-form .form-wrap").hide( "slow", function() {
-					// Animation complete.
-				});
-
-				$("#status").html(data.design);
-				$("#status").show();
+				// redirect to team page
+				window.location = "/teams/" + data.team.id;
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
 				// console.log(response);

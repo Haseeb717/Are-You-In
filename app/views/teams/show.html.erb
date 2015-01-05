@@ -8,84 +8,79 @@
 	<!-- BEGIN PAGE CONTAINER-->
 	<div class="page-content">
 		<div class="content">
-
-		  <div class="row">
-			  <div class="col-md-3">
-
-				  <div class="row team-info">
-
-
-					  <div class="col-xs-12 m-b-20">
-
-						  <div class="widget-item narrow-margin">
-							  <div class="tiles green  overflow-hidden full-height" style="max-height:214px">
-								  <div class="overlayer bottom-right fullwidth">
-									  <div class="overlayer-wrapper">
-										  <div class="tiles gradient-black p-l-20 p-r-20 p-b-20 p-t-20">
-											  <div class="pull-right">
+			<div class="row">
+				<div class="col-md-3">
+					<div class="row team-info">
+						<div class="col-xs-12 m-b-20">
+							<div class="widget-item narrow-margin">
+								<div class="tiles green overflow-hidden full-height" style="max-height:214px">
+									<div class="overlayer bottom-right fullwidth">
+										<div class="overlayer-wrapper">
+										 <div class="tiles gradient-black p-l-20 p-r-20 p-b-20 p-t-20">
+											 <div class="pull-right">
 												<a href="#" class="hashtags transparent">
-												  <%= "##{@team.sport.downcase}" %>
+												 <%= "##{@team.sport.downcase}" %>
 												</a> 
-											  </div>
-											  <div class="clearfix"></div>
-										  </div>
-									  </div>
-								  </div>
-								  
-								  <img src="<%= @team_avatar && @team_avatar.avatar.url(:thumb) %>" alt="" class="lazy hover-effect-img image-responsive-width">
-							  </div>
-							  <div class="tiles white team-profile">
-								  <% if @team.admin?(current_user) %>
+											 </div>
+											 <div class="clearfix"></div>
+										 </div>
+									 </div>
+								 </div>
+								 
+								 <img src="<%= @team_avatar && @team_avatar.avatar.url(:thumb) %>" alt="" class="lazy hover-effect-img image-responsive-width">
+							 </div>
+							 <div class="tiles white team-profile">
+								 <% if @team.admin?(current_user) %>
 									<div class="controller pull-right"> 
-									  <a data-toggle="modal" data-target="#add_team<%=@team.id%>" class="add-team-modal edit" href="#">
+									 <a data-toggle="modal" data-target="#add_team<%=@team.id%>" class="add-team-modal edit" href="#">
 										<i class="fa fa-pencil-square-o"></i> edit
-									  </a> 
+									 </a> 
 									</div>
-								  <% end %>
+								 <% end %>
 
-								  <div class="tiles-body">
-									  <%= hidden_field_tag "team_id", @team.id %>
-									  <h3><%= @team.name.titleize if @team.name %></h3>
-									  <p><%= "#{@team.gender && @team.gender.capitalize} #{@team.sport && @team.sport.capitalize} - Age: #{@team.age_to} - #{@team.age_from}" %> </p>
-									  
-									  <p><%= @team.city.titleize %></p>
-								  </div>
-							  </div>
-						  </div>
+								 <div class="tiles-body">
+									 <%= hidden_field_tag "team_id", @team.id %>
+									 <h3><%= @team.name.titleize if @team.name %></h3>
+									 <p><%= "#{@team.gender && @team.gender.capitalize} #{@team.sport && @team.sport.capitalize} - Age: #{@team.age_to} - #{@team.age_from}" %> </p>
+									 
+									 <p><%= @team.city.titleize %></p>
+								 </div>
+							 </div>
+						 </div>
 
-					  </div>
+					 </div>
 
-					  <div class="col-xs-12 m-b-5">
+					 <div class="col-xs-12 m-b-5">
 
-						  <div class="widget-item narrow-margin">
+						 <div class="widget-item narrow-margin">
 
-							  <div class="tiles white ">
-								  <div class="controller pull-right"> 
+							 <div class="tiles white ">
+								 <div class="controller pull-right"> 
 									<a href="javascript:;" class="edit"><i class="fa fa-pencil-square-o"></i> edit</a> 
-								  </div>
+								 </div>
 
-								  <div class="tiles-body">
-									  <div class="row">
-										  <div class="user-comment-wrapper pull-left">
-											  <div class="profile-wrapper">
-												  <img src="/assets/profiles/avatar-male.png" alt="" data-src="/assets/profiles/avatar-male.png" data-src-retina="/assets/profiles/avatar-male.png" width="35" height="35">
-											  </div>
-											  <div class="comment">
-												  <div class="user-name text-black bold">Jane Smith
-													  <p class="text-black all-caps smaller-text">Organizer</p>
-												  </div>
-												  <div class="preview-wrapper"><i class="fa fa-phone"></i> 843 789 8788</div>
-												  <div class="preview-wrapper"><i class="fa fa-envelope"></i> jane.smith@email.com</div>
-											  </div>
-											  <div class="clearfix"></div>
-										  </div>
+								 <div class="tiles-body">
+									 <div class="row">
+										 <div class="user-comment-wrapper pull-left">
+											 <div class="profile-wrapper">
+												 <img src="/assets/profiles/avatar-male.png" alt="" data-src="/assets/profiles/avatar-male.png" data-src-retina="/assets/profiles/avatar-male.png" width="35" height="35">
+											 </div>
+											 <div class="comment">
+												 <div class="user-name text-black bold"><%= @team.admin.name.titleize if @team.admin %>
+													 <p class="text-black all-caps smaller-text">Organizer</p>
+												 </div>
+												 <div class="preview-wrapper"><i class="fa fa-phone"></i> <%= @team.admin.name.phone if @team.admin %></div>
+												 <div class="preview-wrapper"><i class="fa fa-envelope"></i> <%= @team.admin.name.email if @team.admin %></div>
+											 </div>
+											 <div class="clearfix"></div>
+										 </div>
 
-									  </div>
-								  </div>
-							  </div>
-						  </div>
+									 </div>
+								 </div>
+							 </div>
+						 </div>
 
-					  </div>
+					 </div>
 
 					<div class="col-xs-12">
 						<div class="widget-item narrow-margin">
@@ -94,158 +89,158 @@
 								<%= render :partial => "teams/players", :locals => {:team => @team} %>
 							</div>
 
-						  </div>
-					  </div>
-				  </div>
+						 </div>
+					 </div>
+				 </div>
 
 
-			  </div>
+			 </div>
 
-			  <div class="col-md-6">
+			 <div class="col-md-6">
 
-				  <div class="widget-item m-b-15">
+				 <div class="widget-item m-b-15">
 
-					  <div class="tiles green " style="max-height:345px">
-						  <div class="tiles-body">
+					 <div class="tiles green " style="max-height:345px">
+						 <div class="tiles-body">
 
-							  <h3 class="text-white m-t-5 m-b-20">Upcoming Events for the 
-								  <span class="semi-bold">'Charleston Kickers'</span>
-							  </h3>
+							 <h3 class="text-white m-t-5 m-b-20">Upcoming Events for the 
+								 <span class="semi-bold">'Charleston Kickers'</span>
+							 </h3>
 
-							  <a href="#" class="hashtags transparent"> #Are You In? </a> 
+							 <a href="#" class="hashtags transparent"> #Are You In? </a> 
 
-							  <div class="add-btn pull-right">
+							 <div class="add-btn pull-right">
 								<a data-toggle="modal" data-target="#add_event" href="#" class="btn btn-small btn-border"><i class="fa fa-plus-circle"></i> Add Event</a> 
-							  </div>
+							 </div>
 
-						  </div>
-					  </div>
+						 </div>
+					 </div>
 
-				  </div>
+				 </div>
 
-				  <div class="event-wrap">
+				 <div class="event-wrap">
 
 					<% @team.events.sort_by(&:time).group_by(&:date).each do |group| %>
-					  <% date = group.first.strftime("%A, %b #{group.first.day.ordinalize}") %>
-					  <% events = group.last %>
+					 <% date = group.first.strftime("%A, %b #{group.first.day.ordinalize}") %>
+					 <% events = group.last %>
 
-					  <div class="row">
+					 <div class="row">
 
 						<div class="cal-day">
 
-						   <h3> <%= date %> </h3>
+						  <h3> <%= date %> </h3>
 
-						   <% events.each do |event| %>
+						  <% events.each do |event| %>
 							<%= render :partial => "events/event_details", :locals => { :event => event } %>
 
 							<%= render :partial => "events/form", :locals => { :event => event } %>
-						  <% end %>
+						 <% end %>
 
 						</div>
 
-					  </div>
+					 </div>
 					<% end %>
-				  </div>
+				 </div>
 
-			  </div>
+			 </div>
 
-			  <div class="col-md-3">
+			 <div class="col-md-3">
 				<div class="tiles white com-widget">
-				  <div class="tiles-body">
+				 <div class="tiles-body">
 					<div class="title-header">
-					  <div class="controller"> <a href="javascript:;" class="reload"></a> </div>
-					  <div class="tiles-title"> TEAM FEED </div>
+					 <div class="controller"> <a href="javascript:;" class="reload"></a> </div>
+					 <div class="tiles-title"> TEAM FEED </div>
 					</div>
 					<div class="message-wrap">
-					  <div class="user-profile"> <img src="/assets/profiles/c.jpg" alt="" data-src="/assets/profiles/c.jpg" data-src-retina="/assets/profiles/c2x.jpg" width="35" height="35"> </div>
-					  <div class="message-wrapper">
+					 <div class="user-profile"> <img src="/assets/profiles/c.jpg" alt="" data-src="/assets/profiles/c.jpg" data-src-retina="/assets/profiles/c2x.jpg" width="35" height="35"> </div>
+					 <div class="message-wrapper">
 						<div class="heading"> David Nester</div>
 						<div class="date"> Just now </div>
 						<div class="text-description"> Photos are canceled, we will do team pictures on January 12th and individuals whenever. </div>
 						<div class="feed-function">
-						  <a class="reply-trigger" href="#"><i class="fa fa-reply"></i>Reply</a>
-						  <a class="reply-trigger" href="#"><i class="fa fa-reply-all"></i>Reply All</a>
-						  <div class="reply-wrap" style="display:none;">
+						 <a class="reply-trigger" href="#"><i class="fa fa-reply"></i>Reply</a>
+						 <a class="reply-trigger" href="#"><i class="fa fa-reply-all"></i>Reply All</a>
+						 <div class="reply-wrap" style="display:none;">
 							<div class="title-header">
-							  <div class="controller"> <a href="javascript:;" class="remove reply-trigger"></a> </div>
+							 <div class="controller"> <a href="javascript:;" class="remove reply-trigger"></a> </div>
 							</div>
 
 							<form>
-							  <textarea>text here...</textarea>
-							  <button type="button" class="btn btn-blue btn-small">Send to David</button>
+							 <textarea>text here...</textarea>
+							 <button type="button" class="btn btn-blue btn-small">Send to David</button>
 							</form>
-						  </div>
+						 </div>
 						</div>
-					  </div>
-					  <div class="clearfix"></div>
+					 </div>
+					 <div class="clearfix"></div>
 					</div>
 					<div class="message-wrap">
-					  <div class="user-profile"> <img src="/assets/profiles/h.jpg" alt="" data-src="/assets/profiles/h.jpg" data-src-retina="/assets/profiles/h2x.jpg" width="35" height="35"> </div>
-					  <div class="message-wrapper">
+					 <div class="user-profile"> <img src="/assets/profiles/h.jpg" alt="" data-src="/assets/profiles/h.jpg" data-src-retina="/assets/profiles/h2x.jpg" width="35" height="35"> </div>
+					 <div class="message-wrapper">
 						<div class="heading">Jim Smith </div>
 						<div class="date"> Yesterday </div>
 						<div class="text-description"> This is a reminder that we practice today from 3 to 4:30 at loftis Field. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
 						<div class="feed-function">
-						  <a class="reply-trigger" href="#"><i class="fa fa-reply"></i>Reply</a>
-						  <a class="reply-trigger" href="#"><i class="fa fa-reply-all"></i>Reply All</a>
-						  <div class="reply-wrap" style="display:none;">
+						 <a class="reply-trigger" href="#"><i class="fa fa-reply"></i>Reply</a>
+						 <a class="reply-trigger" href="#"><i class="fa fa-reply-all"></i>Reply All</a>
+						 <div class="reply-wrap" style="display:none;">
 							<div class="title-header">
-							  <div class="controller"> <a href="javascript:;" class="remove reply-trigger"></a> </div>
+							 <div class="controller"> <a href="javascript:;" class="remove reply-trigger"></a> </div>
 							</div>
 
 							<form>
-							  <textarea>text here...</textarea>
-							  <button type="button" class="btn btn-blue btn-small">Send to All</button>
+							 <textarea>text here...</textarea>
+							 <button type="button" class="btn btn-blue btn-small">Send to All</button>
 							</form>
-						  </div>
+						 </div>
 						</div>
-					  </div>
-					  <div class="clearfix"></div>
+					 </div>
+					 <div class="clearfix"></div>
 					</div>
 					<div class="message-wrap">
-					  <div class="user-profile"> <img src="/assets/profiles/h.jpg" alt="" data-src="/assets/profiles/h.jpg" data-src-retina="/assets/profiles/h2x.jpg" width="35" height="35"> </div>
-					  <div class="message-wrapper">
+					 <div class="user-profile"> <img src="/assets/profiles/h.jpg" alt="" data-src="/assets/profiles/h.jpg" data-src-retina="/assets/profiles/h2x.jpg" width="35" height="35"> </div>
+					 <div class="message-wrapper">
 						<div class="heading"> Anton Maurer </div>
 						<div class="date"> Yesterday </div>
 						<div class="text-description"> Great game yesterday. Keep it up! </div>
 						<div class="feed-function">
-						  <a class="reply-trigger" href="#"><i class="fa fa-reply"></i>Reply</a>
-						  <a class="reply-trigger" href="#"><i class="fa fa-reply-all"></i>Reply All</a>
-						  <div class="reply-wrap" style="display:none;">
+						 <a class="reply-trigger" href="#"><i class="fa fa-reply"></i>Reply</a>
+						 <a class="reply-trigger" href="#"><i class="fa fa-reply-all"></i>Reply All</a>
+						 <div class="reply-wrap" style="display:none;">
 							<div class="title-header">
-							  <div class="controller"> <a href="javascript:;" class="remove reply-trigger"></a> </div>
+							 <div class="controller"> <a href="javascript:;" class="remove reply-trigger"></a> </div>
 							</div>
 
 							<form>
-							  <textarea>text here...</textarea>
-							  <button type="button" class="btn btn-blue btn-small">Send To Anton</button>
+							 <textarea>text here...</textarea>
+							 <button type="button" class="btn btn-blue btn-small">Send To Anton</button>
 							</form>
-						  </div>
+						 </div>
 						</div>
-					  </div>
-					  <div class="clearfix"></div>
+					 </div>
+					 <div class="clearfix"></div>
 					</div>
-				  </div>
+				 </div>
 				</div>
 
 				<div class="tiles white com-widget com-post">
-				  <div class="tiles-body">
-				  <div class="message-wrap">
-				  <div class="profile-img-wrapper pull-left"> <img src="/assets/profiles/avatar_small.jpg" alt="" data-src="/assets/profiles/avatar_small.jpg" data-src-retina="/assets/profiles/avatar_small2x.jpg" width="35" height="35"> </div>
-				  <div class="inline pull-right" style="width:86%">
+				 <div class="tiles-body">
+				 <div class="message-wrap">
+				 <div class="profile-img-wrapper pull-left"> <img src="/assets/profiles/avatar_small.jpg" alt="" data-src="/assets/profiles/avatar_small.jpg" data-src-retina="/assets/profiles/avatar_small2x.jpg" width="35" height="35"> </div>
+				 <div class="inline pull-right" style="width:86%">
 					<div class="input-group transparent ">
-					  <input type="text" class="form-control" placeholder="Write a message">
-					  <span class="input-group-addon"> <i class="fa fa-camera"></i> </span> </div>
-				  </div>
-				  <div class="clearfix"></div>
-				  </div>
-				  </div>
+					 <input type="text" class="form-control" placeholder="Write a message">
+					 <span class="input-group-addon"> <i class="fa fa-camera"></i> </span> </div>
+				 </div>
+				 <div class="clearfix"></div>
+				 </div>
+				 </div>
 				</div>
 
-			  </div>
+			 </div>
 
 
-		  </div>
+		 </div>
 
 		</div>
 	</div>
@@ -253,7 +248,7 @@
 </div>
 <!-- END CONTENT -->
 
-<!-- for editing team  -->
+<!-- for editing team -->
 <%= render :partial => "teams/form", :locals => { :team => @team, :team_avatar => @team_avatar } %>
 
 <%= render :partial => "teams/form", :locals => { :team => Team.new, :team_avatar => TeamAvatar.new } %>
