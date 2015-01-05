@@ -97,64 +97,26 @@
                                   <div class="controller pull-right"> <a data-toggle="modal" data-target="#add_player" href="#" class=""><i class="fa fa-plus-circle"></i> Add Player</a> </div>
                                   <div class="tiles-title"> TEAM </div>
                                 </div>
-
-                                  <a class="team-member" href="#">
-
-                                      <div class="friend-profile-pic">
-                                          <div class="user-profile-pic-normal">
-                                              <img width="35" height="35" src="/assets/profiles/avatar-male.png" data-src="/assets/profiles/avatar-male.png" data-src-retina="/assets/profiles/avatar-male.png" alt="">
-                                          </div>
+                                <% @team.users.each do |player| %>
+                                  <a class="team-member" href="<%= user_path(player) %>">
+                                    <div class="friend-profile-pic">
+                                      <div class="user-profile-pic-normal">
+                                        <img width="35" height="35" src="/assets/profiles/avatar-male.png" data-src="/assets/profiles/avatar-male.png" data-src-retina="/assets/profiles/avatar-male.png" alt="">
                                       </div>
-                                      <div class="friend-details-wrapper">
-                                          <div class="friend-name">
-                                              Johne Drake
-                                          </div>
-                                          <div class="friend-description">
-                                              James Smith in commman
-                                          </div>
-                                          
+                                    </div>
+                                    <div class="friend-details-wrapper">
+                                      <div class="friend-name">
+                                        <%= player.name.titleize if player.name %>
                                       </div>
-
+                                      <div class="friend-description">
+                                        <%= player.email %>
+                                      </div>                        
+                                    </div>
                                   </a>
+                                <% end %>
 
-                                    <a class="team-member" href="">
-
-                                      <div class="friend-profile-pic">
-                                          <div class="user-profile-pic-normal">
-                                              <img width="35" height="35" src="/assets/profiles/avatar-male.png" data-src="/assets/profiles/avatar-male.png" data-src-retina="/assets/profiles/avatar-male.png" alt="">
-                                          </div>
-                                      </div>
-                                      <div class="friend-details-wrapper">
-                                          <div class="friend-name">
-                                              Johne Drake
-                                          </div>
-                                          <div class="friend-description">
-                                              James Smith in commman
-                                          </div>
-                                         
-                                      </div>
-
-                                    </a>
-
-                                  <a class="team-member" href="#">
-                                      <div class="friend-profile-pic">
-                                          <div class="user-profile-pic-normal">
-                                              <img width="35" height="35" src="/assets/profiles/avatar-male.png" data-src="/assets/profiles/avatar-male.png" data-src-retina="/assets/profiles/avatar-male.png" alt="">
-                                          </div>
-                                      </div>
-                                      <div class="friend-details-wrapper">
-                                          <div class="friend-name">
-                                              Johne Drake
-                                          </div>
-                                          <div class="friend-description">
-                                              James Smith in commman
-                                          </div>
-                                      </div>
-                                      
-                                  </a>
-
-                                  <div class="clearfix"></div>
-                              </div>
+                                <div class="clearfix"></div>
+                            </div>
 
                           </div>
 

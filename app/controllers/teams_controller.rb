@@ -74,8 +74,8 @@ class TeamsController < ApplicationController
 				user.save!
 			end
 
-			@team.users << user
-			user.teams << @team
+			@team.users << user unless @team.users.include?(user)
+			user.teams << @team unless user.teams.include?(@team)
 			
 			unless params[:player_avatar_id] == "null" || params[:player_avatar_id] == "undefined"
 				player_avatar = PlayerAvatar.find(params[:player_avatar_id])

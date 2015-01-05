@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
 	has_many :event_invitations, :dependent => :destroy
 	has_many :rsvps, :dependent => :destroy
 
-	before_save { |user| user.name = user.first_name + user.last_name if user.name == "" }
+	before_save { |user| user.name = "#{user.first_name} #{user.last_name}" if user.name.nil? || user.name.empty? }
 	
 	attr_accessor :login
 
