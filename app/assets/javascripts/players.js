@@ -29,6 +29,7 @@ $(document).ready(function() {
             success: function (data) {
                 console.log(data);
                 $("#add-player-status").text(data.message);
+                $(".friend-list").html(data.design);
 
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {

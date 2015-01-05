@@ -95,7 +95,9 @@ class TeamsController < ApplicationController
 				player_avatar = PlayerAvatar.find(params[:player_avatar_id])
 				user.player_avatars << player_avatar
 			end
-			render json: { :message => "Player #{user.email} has been successfully added." }, :status => 200
+
+			design = render_to_string(:partial => "teams/players", :locals => { :team => @team }, :layout => false )
+			render json: { :message => "Player #{user.email} has been successfully added.", :design => design }, :status => 200
 		rescue Exception => ex
 			render json: { :error => ex.message }, :status => 400
 		end
