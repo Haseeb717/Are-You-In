@@ -80,7 +80,8 @@
 
                   <!-- BEGIN PROFILE PICTURE -->
                   <div class="profile-pic"> 
-                      <img src="/assets/profiles/avatar-male.png" alt="" data-src="/assets/profiles/avatar-male.png" data-src-retina="/assets/profiles/avatar-male.png" width="35" height="35" /> 
+                      <% pic = current_user.player_avatars.empty? ? "/users/missing.png" : current_user.player_avatars.last.avatar(:thumb) %>
+                      <img src="<%= pic %>" alt="" data-src="<%= pic %>" data-src-retina="/<%= pic %>" width="35" height="35" /> 
                   </div>  
                   <!-- END PROFILE PICTURE -->                
               </div>
