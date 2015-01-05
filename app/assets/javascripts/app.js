@@ -21,13 +21,7 @@ $( ".add-another" ).click(function() {
 });
 
 
-	// Show and Hide Age Drop Downs for Add Team modal
 
-	$(".toggles input[type=radio]").on("change", function () {
-		if (!this.checked) return
-		$(".collapse").not($("div." + $(this).attr("class"))).slideUp();
-		$(".collapse." + $(this).attr("class")).slideDown();
-	});
 
 
 	// Show and Hide Game Opponent Input

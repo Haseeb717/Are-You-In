@@ -93,14 +93,31 @@ $(document).ready(function() {
 		});
 	});
 
-	$("#add_team").on("shown.bs.modal", function(event) {
-		// renew form
-		$("form", this).find("input[type=text], textarea").val("");
-		// $("form button", this).removeAttr("disabled");
-		$("#event-message").html("");
+	// Show and Hide Age Drop Downs for Add Team modal
+	$(".toggles input[type=radio]").on("change", function () {
+		if (!this.checked) return;
 
-		$("form .help-block", this).remove();
-		$("form .form-control-feedback", this).remove();
+		$(".collapse").not($("div." + $(this).attr("class"))).slideUp();
+		$(".collapse." + $(this).attr("class")).slideDown();
+	});
+
+	$("#add_team").on("hidden.bs.modal", function(event) {
+
+		// renew form
+		$.ajax({
+			type: "GET",
+			url: "/teams/new",
+			dataType: "HTML",
+			success: function (data) {
+				// console.log(data);
+				$("#add_team").replaceWith(data);
+				applyDropZoneToTeamAvatars();
+
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				console.log(XMLHttpRequest.responseText);
+			}
+		});
 	});
 
 });
