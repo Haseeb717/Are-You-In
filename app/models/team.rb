@@ -9,6 +9,12 @@ class Team < ActiveRecord::Base
 	validates_presence_of :sport
 	validates :city, :presence => true
 
+	before_save do
+		self.age = self.age.downcase if self.age
+		self.gender = self.gender.downcase if self.gender
+		self.age_to = self.age_from = nil unless self.age == "youth"
+	end
+
 	def admin?(user)
 		self.admin == user
 	end

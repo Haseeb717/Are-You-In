@@ -15,8 +15,9 @@ class TeamAvatarsController < ApplicationController
 
 	def destroy
 		@team_avatar = TeamAvatar.find(params[:id])
+		team = @team_avatar.team
 		if @team_avatar.user == current_user && @team_avatar.destroy
-			html = render_to_string(:partial => "team_avatars/form", :locals => { :team_avatar => TeamAvatar.new }, :layout => false )
+			html = render_to_string(:partial => "team_avatars/form", :locals => { :team_avatar => TeamAvatar.new, :team => team}, :layout => false )
 			render json: { message: "File deleted from server", :design => html }
 		else
 			render json: { message: @team_avatar.errors.full_messages.join(',') }

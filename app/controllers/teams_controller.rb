@@ -55,7 +55,8 @@ class TeamsController < ApplicationController
 					@team.team_avatars << team_avatar
 				end
 				
-				render json: { :message => "Team #{@team.name.titleize} updated successfully." }, :status => 200
+				design = render_to_string(:partial => "teams/team_profile", :locals => { :team => @team, :team_avatar => @team.team_avatars.last }, :layout => false )
+				render json: { :message => "Team #{@team.name.titleize} updated successfully.", :design => design }, :status => 200
 			else
 				render json: { :alert => "You don't have permissions to update team #{@team.name.titleize}." }, :status => 200
 			end			
@@ -79,24 +80,28 @@ class TeamsController < ApplicationController
 
 	def add_player
 		begin
-			user = User.where(:email => player_params[:email]).first_or_initialize
-			if user.new_record?
-				user.assign_attributes(player_params)
-				password = Devise.friendly_token.first(8)
-				user.assign_attributes(:password => password, :password_confirmation => password)
-				user.save!
-			end
+			if @team.admin?(current_user)
+				user = User.where(:email => player_params[:email]).first_or_initialize
+				if user.new_record?
+					user.assign_attributes(player_params)
+					password = Devise.friendly_token.first(8)
+					user.assign_attributes(:password => password, :password_confirmation => password)
+					user.save!
+				end
 
-			@team.users << user unless @team.users.include?(user)
-			user.teams << @team unless user.teams.include?(@team)
-			
-			unless params[:player_avatar_id] == "null" || params[:player_avatar_id] == "undefined"
-				player_avatar = PlayerAvatar.find(params[:player_avatar_id])
-				user.player_avatars << player_avatar
-			end
+				@team.users << user unless @team.users.include?(user)
+				user.teams << @team unless user.teams.include?(@team)
+				
+				unless params[:player_avatar_id] == "null" || params[:player_avatar_id] == "undefined"
+					player_avatar = PlayerAvatar.find(params[:player_avatar_id])
+					user.player_avatars << player_avatar
+				end
 
-			design = render_to_string(:partial => "teams/players", :locals => { :team => @team }, :layout => false )
-			render json: { :message => "Player #{user.email} has been successfully added.", :design => design }, :status => 200
+				design = render_to_string(:partial => "teams/team_players", :locals => { :team => @team }, :layout => false )
+				render json: { :message => "Player #{user.email} has been successfully added.", :design => design }, :status => 200
+			else
+				render json: { :alert => "You don't have permissions to add player in team #{@team.name.titleize}." }, :status => 200
+			end
 		rescue Exception => ex
 			render json: { :error => ex.message }, :status => 400
 		end

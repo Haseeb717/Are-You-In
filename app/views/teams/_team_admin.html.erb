@@ -1,0 +1,33 @@
+<div class="tiles white ">
+	<div class="controller pull-right">
+		<% if team.admin?(current_user) %>
+			<a href="javascript:;" class="edit"><i class="fa fa-pencil-square-o"></i> edit </a>
+		<% end %>
+	</div>
+
+	<div class="tiles-body">
+		<div class="row">
+			<div class="user-comment-wrapper pull-left">
+				<div class="profile-wrapper">
+					<img src="/assets/profiles/avatar-male.png" alt="" data-src="/assets/profiles/avatar-male.png" data-src-retina="/assets/profiles/avatar-male.png" width="35" height="35">
+				</div>
+
+				<div class="comment">
+					<div class="user-name text-black bold">
+						<%= team.admin.name.titleize if team.admin %>
+						<p class="text-black all-caps smaller-text">Organizer</p>
+					</div>
+
+					<div class="preview-wrapper">
+						<i class="fa fa-phone"></i> <%= team.admin.phone if team.admin %>
+					</div>
+
+					<div class="preview-wrapper">
+						<i class="fa fa-envelope"></i> <%= team.admin.email if team.admin %>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+ </div>

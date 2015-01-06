@@ -1,0 +1,34 @@
+<div class="widget-item m-b-15">
+	<div class="tiles green " style="max-height:345px">
+		<div class="tiles-body">
+			<h3 class="text-white m-t-5 m-b-20">Upcoming Events for the 
+				<span class="semi-bold">'Charleston Kickers'</span>
+			</h3>
+			<a href="#" class="hashtags transparent"> #Are You In? </a>
+			<div class="add-btn pull-right">
+				<% if team.admin?(current_user) %>
+					<a data-toggle="modal" data-target="#add_event" href="#" class="btn btn-small btn-border">
+						<i class="fa fa-plus-circle"></i> Add Event
+					</a>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="event-wrap">
+	<% team.events.sort_by(&:time).group_by(&:date).each do |group| %>
+		<% date = group.first.strftime("%A, %b #{group.first.day.ordinalize}") %>
+		<% events = group.last %>
+
+		<div class="row">
+			<div class="cal-day">
+				<h3> <%= date %> </h3>
+				<% events.each do |event| %>
+					<%= render :partial => "events/event_details", :locals => { :event => event } %>
+					<%= render :partial => "events/form", :locals => { :event => event } %>
+				<% end %>
+			</div>
+		</div>
+	<% end %>
+</div>

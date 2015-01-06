@@ -4,9 +4,11 @@
 	<div class="row">
 		<div class="tiles white border-right sm-bottom-30">
 			<div class="controller pull-right">
-				<a data-toggle="modal" data-target="#add_event<%= event.id %>" class="edit" href="#">
-					<i class="fa fa-pencil-square-o"></i>
-				</a>
+				<% if event.admin?(current_user) %>
+					<a data-toggle="modal" data-target="#add_event<%= event.id %>" class="edit" href="#">
+						<i class="fa fa-pencil-square-o"></i>
+					</a>
+				<% end %>
 			</div>
 
 			<div class="col-md-6 col-lg-6 col-sm-5 col-xs-12 p-b-15 p-t-15">

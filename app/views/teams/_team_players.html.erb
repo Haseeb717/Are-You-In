@@ -1,8 +1,10 @@
 <div class="title-header">
 	<div class="controller pull-right">
-		<a data-toggle="modal" data-target="#add_player" href="#" class="">
-			<i class="fa fa-plus-circle"> </i> Add Player
-		</a>
+		<% if team.admin?(current_user) %>
+			<a data-toggle="modal" data-target="#add_player" href="#" class="">
+				<i class="fa fa-plus-circle"> </i> Add Player
+			</a>
+		<% end %>
 	</div>
 	
 	<div class="tiles-title"> TEAM </div>

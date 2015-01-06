@@ -10,9 +10,9 @@
 				</button>
 				
 				<% if team_avatar.new_record? %>
-					<%= render :partial => "team_avatars/form", :locals => {:team_avatar => team_avatar } %>
+					<%= render :partial => "team_avatars/form", :locals => {:team_avatar => team_avatar, :team => team } %>
 				<% else %>
-					<%= render :partial => "team_avatars/show", :locals => {:team_avatar => team_avatar } %>
+					<%= render :partial => "team_avatars/show", :locals => {:team_avatar => team_avatar, :team => team } %>
 				<% end %>
 			</div>
 
@@ -44,9 +44,9 @@
 								<div class="radio border-sep gender">
 									<input id="male" type="radio" name="gender" value="male" <%= checked = "checked" if team.gender == "male" %> >
 									<label for="male">Male</label>
-									<input id="female" type="radio" name="gender" value="female" <%= checked = "checked" if team.gender == "male" %> >
+									<input id="female" type="radio" name="gender" value="female" <%= checked = "checked" if team.gender == "female" %> >
 									<label for="female">Female</label>									 
-									<input id="coed" type="radio" name="gender" value="coed" <%= checked = "checked" if team.gender == "male" %> >
+									<input id="coed" type="radio" name="gender" value="coed" <%= checked = "checked" if team.gender == "code" %> >
 									<label for="coed">Coed</label>
 								</div>
 							</div>
@@ -122,7 +122,7 @@
 												Delete Team
 											</button>
 
-											<button type="submit" class="btn btn-success team-update" data-dismiss="modal">
+											<button type="submit" class="btn btn-success team-update">
 												Update Team
 											</button>
 										<% end %>

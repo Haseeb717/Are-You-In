@@ -108,12 +108,14 @@ $(document).ready(function() {
 					dataType: "JSON",
 					data: postData,
 					success: function (data) {
-						console.log(data);
-
+						// console.log(data);
+						$("#add_team" + team_id).modal("hide");
+						if (data.design != undefined && data.design != null)
+							$(".team-profile-widget").html(data.design);
 
 					},
 					error: function(XMLHttpRequest, textStatus, errorThrown) {
-						console.log(XMLHttpRequest.responseText);
+						// console.log(XMLHttpRequest.responseText);
 					}
 				});
 			});

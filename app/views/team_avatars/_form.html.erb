@@ -12,4 +12,8 @@
 	</div>
 <% end %>
 
-<h4 class="semi-bold">Add a New Team</h4>
+<% if team.new_record? %>
+	<h4 class="semi-bold">Add a New Team</h4>
+<% else %>
+	<h4 class="semi-bold"> Edit Team <%= team.name.titleize if team %> </h4>
+<% end %>
