@@ -22,16 +22,6 @@ $( ".add-another" ).click(function() {
 
 
 
-
-
-	// Show and Hide Game Opponent Input
-
-	$(".toggles input[type=radio]").on("change", function () {
-		if (!this.checked) return
-		$(".collapse").not($("div." + $(this).attr("class"))).slideUp();
-		$(".collapse." + $(this).attr("class")).slideDown();
-	});
-
 	// toggle messaging div on team page
 
 	$(".reply-trigger").click(function() {
@@ -39,14 +29,8 @@ $( ".add-another" ).click(function() {
 	return false;
 	});
 
-	// date and time picker for event
-
-	$(".datepicker").pickadate()
-	$(".timepicker").pickatime()
-
 
 	// shorten text, and show "more" button .. used on team message system
-
 	$(".text-description").shorten({
 		"showChars" : 160,
 		"moreText"  : "See More",

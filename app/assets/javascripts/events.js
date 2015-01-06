@@ -1,29 +1,78 @@
 $(document).ready(function() {
-	$("#add-event-form").bootstrapValidator({
-		feedbackIcons: {
-			valid: 'glyphicon glyphicon-ok',
-			invalid: 'glyphicon glyphicon-remove',
-			validating: 'glyphicon glyphicon-refresh'
-		},
-		fields: {
-			title: { validators: { notEmpty: { message: 'The event title is required' } } }
-		}
-	}).on("success.form.bv", function(event) {
-		// Prevent form submission
-		event.preventDefault();
-		postData = $("#add-event-form").serialize() + "&team_id=" + $("#team_id").val();
 
-		// Use Ajax to submit form data
+	function applyValidationsToAddEventForm() {
+		$("#add-event-form").bootstrapValidator({
+			feedbackIcons: {
+				valid: 'glyphicon glyphicon-ok',
+				invalid: 'glyphicon glyphicon-remove',
+				validating: 'glyphicon glyphicon-refresh'
+			},
+			fields: {
+				title: { validators: { notEmpty: { message: 'The event title is required' }, stringLength: { min: 5, message: "The length of event name should be greater or equal to 5." } } },
+				date: { validators: { notEmpty: { message: 'The event date is required' } } },
+				time: { validators: { notEmpty: { message: 'The event time is required' } } }
+			}
+		}).on("success.form.bv", function(event) {
+			// Prevent form submission
+			event.preventDefault();
+			postData = $("#add-event-form").serialize() + "&team_id=" + $("#team_id").val();
+
+			// Use Ajax to submit form data
+			$.ajax({
+				type: "POST",
+				url: "/events",
+				dataType: "JSON",
+				data: postData,
+				success: function (data) {
+					console.log(data);
+
+					$(".team-events-widget").html(data.design);
+					$("#add_event").modal("hide");
+
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					console.log(XMLHttpRequest.responseText);
+				}
+			});
+		});
+
+
+		// date and time picker for add event
+		// evaluating fields on set
+		$(".datepicker").pickadate({
+			onSet: function(context) {
+				$("#add-event-form").data("bootstrapValidator").revalidateField("date");
+			}
+		});
+		$(".timepicker").pickatime({
+			onSet: function(context) {
+				$("#add-event-form").data("bootstrapValidator").revalidateField("time");
+			}
+		});
+	}
+
+	applyValidationsToAddEventForm();
+
+	// Show and Hide Game Opponent Input
+	$(".toggles input[type=radio]").on("change", function () {
+		if (!this.checked) return
+		$(".collapse").not($("div." + $(this).attr("class"))).slideUp();
+		$(".collapse." + $(this).attr("class")).slideDown();
+	});
+
+
+	// clearing old text from event-form
+	// renew event form
+	$("#add_event").on("hidden.bs.modal", function(event) {
 		$.ajax({
-			type: "POST",
-			url: "/events",
-			dataType: "JSON",
-			data: postData,
+			type: "GET",
+			url: "/events/new",
+			dataType: "HTML",
 			success: function (data) {
-				console.log(data);
-				event = data.event
-				$("#event-message").html("Event <u>" + event.title + "</u> has been created successfully.");
-
+				// console.log(data);
+				
+				// $("#add_event").replaceWith(data);
+				// applyValidationsToAddEventForm();
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
 				console.log(XMLHttpRequest.responseText);
@@ -32,18 +81,9 @@ $(document).ready(function() {
 	});
 
 
-
-	$("#add_event").on("shown.bs.modal", function(event) {
-		// renew form
-		$("form", this).find("input[type=text], textarea").val("");
-		// $("form button", this).removeAttr("disabled");
-		$("#event-message").html("");
-
-		$("form .help-block", this).remove();
-		$("form .form-control-feedback", this).remove();
-	});
-
-
+	// RSVP Buttons with resposes
+	// Yes Maybe No, all three fire from here.
+	// callbacks are attached to save the response
 	$(document.body).on("click", ".run-btns button", function (event) {
 		event_id = $(".event_id", $(this).parents(".event-wrap")).val();
 		responseElement = $(this).parent().siblings(".listit");
@@ -120,18 +160,26 @@ $(document).ready(function() {
 
 
 	// remove event
+	// delete the event and refresh content list
 	$(document.body).on("click", ".event-remove", function(event) {
 		event.preventDefault();
 		event_id = $(this).siblings(".event_id").val();
+		team_id = $("#team_id").val();
+
+		// team is required for this operation
+		if (team_id == undefined || team_id == null)
+			return;
 
 		$.ajax({
 			type: "DELETE",
 			url: "/events/" + event_id,
 			dataType: "JSON",
+			data: { team_id: team_id },
 			success: function (data) {
-				console.log(data);
+				// console.log(data);
+				
 				// remove from UI
-				$(".event_id[value='" + event_id + "']").parents(".event-wrap.widget-item").remove();
+				$(".team-events-widget").html(data.design);
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
 				console.log(XMLHttpRequest.responseText);
@@ -140,17 +188,26 @@ $(document).ready(function() {
 	});
 
 	// update event
+	// update the event and refresh content list
 	$(document.body).on("click", ".event-update", function(event) {
 		event.preventDefault();
 		event_id = $(this).siblings(".event_id").val();
+		team_id = $("#team_id").val();
+
+		// team is required for this operation
+		if (team_id == undefined || team_id == null)
+			return;
 
 		$.ajax({
 			type: "DELETE",
 			url: "/events/" + event_id,
 			dataType: "JSON",
+			data: { team_id: team_id },
 			success: function (data) {
-				console.log(data);
+				// console.log(data);
 
+				// update UI
+				$(".team-events-widget").html(data.design);
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
 				console.log(XMLHttpRequest.responseText);

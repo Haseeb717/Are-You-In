@@ -1,3 +1,5 @@
+<% event ||= Event.new %>
+
 <div class="modal fade" id="add_event<%= event.id %>" tabindex="-1" role="dialog" aria-labelledby="add_event" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content event-modal">
@@ -66,9 +68,10 @@
 						<button type="submit" class="btn btn-primary">Add Event</button>
 					<% else %>
 						<input type="hidden" class="event_id" name="event_id" value="<%= event.id %>">
+						<input type="hidden" class="team_id" name="team_id" value="<%= event.team.id %>">
 
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<button type="submit" class="btn btn-danger event-remove" data-dismiss="modal">
+						<button type="submit" class="btn btn-danger event-remove" >
 							Remove Event
 						</button>
 						<button type="submit" class="btn btn-primary event-update">

@@ -5,7 +5,7 @@
 		<!-- BEGIN NAVIGATION HEADER -->
 		<div class="header-seperation">
 			<!-- BEGIN MOBILE HEADER -->
-			<ul class="nav pull-left notifcation-center visible-xs" id="main-menu-toggle-wrapper">		
+			<ul class="nav pull-left notifcation-center visible-xs" id="main-menu-toggle-wrapper">
 				<li class="dropdown">
 					<a id="main-menu-toggle" href="#main-menu" class="">
 						<div class="iconset top-menu-toggle-white"></div>
@@ -19,30 +19,26 @@
 				<img src="/assets/logo-inverted.png" class="logo" alt="" data-src="/assets/logo-inverted.png" data-src-retina="/assets/logo2x.png"/>
 			</a>
 			<!-- END LOGO --> 
+
 			<!-- BEGIN LOGO NAV BUTTONS -->
 			<ul class="nav pull-right notifcation-center">
 				<li class="quicklinks visible-xs">
 					<a data-toggle="dropdown" class="dropdown-toggle pull-right" href="#" id="user-options">
-						<div class="iconset top-settings"></div>	 
+						<div class="iconset top-settings"></div>
 					</a>
 					<ul class="dropdown-menu pull-right" role="menu" aria-labelledby="user-options">
-                      <li>
-                        <a href="<%= user_path(current_user) %>">Account Profile</a>
-                      </li>
-                      <li>
-                        <a href="<%= edit_user_path(current_user) %>">Edit Account</a>
-                      </li>
+						<li> <a href="<%= user_path(current_user) %>"> Account Profile </a> </li>
+						<li> <a href="<%= edit_user_path(current_user) %>"> Edit Account </a> </li>
 						<li class="divider"> </li>
 						<li>
 							<a data-toggle="modal" data-target="#add_team" class="add-team-modal" href="#">
 								<i class="fa fa-plus-circle"> </i> &nbsp;&nbsp;Add Team
 							</a>
 						</li>
+
 						<li class="divider"> </li>
 						<li>
-							<a href="{path=LOGOUT}">
-								<i class="fa fa-power-off"> </i>&nbsp;&nbsp;Logout
-							</a>
+							<a href="{path=LOGOUT}"> <i class="fa fa-power-off"> </i>&nbsp;&nbsp;Logout </a>
 						</li>
 					</ul>
 				</li>
@@ -59,8 +55,8 @@
 					<li class="quicklinks">
 						<a href="/" class=""> All Events </a>
 					</li>
-					
-					<li class="quicklinks dropdown"> 
+
+					<li class="quicklinks dropdown">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#">
 							Teams <span class="caret"> </span>
 						</a>
@@ -76,16 +72,24 @@
 							</li>
 						</ul>
 					</li>
-			 
-					<li class="quicklinks"> 
-						<a data-toggle="modal" data-target="#add_event" href="#" class=""><i class="fa fa-calendar"></i> Add Event</a> 
-					</li>										
+
+					<% if @team and @team.admin?(current_user) %>
+						<li class="quicklinks">
+							<a data-toggle="modal" data-target="#add_event" href="#" class="">
+								<i class="fa fa-calendar"></i> Add Event
+							</a>
+						</li>
+						<li class="quicklinks">
+							<a data-toggle="modal" data-target="#add_player" href="#" class="add-player-modal">
+								<i class="fa fa-user"></i> Add Player
+							</a>
+						</li>
+					<% end %>
 					<li class="quicklinks">
-						<a data-toggle="modal" data-target="#add_player" href="#" class="add-player-modal"><i class="fa fa-user"></i> Add Player</a> 
-					</li>							
-					<li class="quicklinks"> 
-						<a data-toggle="modal" data-target="#add_team" href="#" class="add-team-modal"><i class="fa fa-plus-circle"></i> Add Team</a> 
-					</li>		 
+						<a data-toggle="modal" data-target="#add_team" href="#" class="add-team-modal">
+							<i class="fa fa-plus-circle"></i> Add Team
+						</a>
+					</li>
 				</ul>
 			</div>
 			<!-- END HEADER LEFT SIDE SECTION -->
@@ -112,12 +116,12 @@
 							</div>
 						</a>
 						<ul class="dropdown-menu pull-right" role="menu" aria-labelledby="user-options">
-	                      <li>
-	                        <a href="<%= user_path(current_user) %>">Account Profile</a>
-	                      </li>
-	                      <li>
-	                        <a href="<%= edit_user_path(current_user) %>">Edit Account</a>
-	                      </li>
+							<li>
+							<a href="<%= user_path(current_user) %>">Account Profile</a>
+							</li>
+							<li>
+							<a href="<%= edit_user_path(current_user) %>">Edit Account</a>
+							</li>
 							<li class="divider"> </li>
 							<li>
 								<a href="#" data-toggle="modal" data-target="#add_team"> <i class="fa fa-plus-circle"> </i>&nbsp;&nbsp;

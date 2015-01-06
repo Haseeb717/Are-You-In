@@ -22,18 +22,22 @@ class EventsController < ApplicationController
 	end
 
 	def create
-		@event = Event.new(event_params)
 		begin
-			if @event.save
-				unless params[:team_id] == "null" || params[:team_id] == "undefined"
-					@team = Team.find(params[:team_id])
-					@team.events << @event
-				end
+			team = Team.find(params[:team_id])
+			event = Event.new(event_params)
 
-				render json: { :event => @event }, :status => 200
+			if team and team.admin?(current_user)
+				if event.save
+					team.events << event
+
+					design = render_to_string(:partial => "teams/team_events", :locals => { :team => team }, :layout => false )
+					render json: { :design => design }, :status => 200
+				else
+					render json: { error: @event.errors.full_messages.join(',')}, :status => 400
+				end
 			else
-				render json: { error: @event.errors.full_messages.join(',')}, :status => 400
-			end			
+				render json: { alert: "You don't have permissions to add event in team #{@team.name.titleize}"}, :status => 200
+			end
 		rescue Exception => ex
 			render json: { error: ex.message}, :status => 400
 		end
@@ -48,14 +52,32 @@ class EventsController < ApplicationController
 	end
 
 	def update
-		@event.update(event_params)
-		respond_with(@event)
+		begin
+			team = Team.find(params[:team_id])
+			if team && team.admin?(current_user)
+				@event.update(event_params)
+
+				design = render_to_string(:partial => "teams/team_events", :locals => { :team => team }, :layout => false )
+				render json: { :design => design }, :status => 200
+			else
+				render json: { :alert => "You don't have permissions to delete event #{event.title.titleize}." }, :status => 200
+			end
+		rescue Exception => ex
+			render json: { :error => ex.message }, :status => 400
+		end
 	end
 
 	def destroy
 		begin
-			@event.destroy
-			render json: { :message => "success" }, :status => 200
+			team = Team.find(params[:team_id])
+			if team && team.admin?(current_user)
+				@event.destroy
+
+				design = render_to_string(:partial => "teams/team_events", :locals => { :team => team }, :layout => false )
+				render json: { :design => design }, :status => 200
+			else
+				render json: { :alert => "You don't have permissions to delete event #{event.title.titleize}." }, :status => 200
+			end
 		rescue Exception => ex
 			render json: { :error => ex.message }, :status => 400
 		end
