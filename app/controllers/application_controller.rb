@@ -21,10 +21,12 @@ class ApplicationController < ActionController::Base
 
 	private
 	def after_sign_in_path_for(resource)
-		dashboard_path
+		if resource.class == User
+			resource.teams.empty? ? welcome_path : dashboard_path
+		end
 	end
 
 	def after_sign_up_path_for(resource)
-		dashboard_path
+		after_sign_in_path_for(resource)
 	end
 end

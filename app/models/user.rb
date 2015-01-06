@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
 	has_many :rsvps, :dependent => :destroy
 
 	before_save { |user| user.name = "#{user.first_name} #{user.last_name}" if user.name.nil? || user.name.empty? }
+	validates :phone, :uniqueness => true, :if =>  "phone.present?"
 	
 	attr_accessor :login
 

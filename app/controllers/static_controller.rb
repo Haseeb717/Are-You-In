@@ -10,6 +10,9 @@ class StaticController < ApplicationController
 	def dashboard
 	end
 
+	def welcome
+	end
+
 	def invitation_response
 		@invitation = EventInvitation.where(:token => params[:token]).first
 		status = params[:status]

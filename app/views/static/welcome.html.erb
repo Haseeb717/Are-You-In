@@ -1,0 +1,26 @@
+<%= render :partial => "layouts/dashboard_header" %>
+
+<!-- BEGIN CONTENT -->
+<div class="page-container row-fluid">
+	<div class="page-content">				
+		<div class="content">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="row tiles-container	m-b-20 ">
+						<div class="tiles white p-t-15 p-l-15 p-r-15 p-b-25 text-center">
+							<h2 class="text-center">Welcome
+								<span class="semi-bold text-success"><% current_user.name.titleize %></span>
+							</h2>
+							<h4 class="text-center muted m-l-10 m-r-10">First step is to create a Team.</h4>
+							<button type="button" data-toggle="modal" data-target="#add_team" class="btn btn-primary m-t-20 btn-cons">
+								<i class="fa fa-add"></i>&nbsp;Add Team
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<%= render :partial => "teams/form", :locals => { :team => Team.new, :team_avatar => TeamAvatar.new } %>
