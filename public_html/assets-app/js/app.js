@@ -169,6 +169,9 @@ $(document).ready(function() {
         }
     });
 
+    // Show Add Team Modal for first Time users that do not have team yet
+
+    $('#add_first_team').modal('show');
 
 
     // Show and Hide Age Drop Downs for Add Team modal
