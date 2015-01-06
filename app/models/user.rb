@@ -8,7 +8,8 @@ class User < ActiveRecord::Base
 	has_and_belongs_to_many :teams
 	has_many :team_avatars, :dependent => :destroy
 	has_many :player_avatars, :dependent => :destroy
-	has_many :event_invitations, :dependent => :destroy
+	has_many :event_invitations, :foreign_key => "sender_id", :dependent => :destroy
+	has_many :event_invitations, :foreign_key => "reciever_id", :dependent => :destroy
 	has_many :rsvps, :dependent => :destroy
 
 	before_save { |user| user.name = "#{user.first_name} #{user.last_name}" if user.name.nil? || user.name.empty? }

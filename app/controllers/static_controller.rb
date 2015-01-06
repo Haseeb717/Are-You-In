@@ -4,7 +4,6 @@ class StaticController < ApplicationController
 	layout "landing_layout", :only => [:landing]
 	
 	def landing
-		
 	end
 
 	def dashboard
@@ -14,19 +13,20 @@ class StaticController < ApplicationController
 	end
 
 	def invitation_response
+		# getting invitation
 		@invitation = EventInvitation.where(:token => params[:token]).first
 		status = params[:status]
 
 		if @invitation
+			# checking if user has pespond already
 			@rsvp = @invitation.event.rsvps.user_rvsp(@invitation.reciever).first_or_initialize
-			if @rsvps and Rsvp.states.include?(states.downcase)
-				@rsvps.update_attributes(:response => status.downcase)
+			if @rsvp and Rsvp.states.include?(status.downcase)
+				@rsvp.update_attributes(:response => status.downcase)
 				@invitation.update_attributes(:respond_at => Time.now)
 			end
 
-			if invitation.reciever != current_user
-				sign_out current_user
-			end
+			# current user will be signed out if user isn't same
+			sign_out current_user if @invitation.reciever != current_user
 		else
 
 		end

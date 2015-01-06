@@ -24,11 +24,11 @@ class EventsController < ApplicationController
 	def create
 		begin
 			team = Team.find(params[:team_id])
-			event = Event.new(event_params)
+			@event = Event.new(event_params)
 
 			if team and team.admin?(current_user)
-				if event.save
-					team.events << event
+				if @event.save
+					team.events << @event
 
 					design = render_to_string(:partial => "teams/team_events", :locals => { :team => team }, :layout => false )
 					render json: { :design => design }, :status => 200
