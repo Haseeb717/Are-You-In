@@ -5,6 +5,6 @@ class UserMailer < ActionMailer::Base
   		@sender = sender
   		@reciever = reciever
   		@password = password 
-		mail(:to => "#{reciever.name} <#{reciever.email}>", :subject => "#{sender.name.titleize} has reg...")
+		mail(:to => "#{reciever.name} <#{reciever.email}>", :subject => "Registration of Are-You-In")
 	end
 end
