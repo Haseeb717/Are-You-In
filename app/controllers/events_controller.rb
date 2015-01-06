@@ -88,6 +88,7 @@ class EventsController < ApplicationController
 		begin
 			if @event.errors.empty?
 				@event.team.users.each do |user|
+					debugger
 					unless @event.team.admin?(user)
 						invitation = EventInvitation.create(:sender => current_user,
 							:reciever => user,
