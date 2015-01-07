@@ -71,8 +71,8 @@ $(document).ready(function() {
 			success: function (data) {
 				// console.log(data);
 				
-				 $("#add_event").replaceWith(data);
-				 applyValidationsToAddEventForm();
+				// $("#add_event").replaceWith(data);
+				// applyValidationsToAddEventForm();
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
 				console.log(XMLHttpRequest.responseText);
