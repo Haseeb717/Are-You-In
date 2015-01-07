@@ -1,0 +1,31 @@
+<% events = events.collect{|group| group.last}.flatten %>
+
+<h3>Schedule: <span>All</span></h3>
+<div class="grid-body no-border no-padding">
+	<div class="table-responsive">
+		<table class="table table-condensed team-schedule">
+			<thead>
+				<th style="width:16%">Team</th>
+				<th style="width:10%">Date</th>
+				<th style="width:4%">Time</th>
+				<th style="width:16%">Event</th>
+				<th style="width:15%">Site</th>
+				<th style="width:4%">Score</th>
+				<th style="width:3%">W/L</th>
+			</thead>
+			<tbody>
+				<% events.each do |event| %>
+					<tr>
+						<td class="v-align-middle"> <%= event.team.name.titleize %> </td>
+						<td class="v-align-middle"> <%= event.date.strftime("%a %d/%m") %> </td>
+						<td class="v-align-middle"> <%= event.time.strftime("%H:%M") %> </td>
+						<td class="v-align-middle muted"><%= event.title.titleize %> </td>
+						<td class="muted"><%= event.team.city.titleize %> </td>
+						<td class="v-align-middle">62:48</td>
+						<td class="v-align-middle">W</td>
+					</tr>
+				<% end %>
+			 </tbody>
+		</table>
+	</div>
+</div>
