@@ -20,104 +20,15 @@
 
 			<div class="row">
 				<div class="col-md-6 col-sm-12">
-					<div class="visibleoverflow transparent">
-						<% @events.each do |group| %>
-							<% date = group.first %>
-							<% events = group.last %>
-							<div class="cal-day">
-								<h3>
-									<%= date.strftime("%A, %b #{group.first.day.ordinalize}") %>
-								</h3>
-										
-								<% events.each do |event| %>
-									<%= render :partial => "events/event_details", :locals => { :event => event } %>
-									<%= render :partial => "events/form", :locals => { :event => event } %>
-								<% end %>
-							</div>
-						<% end %>
+					<div class="visibleoverflow transparent dashboard-event-widget">
+						<%= render :partial => "events/user_events", :locals => {:user_events => @events} %>
 					</div>
 				</div>
 				<!-- END COL 12 -->
 
 					<div class="col-md-6 col-sm-12">
-
-							<div class="grid simple ">
-								  <h3>Schedule: <span>All</span></h3>
-								 <div class="grid-body no-border no-padding">
-										<div class="table-responsive">
-											<table class="table table-condensed team-schedule">
-												 <thead>
-													  <tr>
-															<th style="width:16%">Team</th>
-															<th style="width:10%">Date</th>
-															<th style="width:4%">Time</th>
-															<th style="width:16%">Event</th>
-															<th style="width:15%">Site</th>
-															<th style="width:4%">Score</th>
-															<th style="width:3%">W/L</th>
-													  </tr>
-												 </thead>
-												 <tbody>
-													  <tr>
-															<td class="v-align-middle">Hanahan Hawks</td>
-															<td class="v-align-middle">Mon 17/11</td>
-															<td class="v-align-middle">7:30</td>
-															<td class="v-align-middle muted">Fly & Form Structures</td>
-															<td class="muted">Jones Center</td>
-															<td class="v-align-middle">62:48</td>
-															<td class="v-align-middle">W</td>
-													  </tr>
-													  <tr>
-															<td class="v-align-middle">Saturday Basketball</td>
-															<td class="v-align-middle">Mon 11/24</td>
-															<td class="v-align-middle">8:30</td>
-															<td class="v-align-middle muted">Pug Life</td>
-															<td class="muted">Park West-M</td>
-															<td class="v-align-middle"></td>
-															<td class="v-align-middle"></td>
-													  </tr>
-													  <tr>
-															<td class="v-align-middle">Hanahan Galaxy</td>
-															<td class="v-align-middle">Mon 12/01</td>
-															<td class="v-align-middle">7:30</td>
-															<td class="v-align-middle muted">MtP Misfits</td>
-															<td class="muted">Jones Center</td>
-															<td class="v-align-middle"></td>
-															<td class="v-align-middle"></td>
-													  </tr>
-													  <tr>
-															<td class="v-align-middle">Bourne Group</td>
-															<td class="v-align-middle">Med 12/03</td>
-															<td class="v-align-middle">8:30</td>
-															<td class="v-align-middle muted">New Leaf</td>
-															<td class="muted">Park West-M</td>
-															<td class="v-align-middle"></td>
-															<td class="v-align-middle"></td>
-													  </tr>
-													  <tr>
-															<td class="v-align-middle">Bourne Group</td>
-															<td class="v-align-middle">Mon 12/08</td>
-															<td class="v-align-middle">7:30</td>
-															<td class="v-align-middle muted">LCSwingbeds.com</td>
-															<td class="muted">Jones Center</td>
-															<td class="v-align-middle"></td>
-															<td class="v-align-middle"></td>
-													  </tr>
-													  <tr>
-															<td class="v-align-middle">Hanahwn Hawks</td>
-															<td class="v-align-middle">Mon 12/15</td>
-															<td class="v-align-middle">8:30</td>
-															<td class="v-align-middle muted">Fly & Form Structures</td>
-															<td class="muted">Jones Center</td>
-															<td class="v-align-middle"></td>
-															<td class="v-align-middle"></td>
-													  </tr>
-
-
-												 </tbody>
-											</table>
-										</div>
-								 </div>
+							<div class="grid simple dashboard-schedule-widget">
+								<%= render :partial => "events/events_schedule", :locals => {:events => @events} %>	
 							</div> <!-- END Schedule -->
 
 

@@ -19,10 +19,7 @@ class TeamsController < ApplicationController
 	end
 
 	def new
-		@team = Team.new
-		@team_avatar = TeamAvatar.new
-
-		respond_with(@team)
+		render :partial => "teams/form", :locals => {:team => Team.new, :team_avatar => TeamAvatar.new}, :layout => false
 	end
 
 	def edit
@@ -98,7 +95,6 @@ class TeamsController < ApplicationController
 					player_avatar = PlayerAvatar.find(params[:player_avatar_id])
 					user.player_avatars << player_avatar
 				end
-
 
 				design = render_to_string(:partial => "teams/team_players", :locals => { :team => @team }, :layout => false )
 				render json: { :message => "Player #{user.email} has been successfully added.", :design => design }, :status => 200

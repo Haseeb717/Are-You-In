@@ -34,7 +34,6 @@ class User < ActiveRecord::Base
 		self.teams.each do |team|
 			events = events + team.events
 		end
-		
 		events.uniq.sort_by(&:time).group_by(&:date)
 	end
 

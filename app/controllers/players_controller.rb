@@ -14,6 +14,7 @@ class PlayersController < ApplicationController
 
 	# GET /players/new
 	def new
+		render :partial => "players/form", :locals => {:player => User.new}, :layout => false
 	end
 
 	# GET /players/1/edit

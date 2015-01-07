@@ -14,7 +14,7 @@ $(document).ready(function() {
 
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
-				// console.log(XMLHttpRequest.responseText);
+				console.log(XMLHttpRequest.responseText);
 			}
 		});
 	});

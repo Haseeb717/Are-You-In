@@ -198,14 +198,16 @@ $(document).ready(function() {
 		if (team_id == undefined || team_id == null)
 			return;
 
+		postData = $("form", "#add_event" + event_id).serialize();
 		$.ajax({
-			type: "DELETE",
+			type: "PUT",
 			url: "/events/" + event_id,
 			dataType: "JSON",
-			data: { team_id: team_id },
+			data: postData,
 			success: function (data) {
 				// console.log(data);
 
+				$("#add_event" + event_id).modal("hide");
 				// update UI
 				$(".team-events-widget").html(data.design);
 			},

@@ -1,5 +1,5 @@
 class StaticController < ApplicationController
-	skip_before_filter :authenticate_user!, :only => [:landing]
+	skip_before_filter :authenticate_user!, :only => [:landing, :invitation_response]
 	before_filter :redirect_if_current_user, :only => [:landing]
 	layout "landing_layout", :only => [:landing]
 	

@@ -1,0 +1,14 @@
+<% user_events.each do |group| %>
+	<% date = group.first %>
+	<% group_events = group.last %>
+	<div class="cal-day">
+		<h3>
+			<%= date.strftime("%A, %b #{group.first.day.ordinalize}") %>
+		</h3>
+				
+		<% group_events.each do |event| %>
+			<%= render :partial => "events/event_details", :locals => { :event => event } %>
+			<%= render :partial => "events/form", :locals => { :event => event } %>
+		<% end %>
+	</div>
+<% end %>

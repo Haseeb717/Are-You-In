@@ -8,15 +8,15 @@ class Event < ActiveRecord::Base
 	validates :time, :presence => true
 
 	def users_in
-		self.rsvps.in.collect{|rsvp| rsvp.user.name}.join(", ")
+		self.rsvps.in.collect{|rsvp| rsvp.user.name.titleize}.join(", ")
 	end
 
 	def users_out
-		self.rsvps.out.collect{|rsvp| rsvp.user.name}.join(", ")
+		self.rsvps.out.collect{|rsvp| rsvp.user.name.titleize}.join(", ")
 	end
 
 	def users_not_sure
-		self.rsvps.maybe.collect{|rsvp| rsvp.user.name}.join(", ")
+		self.rsvps.maybe.collect{|rsvp| rsvp.user.name.titleize}.join(", ")
 	end
 
 	def admin?(user)
