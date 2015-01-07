@@ -19,10 +19,7 @@ class TeamsController < ApplicationController
 	end
 
 	def new
-		@team = Team.new
-		@team_avatar = TeamAvatar.new
-
-		respond_with(@team)
+		render :partial => "teams/form", :locals => {:team => Team.new, :team_avatar => TeamAvatar.new}, :layout => false
 	end
 
 	def edit

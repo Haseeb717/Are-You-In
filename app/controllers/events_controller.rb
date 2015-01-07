@@ -14,8 +14,7 @@ class EventsController < ApplicationController
 	end
 
 	def new
-		@event = Event.new
-		respond_with(@event)
+		render :partial => "events/form", :locals => {:event => Event.new}, :layout => false
 	end
 
 	def edit
