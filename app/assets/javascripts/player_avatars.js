@@ -1,8 +1,14 @@
 $(document).ready(function() {
+	Dropzone.autoDiscover = false;
 
 	applyDropZoneToPlayerAvatars();
 
 	function applyDropZoneToPlayerAvatars() {
+
+		// no need to attach if already exists
+		if ($("#player-avatar").hasClass("dz-clickable"))
+			return;
+
 		$("#player-avatar").dropzone({
 			// maximum number of files to upload
 			// still get attached problem

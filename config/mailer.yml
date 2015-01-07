@@ -1,8 +1,10 @@
 defaults: &defaults
-  from: "no-reply@are-you.in"
-  username: "paksols@gmail.com"
-  password: "123jkl123jkl"
-  host:	"http://localhost:3000"
+  from: "noreply@are-you.in"
+  address: "mail.aldaimsolutions.com"
+  port: 25
+  domain: "aldaimsolutions.com"
+  username: "noreply@aldaimsolutions.com"
+  password: "Admin1234"
 
 development:
   <<: *defaults
@@ -11,7 +13,9 @@ test:
   <<: *defaults
 
 production:
-  from: "no-reply@are-you.in"
-  username: "paksols@gmail.com"
-  password: "123jkl123jkl"
-  host:	"http://104.236.26.118"
+  from: "noreply@are-you.in"
+  address: "mail.aldaimsolutions.com"
+  port: 25
+  domain: "aldaimsolutions.com"
+  username: "noreply@aldaimsolutions.com"
+  password: "Admin1234"

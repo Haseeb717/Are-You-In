@@ -84,7 +84,7 @@ class TeamsController < ApplicationController
 				user = User.where(:email => player_params[:email]).first_or_initialize
 				if user.new_record?
 					user.assign_attributes(player_params)
-					password = Devise.friendly_token.first(8)
+					password = Devise.friendly_token.first(10)
 					user.assign_attributes(:password => password, :password_confirmation => password)
 					user.save!
 

@@ -1,42 +1,75 @@
 $(document).ready(function() {
-    $("#add-player-form").bootstrapValidator({
-        feedbackIcons: {
-            valid: 'glyphicon glyphicon-ok',
-            invalid: 'glyphicon glyphicon-remove',
-            validating: 'glyphicon glyphicon-refresh'
-        },
-        fields: {
-            // first_name: { validators: { notEmpty: { message: 'The first name is required' } } }
-        }
-    }).on("success.form.bv", function(event) {
-        // Prevent form submission
-        event.preventDefault();
-        var user_id = $("#user_id").val();
-        var team_id = $("#team_id").val();
+	
+	// when player modal closed out (hide)
+	// data needs to be removed. Renew Form
+	$("#add_player").on("hidden.bs.modal", function(event) {
+		$.ajax({
+			type: "GET",
+			url: "/players/new",
+			dataType: "HTML",
+			success: function (data) {
+				// console.log(data);
+				$("#add_player").replaceWith(data);
+				applyValidationToAddPlayerForm();
 
-        avatar = $("#player-avatar .dz-remove").attr("id")
-        if (avatar == null || avatar == undefined)
-            avatar = null;
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				// console.log(XMLHttpRequest.responseText);
+			}
+		});
+	});
 
-        postData = $("#add-player-form").serialize() + "&player_avatar_id=" + avatar;
+	applyValidationToAddPlayerForm();
 
-        // Use Ajax to submit form data
-        $.ajax({
-            type: "POST",
-            url: "/teams/" + team_id + "/add_player",
-            dataType: "JSON",
-            data: postData,
-            success: function (data) {
-                console.log(data);
-                $("#add-player-status").text(data.message);
-                $(".friend-list").html(data.design);
+	// add player in team
+	// form validation (first_name, last_name and email)
+	function applyValidationToAddPlayerForm() {
+		$("#add-player-form").bootstrapValidator({
+			feedbackIcons: {
+				valid: "glyphicon glyphicon-ok",
+				invalid: "glyphicon glyphicon-remove",
+				validating: "glyphicon glyphicon-refresh"
+			},
+			fields: {
+				first_name: { validators: { notEmpty: { message: "First name is required" } } },
+				last_name: { validators: { notEmpty: { message: "Last name is required" } } },
+				email: { validators: { notEmpty: { message: "Email address is required" }, emailAddress: { message: "Email address is not valid" } } },
+				phone: { validators: { phone: { country: "US", message: "Phone number is not valid" } } },
+			}
+		}).on("success.form.bv", function(event) {
+			// Prevent form submission
+			event.preventDefault();
+			var team_id = $("#team_id").val();
 
-            },
-            error: function(XMLHttpRequest, textStatus, errorThrown) {
-                console.log(XMLHttpRequest.responseText);
-                $("#add-player-status").text(XMLHttpRequest.responseText);
-            }
-        });
-    });
+			// can't process if team_id isn't there
+			if (team_id == null || team_id == undefined)
+				return;
 
+			avatar = $("#player-avatar .dz-remove").attr("id")
+			if (avatar == null || avatar == undefined)
+				avatar = null;
+
+			postData = $("#add-player-form").serialize() + "&player_avatar_id=" + avatar;
+
+			// Use Ajax to submit form data
+			$.ajax({
+				type: "POST",
+				url: "/teams/" + team_id + "/add_player",
+				dataType: "JSON",
+				data: postData,
+				success: function (data) {
+					// console.log(data);
+
+					// update players 
+					$(".friend-list").html(data.design);
+					// hide modal
+					$("#add_player").modal("hide");
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					console.log(XMLHttpRequest.responseText);
+					$("#add-player-status").text(XMLHttpRequest.responseText);
+				}
+			});
+		});
+	}
 });

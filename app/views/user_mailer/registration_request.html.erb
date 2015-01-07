@@ -5,7 +5,7 @@
 	<ul>
 		<li>Email: <%= @reciever.email %></li>
 		<li>Temporary Password: <%= @password %></li>
-		<li><%= link_to "sign-in", "#{MAILER_CONFIG[:host]}#{new_user_session_path}" %></li>
+		<li><%= link_to "sign-in", new_user_session_url %></li>
 	</ul>
 	Other Information is
 	<ul>
