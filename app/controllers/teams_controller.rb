@@ -99,7 +99,6 @@ class TeamsController < ApplicationController
 					user.player_avatars << player_avatar
 				end
 
-
 				design = render_to_string(:partial => "teams/team_players", :locals => { :team => @team }, :layout => false )
 				render json: { :message => "Player #{user.email} has been successfully added.", :design => design }, :status => 200
 			else

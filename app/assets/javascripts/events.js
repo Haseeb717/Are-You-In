@@ -199,7 +199,7 @@ $(document).ready(function() {
 			return;
 
 		$.ajax({
-			type: "DELETE",
+			type: "PUT",
 			url: "/events/" + event_id,
 			dataType: "JSON",
 			data: { team_id: team_id },
