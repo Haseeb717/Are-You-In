@@ -32,8 +32,27 @@
 					</div>
 				</div>
 
-				<div class="col-md-6 team-events-widget">
-					<%= render :partial => "teams/team_events", :locals => {:team => @team} %>
+				<div class="col-md-6">
+					<div class="widget-item m-b-15">
+						<div class="tiles green " style="max-height:345px">
+							<div class="tiles-body">
+								<h3 class="text-white m-t-5 m-b-20">Upcoming Events for the 
+									<span class="semi-bold">'<%= @team.name.titleize %>'</span>
+								</h3>
+								<a href="#" class="hashtags transparent"> #Are You In? </a>
+								<div class="add-btn pull-right">
+									<% if @team.admin?(current_user) %>
+										<a data-toggle="modal" data-target="#add_event" href="#" class="btn btn-small btn-border">
+											<i class="fa fa-plus-circle"></i> Add Event
+										</a>
+									<% end %>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="event-wrap team-events-widget">
+						<%= render :partial => "teams/team_events", :locals => {:team => @team} %>
+					</div>
 				</div>
 
 			<div class="col-md-3">

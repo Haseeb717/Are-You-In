@@ -26,9 +26,9 @@ $(document).ready(function() {
 				success: function (data) {
 					console.log(data);
 
-					$(".team-events-widget").html(data.design);
 					$("#add_event").modal("hide");
-
+					$(".team-events-widget").html(data.design);
+					applyValidationToEditEventForm();
 				},
 				error: function(XMLHttpRequest, textStatus, errorThrown) {
 					console.log(XMLHttpRequest.responseText);
@@ -41,12 +41,14 @@ $(document).ready(function() {
 		// evaluating fields on set
 		$(".datepicker").pickadate({
 			onSet: function(context) {
-				$("#add-event-form").data("bootstrapValidator").revalidateField("date");
+				if ($("#add-event-form").length > 0)
+					$("#add-event-form").data("bootstrapValidator").revalidateField("date");
 			}
 		});
 		$(".timepicker").pickatime({
 			onSet: function(context) {
-				$("#add-event-form").data("bootstrapValidator").revalidateField("time");
+				if ($("#add-event-form").length > 0)
+					$("#add-event-form").data("bootstrapValidator").revalidateField("time");
 			}
 		});
 	}
@@ -71,8 +73,8 @@ $(document).ready(function() {
 			success: function (data) {
 				// console.log(data);
 				
-				// $("#add_event").replaceWith(data);
-				// applyValidationsToAddEventForm();
+				$("#add_event").replaceWith(data);
+				applyValidationsToAddEventForm();
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
 				console.log(XMLHttpRequest.responseText);
@@ -164,22 +166,33 @@ $(document).ready(function() {
 	$(document.body).on("click", ".event-remove", function(event) {
 		event.preventDefault();
 		event_id = $(this).siblings(".event_id").val();
-		team_id = $("#team_id").val();
 
-		// team is required for this operation
-		if (team_id == undefined || team_id == null)
+		// event is required for this operation
+		if (event_id == undefined || event_id == null)
 			return;
+
+		// checking if user is in dashboard or on teams page
+		dashboard = false;
+		if (window.location.href.indexOf("dashboard") >= 0) dashboard = true;
+		postData = "dashboard=" + dashboard;
 
 		$.ajax({
 			type: "DELETE",
 			url: "/events/" + event_id,
 			dataType: "JSON",
-			data: { team_id: team_id },
+			data: postData,
 			success: function (data) {
 				// console.log(data);
-				
-				// remove from UI
-				$(".team-events-widget").html(data.design);
+
+				$("#add_event" + event_id).modal("hide");
+				$(".modal-backdrop").remove();
+
+				// remove from UI, depending on page
+				if (dashboard)
+					$(".dashboard-event-widget").html(data.design);
+				else
+					$(".team-events-widget").html(data.design);
+				applyValidationToEditEventForm();
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
 				console.log(XMLHttpRequest.responseText);
@@ -189,32 +202,72 @@ $(document).ready(function() {
 
 	// update event
 	// update the event and refresh content list
-	$(document.body).on("click", ".event-update", function(event) {
-		event.preventDefault();
-		event_id = $(this).siblings(".event_id").val();
-		team_id = $("#team_id").val();
+	applyValidationToEditEventForm();
+	function applyValidationToEditEventForm() {
 
-		// team is required for this operation
-		if (team_id == undefined || team_id == null)
-			return;
-
-		postData = $("form", "#add_event" + event_id).serialize();
-		$.ajax({
-			type: "PUT",
-			url: "/events/" + event_id,
-			dataType: "JSON",
-			data: postData,
-			success: function (data) {
-				// console.log(data);
-
-				$("#add_event" + event_id).modal("hide");
-				// update UI
-				$(".team-events-widget").html(data.design);
-			},
-			error: function(XMLHttpRequest, textStatus, errorThrown) {
-				console.log(XMLHttpRequest.responseText);
+		// date and time picker for edit event
+		// evaluating fields on set
+		$(".datepicker").pickadate({
+			onSet: function(context) {
+				$(".edit_event").data("bootstrapValidator").revalidateField("date");
 			}
 		});
-	});
-	
+		$(".timepicker").pickatime({
+			onSet: function(context) {
+				$(".edit_event").data("bootstrapValidator").revalidateField("time");
+			}
+		});
+
+		$(".edit_event").bootstrapValidator({
+			feedbackIcons: {
+				valid: 'glyphicon glyphicon-ok',
+				invalid: 'glyphicon glyphicon-remove',
+				validating: 'glyphicon glyphicon-refresh'
+			},
+			fields: {
+				title: { validators: { notEmpty: { message: 'The event title is required' }, stringLength: { min: 5, message: "The length of event name should be greater or equal to 5." } } },
+				date: { validators: { notEmpty: { message: 'The event date is required' } } },
+				time: { validators: { notEmpty: { message: 'The event time is required' } } }
+			}
+		}).on("success.form.bv", function(event) {
+			// Prevent form submission
+			event.preventDefault();
+			event_id = $(".event_id", this).val();
+
+			// event is required for this operation
+			if (event_id == undefined || event_id == null)
+				return;
+
+			// checking if user is on dashboard or on teams page
+			dashboard = false;
+			if (window.location.href.indexOf("dashboard") >= 0) dashboard = true;
+			postData = "&dashboard=" + dashboard;
+			postData = $(this).serialize() + postData;
+
+			// Use Ajax to submit form data
+			$.ajax({
+				type: "PUT",
+				url: "/events/" + event_id,
+				dataType: "JSON",
+				data: postData,
+				success: function (data) {
+					// console.log(data);
+
+					$("#add_event" + event_id).modal("hide");
+					$(".modal-backdrop").remove();
+					$(".modal-open").removeClass("modal-open");
+
+					// update UI depending on page
+					if (dashboard)
+						$(".dashboard-event-widget").html(data.design);
+					else
+						$(".team-events-widget").html(data.design);
+					applyValidationToEditEventForm();
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					console.log(XMLHttpRequest.responseText);
+				}
+			});
+		});
+	}
 });

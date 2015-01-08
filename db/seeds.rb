@@ -16,9 +16,9 @@ team4 = Team.create(:name => "Bourne Group", :sport => "running", :city => "Fiel
 
 
 event1 = Event.create(:title => "Fly & Form Structures", :category => "practice", :date => "16 December, 2014", :time => "7:00 AM", :note => "Don't note!!!!")
-event2 = Event.create(:title => "Pug Life", :category => "game", :date => "17 December, 2014", :time => "10:00 PM", :note => "Don't note!!!!")
-event3 = Event.create(:title => "MtP Misfits", :category => "other", :date => "18 December, 2014", :time => "10:00 AM", :note => "Don't note!!!!")
-event4 = Event.create(:title => "New Leaf", :category => "pickup", :date => "17 December, 2014", :time => "9:00 AM", :note => "Don't note!!!!")
+event2 = Event.create(:title => "Pug Life", :category => "game", :date => "17 December, 2015", :time => "10:00 PM", :note => "Don't note!!!!")
+event3 = Event.create(:title => "MtP Misfits", :category => "other", :date => "18 December, 2015", :time => "10:00 AM", :note => "Don't note!!!!")
+event4 = Event.create(:title => "New Leaf", :category => "pickup", :date => "17 December, 2015", :time => "9:00 AM", :note => "Don't note!!!!")
 
 user.teams = user.teams + [team1, team2, team3, team4]
 team1.events = team1.events + [event1, event2, event3, event4]
