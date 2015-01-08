@@ -1,6 +1,5 @@
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
 
 //= require modernizr-2.6.2.min.js
 //= require plugins.js
@@ -15,3 +14,5 @@
 //= require elementTransitions.min.js
 //= require gumby.min.js
 //= require parsley.min.js
+
+//= require static.js

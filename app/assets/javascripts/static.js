@@ -1,0 +1,44 @@
+$(document).ready(function() {
+	// LOGIN
+	$("#form-login").bind("ajax:success", function(event, xhr, settings) {
+		// in case of successfull login
+		window.location.href = "/dashboard";
+	}).bind("ajax:error", function(event, xhr, settings) {
+		// in case of login failed
+		$("#login-form-error").text("Invalid login or password.");
+	});
+
+	// SIGN UP
+	$("#form-register").bind("ajax:success", function(event, xhr, settings) {
+		// in case of successfull signup
+		window.location.href = "/dashboard";
+	}).bind("ajax:error", function(event, xhr, settings) {
+		// in case of failed registration
+		errors = "";
+
+		// email errors
+		if (xhr.responseJSON.errors.email != undefined) {
+			for(var i = 0; i < xhr.responseJSON.errors.email.length; i++) {
+				errors = errors + "Email " + xhr.responseJSON.errors.email[i] + "<br/>";
+			}
+		}
+
+		// password errors
+		if (xhr.responseJSON.errors.password != undefined) {
+			for(var i = 0; i < xhr.responseJSON.errors.password.length; i++) {
+				errors = errors + "Password " + xhr.responseJSON.errors.password[i] + "<br/>";
+			}
+		}
+
+		// phone errors
+		if (xhr.responseJSON.errors.phone != undefined) {
+			for(var i = 0; i < xhr.responseJSON.errors.phone.length; i++) {
+				errors = errors + "Phone " + xhr.responseJSON.errors.phone[i] + "<br/>";
+			}
+		}
+
+		$("#registration-form-error").html(errors);
+	});
+
+
+});
