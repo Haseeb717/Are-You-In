@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 	before_action :set_user, only: [:show, :edit, :update, :destroy]
-
+	before_filter :authenticate_user!
 	respond_to :html
 
 	def index
@@ -18,6 +18,7 @@ class UsersController < ApplicationController
 	end
 
 	def edit
+		
 	end
 
 	def create
@@ -27,8 +28,10 @@ class UsersController < ApplicationController
 	end
 
 	def update
+		
 		@user.update(user_params)
-		respond_with(@user)
+		
+		redirect_to dashboard_path 
 	end
 
 	def destroy
@@ -38,10 +41,10 @@ class UsersController < ApplicationController
 
 	private
 		def set_user
-			@user = User.find(params[:id])
+			@user = User.find(current_user.id)
 		end
 
 		def user_params
-			params.require(:user).permit(:name, :phone, :email, :gender, :password)
+			params.require(:user).permit(:name, :phone, :email, :gender, :password, :first_name, :last_name)
 		end
 end

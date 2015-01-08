@@ -28,7 +28,8 @@
 					</a>
 					<ul class="dropdown-menu pull-right" role="menu" aria-labelledby="user-options">
 						<li> <a href="<%= user_path(current_user) %>"> Account Profile </a> </li>
-						<li> <a href="<%= edit_user_path(current_user) %>"> Edit Account </a> </li>
+		
+						<li> <a href="<%= settings_path %>"> Edit Account </a> </li>
 						<li class="divider"> </li>
 						<li>
 							<a data-toggle="modal" data-target="#add_team" class="add-team-modal" href="#">
@@ -120,7 +121,7 @@
 							<a href="<%= user_path(current_user) %>">Account Profile</a>
 							</li>
 							<li>
-							<a href="<%= edit_user_path(current_user) %>">Edit Account</a>
+							<a href="<%= settings_path  %>">Edit Account</a>
 							</li>
 							<li class="divider"> </li>
 							<li>

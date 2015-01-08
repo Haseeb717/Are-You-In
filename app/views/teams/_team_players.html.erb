@@ -21,6 +21,7 @@
 		<div class="friend-details-wrapper">
 			<div class="friend-name">
 				<%= player.name.titleize if player.name %>
+					<%= team.admin?(player) ? " (Organiser)" : "" %>
 			</div>
 			<div class="friend-description">
 				<%= player.email %>

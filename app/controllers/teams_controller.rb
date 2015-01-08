@@ -87,7 +87,7 @@ class TeamsController < ApplicationController
 
 					UserMailer.registration_request(current_user, user, password).deliver!
 				end
-
+				
 				@team.users << user unless @team.users.include?(user)
 				user.teams << @team unless user.teams.include?(@team)
 				

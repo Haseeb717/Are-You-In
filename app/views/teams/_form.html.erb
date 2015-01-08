@@ -66,7 +66,7 @@
 							<div class="col-md-6 m-b-10">
 								<select name="age_from" id="age_from" class="source-nosearch" style="width:100%">
 									<option value="">Age From</option>
-									<% (8..100).step(5).each do |age_from| %>
+									<% (4..18).step(1).each do |age_from| %>
 										<% if team.age_from == age_from %>
 											<option value="<%= age_from %>" selected="selected">
 												<%= age_from %>
@@ -80,7 +80,7 @@
 							<div class="col-md-6 m-b-10">
 								<select name="age_to" id="age_to" class="source-nosearch" style="width:100%">
 									<option value="">Age To</option>
-									<% (12..104).step(5).each do |age_to| %>
+									<% (4..18).step(1).each do |age_to| %>
 										<% if team.age_to == age_to %>
 											<option value="<%= age_to %>" selected="selected">
 												<%= age_to %>

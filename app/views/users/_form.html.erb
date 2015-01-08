@@ -10,12 +10,49 @@
       </ul>
     </div>
   <% end %>
+  
+        <div class="modal-body">
+          <div class="row form-row">
+            <div class="col-md-6">
+              <%= f.label :first_name %><br>
+              <%= f.text_field :first_name %>
+            </div>
+            <div class="col-md-6">
+              <%= f.label :last_name %><br>
+              <%= f.text_field :last_name %>
+            </div>
+          </div>
+          <div class="row form-row">
+            <div class="col-md-12">
+              <%= f.label :phone %><br>
+              <%= f.text_field :phone %>
+            </div>
+          </div>
+          <div class="row form-row">
+            <div class="col-md-12">
+              <input id="male" type="checkbox" name="check" value="yes" checked="checked">
+              <label for="male">Recieve event sms messages on Phone Number</label>
+            </div>
+          </div>
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" >Update</button>
+        </div>
 
+
+
+
+  <!-- <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
   <div class="field">
     <%= f.label :name %><br>
     <%= f.text_field :name %>
   </div>
   <div class="actions">
     <%= f.submit %>
-  </div>
+  </div> -->
 <% end %>
