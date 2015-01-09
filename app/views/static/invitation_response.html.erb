@@ -1,1 +1,137 @@
-Thank you! You response has been recorded.
+<!-- BEGIN HEADER -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+
+<body>
+    <div class="header navbar navbar-inverse">
+        <!-- BEGIN TOP NAVIGATION BAR -->
+
+        <div class="navbar-inner">
+            <!-- BEGIN NAVIGATION HEADER -->
+
+            <div class="header-seperation">
+                <!-- BEGIN MOBILE HEADER -->
+
+                <ul class="nav pull-left notifcation-center visible-xs" id=
+                "main-menu-toggle-wrapper">
+                    <li class="dropdown">
+                        <a class="" href="#main-menu" id="main-menu-toggle">
+                        <div class="iconset top-menu-toggle-white"></div></a>
+                    </li>
+                </ul><!-- END MOBILE HEADER -->
+                <!-- BEGIN LOGO -->
+                <a href="/"><img alt="" class="logo" data-src=
+                "/assets/logo-inverted.png" data-src-retina=
+                "/assets/logo2x.png" src="/assets/logo-inverted.png"></a> 
+                <!-- END LOGO --> <!-- BEGIN LOGO NAV BUTTONS -->
+
+                <ul class="nav pull-right notifcation-center">
+                    <li class="quicklinks visible-xs">
+                        <a class="dropdown-toggle pull-right" data-toggle=
+                        "dropdown" href="#" id="user-options">
+                        <div class="iconset top-settings"></div></a>
+
+                        <ul class="dropdown-menu pull-right">
+                            <li>
+                                <a href=
+                                "%3C%=%20user_path(current_user)%20%%3E">Account
+                                Profile</a>
+                            </li>
+
+                            <li>
+                                <a href=
+                                "%3C%=%20edit_user_path(current_user)%20%%3E">Edit
+                                Account</a>
+                            </li>
+
+                            <li class="divider"></li>
+
+                            <li>
+                                <a class="add-team-modal" data-target=
+                                "#add_team" data-toggle="modal" href=
+                                "#"><i class="fa fa-plus-circle"></i>
+                                &nbsp;&nbsp;Add Team</a>
+                            </li>
+
+                            <li class="divider"></li>
+
+                            <li>
+                                <a href="{path=LOGOUT}"><i class=
+                                "fa fa-power-off"></i>&nbsp;&nbsp;Logout</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul><!-- END LOGO NAV BUTTONS -->
+            </div><!-- END NAVIGATION HEADER -->
+        </div><!-- END TOP NAVIGATION BAR -->
+    </div><!-- END HEADER -->
+
+    <div class="page-content">
+        <div class="content">
+            <div class="row tiles-container tiles white m-b-20 center-block">
+                <div class="col-md-4 col-sm-12 b-grey b-r">
+
+                    <div class="run listit semi-bold text-center b-grey b-b no-margin p-t-20 p-b-10">
+                        <p class="event-ins in">
+                            <i class="fa fa-check"></i> 
+                            <span>I AM IN</span>
+                        </p>
+
+                        <p class="event-ins maybe">
+                            <i class="fa fa-question-circle"></i>
+                            <span>I AM OUT</span>
+                        </p>
+
+                        <p class="event-ins out">
+                            <i class="fa fa-times-circle"></i>
+                            <span>I AM A MAYBE</span>
+                        </p>
+
+                    </div>
+
+                    <div class="b-grey b-b">
+                        <h4 class="semi-bold text-center text-error">
+                        Event Title Here</h4>
+
+                        <h1 class="semi-bold text-center text-error">8:30</h1>
+
+                        <h5 class="text-center text-error">Monday, February 18th</h5>
+
+                    </div>
+
+                    <div class="event-participants">
+
+                        <h5>Who is in?</h5>
+
+                        <p class="event-ins in">
+                            <i class="fa fa-check"></i> 
+                            <a href="#" tabindex="0" class="run-count" data-toggle="popover" data-trigger="focus" title="" data-content="<%= event.users_in %>">
+                                <strong> <%= event.rsvps.in.count %> </strong> IN
+                            </a>
+                        </p>
+
+                        <p class="event-ins maybe">
+                            <i class="fa fa-question-circle"></i>
+                            <a href="#" tabindex="0" class="run-count" data-toggle="popover" data-trigger="focus" title="" data-content="<%= event.users_not_sure %>">
+                                <strong> <%= event.rsvps.maybe.count %> </strong> MAYBE
+                            </a>
+                        </p>
+
+                        <p class="event-ins out">
+                            <i class="fa fa-times-circle"></i>
+                            <a href="#" tabindex="0" class="run-count" data-toggle="popover" data-trigger="focus" title="" data-content="<%= event.users_out %>">
+                                <strong> <%= event.rsvps.out.count %> </strong> OUT
+                            </a>
+                        </p>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
