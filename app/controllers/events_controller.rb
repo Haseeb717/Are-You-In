@@ -1,7 +1,5 @@
 class EventsController < ApplicationController
 	before_action :set_event, only: [:show, :edit, :update, :destroy, :rsvp]
-	after_action :invite_players, :only => [:create]
-
 	respond_to :html
 
 	def index
@@ -56,7 +54,12 @@ class EventsController < ApplicationController
 			if team && team.admin?(current_user)
 				@event.update(event_params)
 
-				design = render_to_string(:partial => "teams/team_events", :locals => { :team => team }, :layout => false )
+				if params[:dashboard] == "true"
+					design = render_to_string(:partial => "events/user_events", :locals => { :user_events => current_user.reload.get_all_events }, :layout => false )
+				else
+					design = render_to_string(:partial => "teams/team_events", :locals => { :team => team }, :layout => false )
+				end
+
 				render json: { :design => design }, :status => 200
 			else
 				render json: { :alert => "You don't have permissions to delete event #{event.title.titleize}." }, :status => 200
@@ -68,11 +71,15 @@ class EventsController < ApplicationController
 
 	def destroy
 		begin
-			team = Team.find(params[:team_id])
+			team = @event.team
 			if team && team.admin?(current_user)
 				@event.destroy
 
-				design = render_to_string(:partial => "teams/team_events", :locals => { :team => team }, :layout => false )
+				if params[:dashboard] == "true"
+					design = render_to_string(:partial => "events/user_events", :locals => { :user_events => current_user.reload.get_all_events }, :layout => false )
+				else
+					design = render_to_string(:partial => "teams/team_events", :locals => { :team => team }, :layout => false )
+				end
 				render json: { :design => design }, :status => 200
 			else
 				render json: { :alert => "You don't have permissions to delete event #{event.title.titleize}." }, :status => 200
@@ -83,25 +90,6 @@ class EventsController < ApplicationController
 	end
 
 	private
-	def invite_players
-		begin
-			if @event.errors.empty?
-				@event.team.users.each do |user|
-					unless @event.team.admin?(user)
-						invitation = EventInvitation.create(:sender => current_user,
-							:reciever => user,
-							:event => @event,
-							:token => Digest::MD5.hexdigest(current_user.email + user.email + @event.id.to_s + Time.now.to_s)
-						)
-						EventInvitationMailer.send_invitation(invitation).deliver!
-					end
-				end
-			end
-		rescue Exception => ex
-			
-		end
-	end
-
 	def set_event
 		@event = Event.find(params[:id])
 	end
