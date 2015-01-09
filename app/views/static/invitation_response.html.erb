@@ -109,21 +109,21 @@
                         <p class="event-ins in">
                             <i class="fa fa-check"></i> 
                             <a href="#" tabindex="0" class="run-count" data-toggle="popover" data-trigger="focus" title="" data-content="<%= event.users_in %>">
-                                <strong> <%= @invitation.event.rsvps.in.count %> </strong> IN
+                                <strong> <%#= @invitation.event.rsvps.in.count %> </strong> IN
                             </a>
                         </p>
 
                         <p class="event-ins maybe">
                             <i class="fa fa-question-circle"></i>
                             <a href="#" tabindex="0" class="run-count" data-toggle="popover" data-trigger="focus" title="" data-content="<%= event.users_not_sure %>">
-                                <strong> <%= @invitation.event.rsvps.maybe.count %> </strong> MAYBE
+                                <strong> <%#= @invitation.event.rsvps.maybe.count %> </strong> MAYBE
                             </a>
                         </p>
 
                         <p class="event-ins out">
                             <i class="fa fa-times-circle"></i>
                             <a href="#" tabindex="0" class="run-count" data-toggle="popover" data-trigger="focus" title="" data-content="<%= event.users_out %>">
-                                <strong> <%= @invitation.event.rsvps.out.count %> </strong> OUT
+                                <strong> <%#= @invitation.event.rsvps.out.count %> </strong> OUT
                             </a>
                         </p>
 

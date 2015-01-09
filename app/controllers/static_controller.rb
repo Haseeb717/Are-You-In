@@ -15,6 +15,10 @@ class StaticController < ApplicationController
 	def invitation_response
 		# getting invitation
 		@invitation = EventInvitation.where(:token => params[:token]).first
+
+		
+
+		
 		status = params[:status]
 
 		if @invitation
