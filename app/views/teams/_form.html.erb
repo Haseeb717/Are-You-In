@@ -42,22 +42,22 @@
 						<div class="row form-row form-group">
 							<div class="col-md-12">
 								<div class="radio border-sep gender">
-									<input id="male" type="radio" name="gender" value="male" <%= checked = "checked" if team.gender == "male" %> >
-									<label for="male">Male</label>
-									<input id="female" type="radio" name="gender" value="female" <%= checked = "checked" if team.gender == "female" %> >
-									<label for="female">Female</label>									 
-									<input id="coed" type="radio" name="gender" value="coed" <%= checked = "checked" if team.gender == "code" %> >
-									<label for="coed">Coed</label>
+									<input id="male<%=team.id%>" type="radio" name="gender" value="male" <%= checked = "checked" if team.gender == "male" %> >
+									<label for="male<%=team.id%>">Male</label>
+									<input id="female<%=team.id%>" type="radio" name="gender" value="female" <%= checked = "checked" if team.gender == "female" %> >
+									<label for="female<%=team.id%>">Female</label>									 
+									<input id="coed<%=team.id%>" type="radio" name="gender" value="coed" <%= checked = "checked" if team.gender == "code" %> >
+									<label for="coed<%=team.id%>">Coed</label>
 								</div>
 							</div>
 						</div>
 						<div class="row form-row">
 							<div class="col-md-12">
 								<div class="radio toggles age-group">
-									<input id="adult" type="radio" name="age" value="adult" <%= checked = "checked" if team.age == "adult" %> >
-									<label for="adult">Adult</label>
-									<input id="youth" type="radio" name="age" class="youth" value="youth" <%= checked = "checked" if team.age == "youth" %>>
-									<label for="youth">Youth</label>									 
+									<input id="adult<%=team.id%>" type="radio" name="age" value="adult" <%= checked = "checked" if team.age == "adult" %> >
+									<label for="adult<%=team.id%>">Adult</label>
+									<input id="youth<%=team.id%>" type="radio" name="age" class="youth" value="youth" <%= checked = "checked" if team.age == "youth" %>>
+									<label for="youth<%=team.id%>">Youth</label>
 								</div>
 							</div>
 						</div>
