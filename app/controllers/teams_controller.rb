@@ -52,7 +52,7 @@ class TeamsController < ApplicationController
 					@team.team_avatars << team_avatar
 				end
 				
-				design = render_to_string(:partial => "teams/team_profile", :locals => { :team => @team, :team_avatar => @team.team_avatars.last }, :layout => false )
+				design = render_to_string(:partial => "teams/team_profile", :locals => { :team => @team, :team_avatar => @team.team_avatars.last || TeamAvatar.new }, :layout => false )
 				render json: { :message => "Team #{@team.name.titleize} updated successfully.", :design => design }, :status => 200
 			else
 				render json: { :alert => "You don't have permissions to update team #{@team.name.titleize}." }, :status => 200
