@@ -37,6 +37,17 @@ $(document).ready(function() {
 			}
 		}
 
+		// password confirmation errors
+		if (xhr.responseJSON.errors.password_confirmation != undefined) {
+			for(var i = 0; i < xhr.responseJSON.errors.password_confirmation.length; i++) {
+				errors = errors + "Confirm password " + xhr.responseJSON.errors.password_confirmation[i] + "<br/>";
+			}
+		}
+
+		if (errors == "") {
+			errors = xhr.responseText;
+		}
+
 		$("#registration-form-error").html(errors);
 	});
 
