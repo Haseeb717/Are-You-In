@@ -18,7 +18,7 @@ class StaticController < ApplicationController
 		status = params[:status]
 
 		if @invitation
-			# checking if user has pespond already
+			# checking if user has respond already
 			@rsvp = @invitation.event.rsvps.user_rvsp(@invitation.reciever).first_or_initialize
 			if @rsvp and Rsvp.states.include?(status.downcase)
 				@rsvp.update_attributes(:response => status.downcase)
