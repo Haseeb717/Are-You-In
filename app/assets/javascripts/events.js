@@ -184,8 +184,10 @@ $(document).ready(function() {
 			success: function (data) {
 				// console.log(data);
 
+				// bootstrap dynamic content issue
 				$("#add_event" + event_id).modal("hide");
 				$(".modal-backdrop").remove();
+				$(".modal-open").removeClass("modal-open");
 
 				// remove from UI, depending on page
 				if (dashboard)
@@ -253,6 +255,7 @@ $(document).ready(function() {
 				success: function (data) {
 					// console.log(data);
 
+					// bootstrap dynamic content issue
 					$("#add_event" + event_id).modal("hide");
 					$(".modal-backdrop").remove();
 					$(".modal-open").removeClass("modal-open");
