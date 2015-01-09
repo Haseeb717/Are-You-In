@@ -1455,7 +1455,7 @@ and (orientation : portrait) {
   margin:-17px 0 12px 0;
 }
 
-.parsley-errors-list li {
+.parsley-errors-list li, #login-form-error, #registration-form-error {
 	font-size: 11px;
 	color: #e13a3a;
 	font-style: italic;
