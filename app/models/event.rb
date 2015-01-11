@@ -37,7 +37,8 @@ class Event < ActiveRecord::Base
 			event.team.users.each do |user|
 				begin
 					unless organizer == user
-						invitation = EventInvitation.create(:sender => organizer, :reciever => user, :event => event, :token => Digest::MD5.hexdigest(organizer.email + user.email + event.id.to_s + Time.now.to_s))
+						invitation = EventInvitation.where(:reciever_id=>user.id,:event_id=>event.id,:sender_id=>organizer ).first_or_create
+						invitation.update_attributes(:token => Digest::MD5.hexdigest(organizer.email + user.email + event.id.to_s + Time.now.to_s))
 						EventInvitationMailer.send_invitation(invitation).deliver!
 					end
 				rescue Exception => ex
