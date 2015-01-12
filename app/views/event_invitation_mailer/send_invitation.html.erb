@@ -1,6 +1,6 @@
-<p> Hi <%= (@reciever.name || @reciever.first_name).titleize %> </p>
+<p> Hi <%= (@invitation.reciever.name || @invitation.reciever.first_name).titleize %> </p>
 <p>
-	You are being invited by <%= @sender.name.titleize %> to attend event <%= @event.title.titleize %> on <%= @event.date.strftime('%A %d %B, %Y') %> at <%= @team.city.titleize if @team.city %> at <%= @event.time.strftime('%I:%M %p') %>
+	You are being invited by <%= @invitation.sender.name.titleize %> to attend event <%= @invitation.event.title.titleize %> on <%= @invitation.event.date.strftime('%A %d %B, %Y') %> at <%= @invitation.event.team.city.titleize if @invitation.event.team.city %> at <%= @invitation.event.time.strftime('%I:%M %p') %>
 </p>
 
 <p>

@@ -8,6 +8,10 @@ class CreateEvents < ActiveRecord::Migration
       t.time :time
       t.text :note
       
+      t.boolean :initial_call, :default => false
+      t.boolean :reminder_call, :default => false
+      t.boolean :final_call, :default => false
+
       t.integer :team_id
 
       t.timestamps

@@ -1,10 +1,10 @@
 defaults: &defaults
   from: "noreply@are-you.in"
-  address: "smtp.gmail.com"
+  address: "smtp.mandrillapp.com"
   port: 587
-  domain: "gmail.com"
-  username: "paksols@gmail.com"
-  password: "123jkl123jkl"
+  domain: "mandrillapp.com"
+  username: "florian@designingit.com"
+  password: "PumE08VKZPm76YlAdqDFKA"
 
 development:
   <<: *defaults
@@ -14,8 +14,8 @@ test:
 
 production:
   from: "noreply@are-you.in"
-  address: "smtp.gmail.com"
+  address: "smtp.mandrillapp.com"
   port: 587
-  domain: "gmail.com"
-  username: "paksols@gmail.com"
-  password: "123jkl123jkl"
+  domain: "mandrillapp.com"
+  username: "florian@designingit.com"
+  password: "PumE08VKZPm76YlAdqDFKA"

@@ -1,20 +1,20 @@
 <p class="event-ins in">
 	<i class="fa fa-check"></i> 
-	<a href="#" tabindex="0" class="run-count" data-toggle="popover" data-trigger="focus" title="" data-content="<%= event.users_in %>">
+	<a href="#" tabindex="0" class="run-count" data-toggle="popover" data-trigger="focus" title="" data-content="<%= event.users_in.collect{|user| user.name.titleize}.join(", ") %>">
 		<strong> <%= event.rsvps.in.count %> </strong> IN
 	</a>
 </p>
 
 <p class="event-ins maybe">
 	<i class="fa fa-question-circle"></i>
-	<a href="#" tabindex="0" class="run-count" data-toggle="popover" data-trigger="focus" title="" data-content="<%= event.users_not_sure %>">
+	<a href="#" tabindex="0" class="run-count" data-toggle="popover" data-trigger="focus" title="" data-content="<%= event.users_not_sure.collect{|user| user.name.titleize}.join(", ") %>">
 		<strong> <%= event.rsvps.maybe.count %> </strong> MAYBE
 	</a>
 </p>
 
 <p class="event-ins out">
 	<i class="fa fa-times-circle"></i>
-	<a href="#" tabindex="0" class="run-count" data-toggle="popover" data-trigger="focus" title="" data-content="<%= event.users_out %>">
+	<a href="#" tabindex="0" class="run-count" data-toggle="popover" data-trigger="focus" title="" data-content="<%= event.users_out.collect{|user| user.name.titleize}.join(", ") %>">
 		<strong> <%= event.rsvps.out.count %> </strong> OUT
 	</a>
 </p>

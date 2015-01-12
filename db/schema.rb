@@ -31,6 +31,9 @@ ActiveRecord::Schema.define(version: 20150101112451) do
     t.date     "date"
     t.time     "time"
     t.text     "note"
+    t.boolean  "initial_call",  default: false
+    t.boolean  "reminder_call", default: false
+    t.boolean  "final_call",    default: false
     t.integer  "team_id"
     t.datetime "created_at"
     t.datetime "updated_at"

@@ -1,0 +1,15 @@
+defaults: &defaults
+  initial_call: 5
+  reminder_call: 2
+  final_call: 1
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  initial_call: 48
+  reminder_call: 24
+  final_call: 12
