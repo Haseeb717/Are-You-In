@@ -10,8 +10,11 @@ $(document).ready(function(){
 			type: "DELETE",
 			url: "/team_avatars/" + id,
 			success: function(data) {
+				// console.log(data.message);
+
+				// refresh dropdown space
 				$(".display-team-avatar").replaceWith(data.design);
-				console.log(data.message);
+				$(".display-team-avatar").siblings("h4").remove();
 				applyDropZoneToTeamAvatars();
 			}
 		});

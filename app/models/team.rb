@@ -11,9 +11,9 @@ class Team < ActiveRecord::Base
 
 	before_save do
 		self.age = self.age.downcase if self.age
-		self.name = self.name if self.name
-		self.sport = self.sport if self.sport
-		self.city = self.city if self.city
+		self.name = self.name.downcase if self.name
+		self.sport = self.sport.downcase if self.sport
+		self.city = self.city.downcase if self.city
 		self.gender = self.gender.downcase if self.gender
 
 		self.age_to = self.age_from = nil unless self.age == "youth"
