@@ -14,5 +14,17 @@ class EventInvitationMailer < ActionMailer::Base
 		mail(:to => "#{name} <#{@reciever.email}>", :subject => "#{@sender.name.titleize} has invited you on #{@event.title.titleize}")
 	end
 
+	def send_sms(invitation)
+
+		@invitation = invitation
+		@sender = invitation.sender
+		@reciever = invitation.reciever
+		@event = invitation.event
+		@team = @event.team
+		name = (@reciever.name || @reciever.first_name).titleize
+		
+		byebug
+		mail(:to => "#{name} <#{@reciever.email}>", :subject => "#{@sender.name.titleize} has invited you on #{@event.title.titleize}")
+	end
 
 end
