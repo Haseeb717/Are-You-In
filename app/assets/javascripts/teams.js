@@ -110,6 +110,8 @@ $(document).ready(function() {
 					success: function (data) {
 						// console.log(data);
 						$("#add_team" + team_id).modal("hide");
+						$("#add_team" + team_id + " .team-update").removeAttr("disabled");
+
 						if (data.design != undefined && data.design != null)
 							$(".team-profile-widget").html(data.design);
 

@@ -94,7 +94,7 @@
 
                     <div class="b-grey b-b">
                         <h4 class="semi-bold text-center text-error">
-                        <%= @invitation.event.title %></h4>
+                        <%= @invitation.event.title if @invitation %></h4>
 
                         <h1 class="semi-bold text-center text-error">8:30</h1>
 
@@ -108,27 +108,29 @@
 
                         <p class="event-ins in">
                             <i class="fa fa-check"></i> 
-                            <a href="#" tabindex="0" class="run-count" data-toggle="popover" data-trigger="focus" title="" data-content="<%= @invitation.event.users_in %>">
-                                <strong> <%= @invitation.event.rsvps.in.count %> </strong> IN
+                            <a href="#" tabindex="0" class="run-count" data-toggle="popover" data-trigger="focus" title="" data-content="<%= @invitation.event.users_in.collect{|user| user.name.titleize}.join(", ") if @invitation %>">
+                                <strong> <%= @invitation.event.rsvps.in.count if @invitation %> </strong> IN
                             </a>
                         </p>
 
                         <p class="event-ins maybe">
                             <i class="fa fa-question-circle"></i>
-                            <a href="#" tabindex="0" class="run-count" data-toggle="popover" data-trigger="focus" title="" data-content="<%= @invitation.event.users_not_sure %>">
-                                <strong> <%= @invitation.event.rsvps.maybe.count %> </strong> MAYBE
+                            <a href="#" tabindex="0" class="run-count" data-toggle="popover" data-trigger="focus" title="" data-content="<%= @invitation.event.users_not_sure.collect{|user| user.name.titleize}.join(", ") if @invitation %>">
+                                <strong> <%= @invitation.event.rsvps.maybe.count if @invitation %> </strong> MAYBE
                             </a>
                         </p>
 
                         <p class="event-ins out">
                             <i class="fa fa-times-circle"></i>
-                            <a href="#" tabindex="0" class="run-count" data-toggle="popover" data-trigger="focus" title="" data-content="<%= @invitation.event.users_out %>">
-                                <strong> <%= @invitation.event.rsvps.out.count %> </strong> OUT
+                            <a href="#" tabindex="0" class="run-count" data-toggle="popover" data-trigger="focus" title="" data-content="<%= @invitation.event.users_out.collect{|user| user.name.titleize}.join(", ") if @invitation %>">
+                                <strong> <%= @invitation.event.rsvps.out.count if @invitation %> </strong> OUT
                             </a>
                         </p>
 
                     </div>
-
+                    <% unless @invitation %>
+                        <div> Invitation has been expired. </div>
+                    <% end %>
                 </div>
             </div>
         </div>

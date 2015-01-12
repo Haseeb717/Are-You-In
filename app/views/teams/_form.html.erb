@@ -45,8 +45,8 @@
 									<input id="male<%=team.id%>" type="radio" name="gender" value="male" <%= checked = "checked" if team.gender == "male" %> >
 									<label for="male<%=team.id%>">Male</label>
 									<input id="female<%=team.id%>" type="radio" name="gender" value="female" <%= checked = "checked" if team.gender == "female" %> >
-									<label for="female<%=team.id%>">Female</label>									 
-									<input id="coed<%=team.id%>" type="radio" name="gender" value="coed" <%= checked = "checked" if team.gender == "code" %> >
+									<label for="female<%=team.id%>">Female</label>
+									<input id="coed<%=team.id%>" type="radio" name="gender" value="coed" <%= checked = "checked" if team.gender == "coed" %> >
 									<label for="coed<%=team.id%>">Coed</label>
 								</div>
 							</div>
@@ -96,8 +96,8 @@
 							<div class="row form-row">
 								<div class="col-md-7">
 									<div class="checkbox text-left">
-										<input id="public_contact_info" type="checkbox" name="public_contact_info" value="true" <%= checked = "checked" if team.public_contact_info %> >
-										<label for="public_contact_info">
+										<input id="public_contact_info<%=team.id%>" type="checkbox" name="public_contact_info" value="true" <%= checked = "checked" if team.public_contact_info %> >
+										<label for="public_contact_info<%=team.id%>">
 											Allow team to see each others contact info
 										</label>
 									</div>

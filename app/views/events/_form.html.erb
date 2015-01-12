@@ -16,7 +16,7 @@
 				<div class="modal-body">
 					<div class="row form-row">
 						<div class="col-md-12">
-							<input type="text" class="form-control" name="title" placeholder="Event Title" value="<%= event.title %>">
+							<input type="text" class="form-control" name="title" placeholder="Event Title" value="<%= event.title.titleize if event.title %>">
 						</div>
 					</div>
 
@@ -37,7 +37,7 @@
 
 					<div class="row form-row collapse game" <%= "style=display:block" if event.category == "game" %>>
 						<div class="col-md-12">
-							<input type="text" class="form-control" name="opponent" placeholder="Opponent" value="<%= event.opponent %>">
+							<input type="text" class="form-control" name="opponent" placeholder="Opponent" value="<%= event.opponent.titleize if event.opponent %>">
 						</div>
 					</div>
 

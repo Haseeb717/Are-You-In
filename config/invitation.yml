@@ -1,0 +1,19 @@
+# initial call in hours: to all users for first time event notifications
+# reminder call in hours: for all users whose status is "Maybe", second time notification
+# final call in hours: to all users about people coming in or not or not sure, final notification
+
+defaults: &defaults
+  initial_call: 0
+  reminder_call: 0
+  final_call: 0
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  initial_call: 48
+  reminder_call: 24
+  final_call: 12

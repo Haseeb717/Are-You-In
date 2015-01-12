@@ -2,13 +2,19 @@ $(document).ready(function() {
 	
 	// when player modal closed out (hide)
 	// data needs to be removed. Renew Form
-	$("#add_player").on("hidden.bs.modal", function(event) {
+	function refreshPlayerForm() {
 		$.ajax({
 			type: "GET",
 			url: "/players/new",
 			dataType: "HTML",
 			success: function (data) {
 				// console.log(data);
+
+				// bootstrap dynamic content issue
+				$("#add_player").modal("hide");
+				$(".modal-backdrop").remove();
+				$(".modal-open").removeClass("modal-open");
+
 				$("#add_player").replaceWith(data);
 				applyValidationToAddPlayerForm();
 
@@ -17,6 +23,9 @@ $(document).ready(function() {
 				console.log(XMLHttpRequest.responseText);
 			}
 		});
+	}
+	$("#add_player").on("hidden.bs.modal", function(event) {
+		refreshPlayerForm();
 	});
 
 	applyValidationToAddPlayerForm();
@@ -49,6 +58,7 @@ $(document).ready(function() {
 			if (avatar == null || avatar == undefined)
 				avatar = null;
 
+			$("#add-player-form button[type=submit]").attr("disabled", "disabled");
 			postData = $("#add-player-form").serialize() + "&player_avatar_id=" + avatar;
 
 			// Use Ajax to submit form data
@@ -63,6 +73,7 @@ $(document).ready(function() {
 					// update players 
 					$(".friend-list").html(data.design);
 					// hide modal
+					refreshPlayerForm();
 					$("#add_player").modal("hide");
 				},
 				error: function(XMLHttpRequest, textStatus, errorThrown) {
