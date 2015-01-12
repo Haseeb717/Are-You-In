@@ -21,10 +21,13 @@ class ApplicationController < ActionController::Base
 
 	private
 	def after_sign_in_path_for(resource)
-		resource.teams.empty? ? welcome_path : dashboard_path if resource.class == User
+		redirect_path = ""
+		redirect_path = resource.teams.empty? ? welcome_path : dashboard_path if resource.class == User
 
 		# redirect to certain address if is in param
-		# params[:back_url] if !params[:back_url].nil? and params[:back_url] =~ URI::regexp
+		redirect_path = params[:back_url] if !params[:back_url].nil? and params[:back_url] =~ URI::regexp
+
+		redirect_path
 	end
 
 	def after_sign_up_path_for(resource)

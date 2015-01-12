@@ -23,19 +23,19 @@
 					<div class="row form-row">
 						<div class="col-md-12">
 							<div class="radio no-brd toggles">
-								<input id="practice<%=event.id%>" type="radio" name="category" value="practice" checked="checked">
+								<input id="practice<%=event.id%>" type="radio" name="category" value="practice" <%= checked = "checked" if event.category == "practice" %> >
 								<label for="practice<%=event.id%>">Practice</label>
-								<input id="game<%=event.id%>" type="radio" name="category" class="game" value="game">
+								<input id="game<%=event.id%>" type="radio" name="category" class="game" value="game" <%= checked = "checked" if event.category == "game" %> >
 								<label for="game<%=event.id%>">Game</label>								
-								<input id="pickup<%=event.id%>" type="radio" name="category" value="pickup">
+								<input id="pickup<%=event.id%>" type="radio" name="category" value="pickup" <%= checked = "checked" if event.category == "pickup" %> >
 								<label for="pickup<%=event.id%>">Pickup</label>		
-								<input id="other<%=event.id%>" type="radio" name="category" value="other">
+								<input id="other<%=event.id%>" type="radio" name="category" value="other" <%= checked = "checked" if event.category == "other" %> >
 								<label for="other<%=event.id%>">Other</label>
 							</div>
 						</div>
 					</div>
 
-					<div class="row form-row collapse game">
+					<div class="row form-row collapse game" <%= "style=display:block" if event.category == "game" %>>
 						<div class="col-md-12">
 							<input type="text" class="form-control" name="opponent" placeholder="Opponent" value="<%= event.opponent %>">
 						</div>
