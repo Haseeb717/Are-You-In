@@ -89,6 +89,32 @@ class Event < ActiveRecord::Base
 		end
 	end
 
+	#cron to send event's final invitations to all users with extra information
+	def self.final_notifications
+		# send event invitation to all users
+		events = Event.where(:final_call => false, :initial_call => true, :reminder_call => true)
+		events.each do|event|
+			# combining event date and time into datetime for validation
+			# send email when X hours remains in event's start
+			event_datetime = DateTime.new(event.date.year, event.date.month, event.date.day, event.time.hour, event.time.min, event.time.sec, event.time.zone)
+			next if DateTime.now + INVITATION_CONFIG[:final_call].hour < event_datetime
+
+			organizer = event.team.admin
+			# send invitation to all users
+			event.team.users.each do |user|
+				begin
+					unless organizer == user
+						invitation = EventInvitation.where(:sender => organizer, :reciever => user, :event => event).first
+						EventInvitationMailer.invitation_final_report(invitation).deliver!
+					end
+				rescue Exception => ex
+					
+				end
+			end
+			event.update_attributes(:final_call => true)
+		end
+	end
+
 	def self.send_sms
 		bitly = Bitly.client
 		account_sid = 'AC38942978f76f0fc338e4c633c15f6ec1' 
@@ -116,32 +142,7 @@ class Event < ActiveRecord::Base
       			end
       		end
       	end
+    end
 
-
-	#cron to send event's final invitations to all users with extra information
-	def self.final_notifications
-		# send event invitation to all users
-		events = Event.where(:final_call => false, :initial_call => true, :reminder_call => true)
-		events.each do|event|
-			# combining event date and time into datetime for validation
-			# send email when X hours remains in event's start
-			event_datetime = DateTime.new(event.date.year, event.date.month, event.date.day, event.time.hour, event.time.min, event.time.sec, event.time.zone)
-			next if DateTime.now + INVITATION_CONFIG[:final_call].hour < event_datetime
-
-			organizer = event.team.admin
-			# send invitation to all users
-			event.team.users.each do |user|
-				begin
-					unless organizer == user
-						invitation = EventInvitation.where(:sender => organizer, :reciever => user, :event => event).first
-						EventInvitationMailer.invitation_final_report(invitation).deliver!
-					end
-				rescue Exception => ex
-					
-				end
-			end
-			event.update_attributes(:final_call => true)
-		end
-	end
 
 end
