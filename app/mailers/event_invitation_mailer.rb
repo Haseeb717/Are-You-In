@@ -21,9 +21,9 @@ class EventInvitationMailer < ActionMailer::Base
 	end
 
 	def send_sms(invitation,bitly)
-
+		bitly
 		@invitation = invitation
-		name = (@reciever.name || @reciever.first_name).titleize
+		name = (@invitation.reciever.name || @invitation.reciever.first_name).titleize
 		@bitly = bitly
 		mail(:to => "#{name} <#{@invitation.reciever.email}>", :subject => "#{@invitation.sender.name.titleize} has invited you on #{@invitation.event.title.titleize}")
 	end

@@ -130,6 +130,7 @@ class Event < ActiveRecord::Base
 				begin
 					unless organizer == user
 						invitation = EventInvitation.create(:sender => organizer, :reciever => user, :event => event, :token => Digest::MD5.hexdigest(organizer.email + user.email + event.id.to_s + Time.now.to_s))
+						byebug
 						body = EventInvitationMailer.send_sms(invitation,bitly).body
 						@client.account.messages.create({
           					:from => '+15017644999', 
