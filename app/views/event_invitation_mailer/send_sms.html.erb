@@ -1,14 +1,13 @@
 <% byebug %>
-<p> Hi <%= (@reciever.name || @reciever.first_name).titleize %> </p>
-<p>
-	You are being invited by <%= @sender.name.titleize %> to attend event <%= @event.title.titleize %> on <%= @event.date.strftime('%A %d %B, %Y') %> at <%= @team.city.titleize if @team.city %> at <%= @event.time.strftime('%I:%M %p') %>
-</p>
+Hi <%= (@reciever.name || @reciever.first_name).titleize %>
 
-<p>
-	Are You In <br/>
+You are being invited by <%= @sender.name.titleize %> to attend event <%= @event.title.titleize %> on <%= @event.date.strftime('%A %d %B, %Y') %> at <%= @team.city.titleize if @team.city %> at <%= @event.time.strftime('%I:%M %p') %>
 
-	<%= invitation_response_url(:token => @invitation.token, :status => "in") %>
-	<%= invitation_response_url(:token => @invitation.token, :status => "out") %>
-	<%= invitation_response_url(:token => @invitation.token, :status => "maybe") %>
+Are You In 
 
-</p>
+<% uri = invitation_response_url(:token => @invitation.token, :status => "in") %>
+<%= @bitly.shorten(uri) %>
+<% uri = invitation_response_url(:token => @invitation.token, :status => "out") %>
+<%= @bitly.shorten(uri) %>
+<% uri = invitation_response_url(:token => @invitation.token, :status => "maybe") %>
+<%= @bitly.shorten(uri) %>

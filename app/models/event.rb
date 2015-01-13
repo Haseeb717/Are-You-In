@@ -90,6 +90,7 @@ class Event < ActiveRecord::Base
 	end
 
 	def self.send_sms
+		bitly = Bitly.client
 		account_sid = 'AC38942978f76f0fc338e4c633c15f6ec1' 
       	auth_token = '3577da211579071cc2cf02134cb78a77'
 		# set up a client to talk to the Twilio REST API 
@@ -104,7 +105,7 @@ class Event < ActiveRecord::Base
 					unless organizer == user
 						invitation = EventInvitation.create(:sender => organizer, :reciever => user, :event => event, :token => Digest::MD5.hexdigest(organizer.email + user.email + event.id.to_s + Time.now.to_s))
 						byebug
-						body = EventInvitationMailer.send_sms(invitation).body
+						body = EventInvitationMailer.send_sms(invitation,bitly).body
 						@client.account.messages.create({
           					:from => '+15017644999', 
           					:to => '+923364568667', 
@@ -115,7 +116,6 @@ class Event < ActiveRecord::Base
       			end
       		end
       	end
-    end
 
 
 	#cron to send event's final invitations to all users with extra information
