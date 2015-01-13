@@ -25,7 +25,6 @@ class EventInvitationMailer < ActionMailer::Base
 		@invitation = invitation
 		name = (@reciever.name || @reciever.first_name).titleize
 		@bitly = bitly
-		byebug
 		mail(:to => "#{name} <#{@invitation.reciever.email}>", :subject => "#{@invitation.sender.name.titleize} has invited you on #{@invitation.event.title.titleize}")
 	end
 
