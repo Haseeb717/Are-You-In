@@ -78,16 +78,22 @@ class TeamsController < ApplicationController
 	def add_player
 		begin
 			if @team.admin?(current_user)
-				user = User.new(:email => player_params[:email])
-				user.assign_attributes(player_params)
-				password = Devise.friendly_token.first(10)
-				user.assign_attributes(:password => password, :password_confirmation => password)
-				user.save!
+				user = User.where(:email => player_params[:email]).first_or_initialize
+				if user.new_record?
+					user.assign_attributes(player_params)
+					password = Devise.friendly_token.first(10)
+					user.assign_attributes(:password => password, :password_confirmation => password)
+					user.save!
 
-				UserMailer.registration_request(current_user, user, password).deliver!
+					UserMailer.registration_request(current_user, user, password).deliver!
+				end
 				
-				@team.users << user unless @team.users.include?(user)
-				user.teams << @team unless user.teams.include?(@team)
+				if @team.users.include?(user) || user.teams.include?(@team)
+					raise "#{user.email} is already add to team #{@team.name.titleize}."
+				else
+					@team.users << user unless @team.users.include?(user)
+					user.teams << @team unless user.teams.include?(@team)
+				end
 				
 				unless params[:player_avatar_id] == "null" || params[:player_avatar_id] == "undefined"
 					player_avatar = PlayerAvatar.find(params[:player_avatar_id])
@@ -97,7 +103,7 @@ class TeamsController < ApplicationController
 				design = render_to_string(:partial => "teams/team_players", :locals => { :team => @team }, :layout => false )
 				render json: { :message => "Player #{user.email} has been successfully added.", :design => design }, :status => 200
 			else
-				render json: { :alert => "You don't have permissions to add player in team #{@team.name.titleize}." }, :status => 200
+				render json: { :error => "You don't have permissions to add player in team #{@team.name.titleize}." }, :status => 400
 			end
 		rescue Exception => ex
 			render json: { :error => ex.message }, :status => 400
