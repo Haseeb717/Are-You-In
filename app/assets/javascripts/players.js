@@ -61,6 +61,8 @@ $(document).ready(function() {
 			$("#add-player-form button[type=submit]").attr("disabled", "disabled");
 			postData = $("#add-player-form").serialize() + "&player_avatar_id=" + avatar;
 
+			$("#add-player-status").text("");
+
 			// Use Ajax to submit form data
 			$.ajax({
 				type: "POST",
@@ -78,7 +80,8 @@ $(document).ready(function() {
 				},
 				error: function(XMLHttpRequest, textStatus, errorThrown) {
 					console.log(XMLHttpRequest.responseText);
-					$("#add-player-status").text(XMLHttpRequest.responseText);
+					$("#add-player-status").text(XMLHttpRequest.responseJSON.error);
+					$("#add_player form button[type=submit]").removeAttr("disabled");
 				}
 			});
 		});

@@ -78,15 +78,13 @@ class TeamsController < ApplicationController
 	def add_player
 		begin
 			if @team.admin?(current_user)
-				user = User.where(:email => player_params[:email]).first_or_initialize
-				if user.new_record?
-					user.assign_attributes(player_params)
-					password = Devise.friendly_token.first(10)
-					user.assign_attributes(:password => password, :password_confirmation => password)
-					user.save!
+				user = User.new(:email => player_params[:email])
+				user.assign_attributes(player_params)
+				password = Devise.friendly_token.first(10)
+				user.assign_attributes(:password => password, :password_confirmation => password)
+				user.save!
 
-					UserMailer.registration_request(current_user, user, password).deliver!
-				end
+				UserMailer.registration_request(current_user, user, password).deliver!
 				
 				@team.users << user unless @team.users.include?(user)
 				user.teams << @team unless user.teams.include?(@team)
