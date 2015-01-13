@@ -61,7 +61,7 @@ class Event < ActiveRecord::Base
 	#cron to send event invitations only to maybe
 	def self.reminder_notifications
 		# send event invitation to those users whose response is "Maybe, Not Sure"
-		events = Event.where(:reminder_call => false)
+		events = Event.where(:reminder_call => false, :initial_call => true)
 		events.each do|event|
 			# combining event date and time into datetime for validation
 			# send email when X hours remains in event's start
@@ -89,7 +89,7 @@ class Event < ActiveRecord::Base
 	#cron to send event's final invitations to all users with extra information
 	def self.final_notifications
 		# send event invitation to all users
-		events = Event.where(:final_call => false)
+		events = Event.where(:final_call => false, :initial_call => true, :reminder_call => true)
 		events.each do|event|
 			# combining event date and time into datetime for validation
 			# send email when X hours remains in event's start
@@ -101,10 +101,8 @@ class Event < ActiveRecord::Base
 			event.team.users.each do |user|
 				begin
 					unless organizer == user
-						invitation = EventInvitation.where(:sender => organizer, :reciever => user, :event => event).first_or_create
-						invitation.update_attributes(:token => Digest::MD5.hexdigest(organizer.email + user.email + event.id.to_s + Time.now.to_s))
-
-						EventInvitationMailer.send_invitation(invitation).deliver!
+						invitation = EventInvitation.where(:sender => organizer, :reciever => user, :event => event).first
+						EventInvitationMailer.invitation_final_report(invitation).deliver!
 					end
 				rescue Exception => ex
 					

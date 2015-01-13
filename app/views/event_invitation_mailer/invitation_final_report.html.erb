@@ -1,0 +1,14 @@
+<p> Hi <%= (@invitation.reciever.name || @invitation.reciever.first_name).titleize %> </p>
+<p>
+	You are being invited by <%= @invitation.sender.name.titleize %> to attend event <%= @invitation.event.title.titleize %> on <%= @invitation.event.date.strftime('%A %d %B, %Y') %> at <%= @invitation.event.team.city.titleize if @invitation.event.team.city %> at <%= @invitation.event.time.strftime('%I:%M %p') %>
+</p>
+
+<div> People IN: 
+	<%= @invitation.event.users_in.collect{|user| user.name.titleize }.join(", ") %>
+</div>
+<div> People MAYBE: 
+	<%= @invitation.event.users_not_sure.collect{|user| user.name.titleize }.join(", ") %>
+</div>
+<div> People OUT: 
+	<%= @invitation.event.users_out.collect{|user| user.name.titleize }.join(", ") %>
+</div>
