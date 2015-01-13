@@ -7,6 +7,14 @@ class Event < ActiveRecord::Base
 	validates_presence_of :date
 	validates :time, :presence => true
 
+	before_save do
+		self.title = self.title.downcase if self.title
+		self.opponent = self.opponent.downcase if self.opponent
+		self.category = self.category.downcase if self.category
+
+		self.opponent = nil unless self.category == "game"
+	end
+
 	def users_in
 		self.rsvps.in.collect{|rsvp| rsvp.user}
 	end
