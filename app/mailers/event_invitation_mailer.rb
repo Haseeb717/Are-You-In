@@ -21,7 +21,6 @@ class EventInvitationMailer < ActionMailer::Base
 	end
 
 	def send_sms(invitation,bitly)
-		bitly
 		@invitation = invitation
 		name = (@invitation.reciever.name || @invitation.reciever.first_name).titleize
 		@bitly = bitly
