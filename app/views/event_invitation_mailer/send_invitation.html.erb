@@ -6,7 +6,7 @@
 
 <p>
 	Are You In <br/>
-
+	
 	<%= link_to "Yes", invitation_response_url(:token => @invitation.token, :status => "in"), :class => "btn btn-primary" %>
 
 	<%= link_to "Maybe", invitation_response_url(:token => @invitation.token, :status => "maybe"), :class => "btn btn-info" %>
