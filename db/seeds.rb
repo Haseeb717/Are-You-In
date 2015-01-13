@@ -7,7 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 
-user = User.create(:email => "test@gmail.com", :password => "test1234", :password_confirmation => "test1234", :name => "Test Test", :phone => "987654321")
+user = User.create(:email => "test@gmail.com", :password => "test1234", :password_confirmation => "test1234", :name => "Test Test", :phone => "9876543210")
 
 team1 = Team.create(:name => "Hanahan Hawks", :sport => "cricket", :city => "Field B, Alabama", :gender => "male", :age => "adult", :public_contact_info => true, :admin => user)
 team2 = Team.create(:name => "Saturday Basketball", :sport => "football", :city => "Field B, Florida", :gender => "male", :age => "youth", :age_from => "8", :age_to => "12", :public_contact_info => true, :admin => user)

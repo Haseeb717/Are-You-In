@@ -76,6 +76,7 @@ class TeamsController < ApplicationController
 	end
 
 	def add_player
+		user = nil
 		begin
 			if @team.admin?(current_user)
 				user = User.where(:email => player_params[:email]).first_or_initialize
@@ -89,7 +90,7 @@ class TeamsController < ApplicationController
 				end
 				
 				if @team.users.include?(user) || user.teams.include?(@team)
-					raise "#{user.email} is already add to team #{@team.name.titleize}."
+					raise "#{user.email} is already added to team #{@team.name.titleize}."
 				else
 					@team.users << user unless @team.users.include?(user)
 					user.teams << @team unless user.teams.include?(@team)
@@ -106,7 +107,9 @@ class TeamsController < ApplicationController
 				render json: { :error => "You don't have permissions to add player in team #{@team.name.titleize}." }, :status => 400
 			end
 		rescue Exception => ex
-			render json: { :error => ex.message }, :status => 400
+			error = ex.message
+			error = user.errors.collect{|error, name| name}.join(", ") unless user.errors.empty?
+			render json: { :error => error }, :status => 400
 		end
 	end
 
