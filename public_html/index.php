@@ -253,15 +253,15 @@
       <div class="front-iphone"><img src="/assets/img/iphone-mockup.png" alt="exemple"></div>
       
         <div class="carousel-viewport">
-            <div class="slide slide-current"><img src="http://www.placehold.it/640x1136" alt="exemple"></div>
-            <div class="slide"><img src="http://www.placehold.it/640x1136" alt="exemple"></div>
-            <div class="slide"><img src="http://www.placehold.it/640x1136" alt="exemple"></div>
-            <div class="slide"><img src="http://www.placehold.it/640x1136" alt="exemple"></div>
-            <div class="slide"><img src="http://www.placehold.it/640x1136" alt="exemple"></div>
-            <div class="slide"><img src="http://www.placehold.it/640x1136" alt="exemple"></div>
-            <div class="slide"><img src="http://www.placehold.it/640x1136" alt="exemple"></div>
-            <div class="slide"><img src="http://www.placehold.it/640x1136" alt="exemple"></div>
-            <div class="slide"><img src="http://www.placehold.it/640x1136" alt="exemple"></div>
+            <div class="slide slide-current"><img src="/assets/img/areyouin-app1.jpg" alt="exemple"></div>
+            <div class="slide"><img src="assets/img/areyouin-app2.jpg" alt="exemple"></div>
+            <div class="slide"><img src="assets/img/areyouin-app3.jpg" alt="exemple"></div>
+            <div class="slide"><img src="assets/img/areyouin-app4.jpg" alt="exemple"></div>
+            <div class="slide"><img src="assets/img/areyouin-app5.jpg" alt="exemple"></div>
+            <div class="slide"><img src="assets/img/areyouin-app6.jpg" alt="exemple"></div>
+            <div class="slide"><img src="assets/img/areyouin-app7.jpg" alt="exemple"></div>
+            <div class="slide"><img src="assets/img/areyouin-app8.jpg" alt="exemple"></div>
+            <div class="slide"><img src="assets/img/areyouin-app9.jpg" alt="exemple"></div>
 
         </div><!--.carousel-viewport-->
       
