@@ -100,7 +100,7 @@
 				<div class="chat-toggler">
 					<!-- BEGIN PROFILE PICTURE -->
 					<div class="profile-pic">
-						<% pic = current_user.player_avatars.empty? ? "/users/missing.png" : current_user.player_avatars.last.avatar(:thumb) %>
+						<% pic = current_user.player_avatars.empty? ? "/users/missing.png" : current_user.player_avatars.last.avatar(:original) %>
 						<img src="<%= pic %>" alt="" data-src="<%= pic %>" data-src-retina="/<%= pic %>" width="35" height="35" /> 
 					</div>	
 					<!-- END PROFILE PICTURE -->								

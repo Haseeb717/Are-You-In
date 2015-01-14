@@ -47,11 +47,13 @@ $(document).ready(function() {
 				dataType: "JSON",
 				data: postData,
 				success: function (data) {
-					console.log(data);
+					// console.log(data);
+
 					refreshEventForm();
 					$("#add_event").modal("hide");
 					$(".team-events-widget").html(data.design);
 					applyValidationToEditEventForm();
+
 				},
 				error: function(XMLHttpRequest, textStatus, errorThrown) {
 					console.log(XMLHttpRequest.responseText);
@@ -171,7 +173,7 @@ $(document).ready(function() {
 				response: response
 			},
 			success: function (data) {
-				console.log(data);
+				// console.log(data);
 				$(Element).html(data);
 
 				// bind popover effect on dynamic elements

@@ -13,8 +13,8 @@ $(document).ready(function(){
 				// console.log(data.message);
 
 				// refresh dropdown space
-				$(".display-team-avatar").replaceWith(data.design);
 				$(".display-team-avatar").siblings("h4").remove();
+				$(".display-team-avatar").replaceWith(data.design);
 				applyDropZoneToTeamAvatars();
 			}
 		});
