@@ -2,6 +2,7 @@
 
 <!-- BEGIN CONTENT -->
 <div class="page-container row-fluid">
+	<%= render :partial => "layouts/side_panel" %>
 	<div class="page-content">				
 		<div class="content">
 			<div class="row">
@@ -38,3 +39,4 @@
 </div>
 
 <%= render :partial => "teams/form", :locals => { :team => Team.new, :team_avatar => TeamAvatar.new } %>
+<%= render :partial => "events/form", :locals => { :event => Event.new } %>

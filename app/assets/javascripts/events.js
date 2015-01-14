@@ -14,7 +14,7 @@ $(document).ready(function() {
 				$(".modal-open").removeClass("modal-open");
 
 				$("#add_event").replaceWith(data);
-				applyValidationToAddEventForm();
+				applyValidationsToAddEventForm();
 
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
