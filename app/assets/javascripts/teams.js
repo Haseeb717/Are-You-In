@@ -8,7 +8,7 @@ $(document).ready(function() {
 			validating: "glyphicon glyphicon-refresh"
 		},
 		fields: {
-			team_name: { validators: { notEmpty: { message: "The team name is required" }, stringLength: { min: 5, message: "The length of team name should be greater or equal to 5." } } },
+			name: { validators: { notEmpty: { message: "The team name is required" }, stringLength: { min: 5, message: "The length of team name should be greater or equal to 5." } } },
 			sport: { validators: { notEmpty: { message: "The sport is required" } } },
 			city: { validators: { notEmpty: { message: "The city is required" } } }
 		}
@@ -26,7 +26,7 @@ $(document).ready(function() {
 			avatar = null;
 
 		// append team avatar in post request
-		postData = $("#add-team-form").serialize().replace("team_name", "name") + "&team_avatar_id=" + avatar;
+		postData = $("#add-team-form").serialize() + "&team_avatar_id=" + avatar;
 
 		// Use Ajax to submit form data
 		$.ajax({
@@ -84,7 +84,7 @@ $(document).ready(function() {
 					validating: "glyphicon glyphicon-refresh"
 				},
 				fields: {
-					team_name: { validators: { notEmpty: { message: "The team name is required" }, stringLength: { min: 5, message: "The length of team name should be greate then 5." } } },
+					name: { validators: { notEmpty: { message: "The team name is required" }, stringLength: { min: 5, message: "The length of team name should be greate then 5." } } },
 					sport: { validators: { notEmpty: { message: "The sport is required" } } },
 					city: { validators: { notEmpty: { message: "The city is required" } } }
 				}
@@ -100,7 +100,7 @@ $(document).ready(function() {
 					avatar = null;
 
 				// append team avatar in post request
-				postData = $(this).serialize().replace("team_name", "name") + "&team_avatar_id=" + avatar;
+				postData = $(this).serialize() + "&team_avatar_id=" + avatar;
 
 				$.ajax({
 					type: "PUT",
