@@ -1,5 +1,28 @@
 $(document).ready(function() {
 
+	function refreshEventForm() {
+		$.ajax({
+			type: "GET",
+			url: "/events/new",
+			dataType: "HTML",
+			success: function (data) {
+				// console.log(data);
+
+				// bootstrap dynamic content issue
+				$("#add_event").modal("hide");
+				$(".modal-backdrop").remove();
+				$(".modal-open").removeClass("modal-open");
+
+				$("#add_event").replaceWith(data);
+				applyValidationToAddEventForm();
+
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				console.log(XMLHttpRequest.responseText);
+			}
+		});
+	}
+
 	function applyValidationsToAddEventForm() {
 		$("#add-event-form").bootstrapValidator({
 			feedbackIcons: {
@@ -25,7 +48,7 @@ $(document).ready(function() {
 				data: postData,
 				success: function (data) {
 					console.log(data);
-
+					refreshEventForm();
 					$("#add_event").modal("hide");
 					$(".team-events-widget").html(data.design);
 					applyValidationToEditEventForm();

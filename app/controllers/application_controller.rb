@@ -19,18 +19,20 @@ class ApplicationController < ActionController::Base
 		devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:login, :email, :phone, :password, :remember_me) }
     end
 
-	private
+	
 	def after_sign_in_path_for(resource)
 		redirect_path = ""
-		redirect_path = resource.teams.empty? ? welcome_path : dashboard_path if resource.class == User
+		redirect_path = (resource.teams.count==0 || resource.get_all_events.count==0) ? welcome_path : dashboard_path if resource.class == User
 
 		# redirect to certain address if is in param
 		redirect_path = params[:back_url] if !params[:back_url].nil? and params[:back_url] =~ URI::regexp
 
 		redirect_path
+		
 	end
-
+	private
 	def after_sign_up_path_for(resource)
+		
 		after_sign_in_path_for(resource)
 	end
 end
