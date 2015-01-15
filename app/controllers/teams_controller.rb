@@ -1,5 +1,5 @@
 class TeamsController < ApplicationController
-	before_action :set_team, only: [:show, :edit, :update, :destroy, :add_player, :welcome]
+	before_action :set_team, only: [:show, :edit, :update, :destroy, :add_player]
 	layout false, :only => :new
 
 	respond_to :html
@@ -10,17 +10,13 @@ class TeamsController < ApplicationController
 
 	def show
 		# redirct to create welcome Page to create first event
-		if @team.events.count > 0
-			@team_avatar = @team.team_avatars.last || TeamAvatar.new
-			@event = Event.new
+		@team_avatar = @team.team_avatars.last || TeamAvatar.new
+		@event = Event.new
 
-			@player_avatar = PlayerAvatar.new
-			@player = User.new
+		@player_avatar = PlayerAvatar.new
+		@player = User.new
 
-			respond_with(@team)
-		else
-			redirect_to welcome_team_path(@team)
-		end
+		respond_with(@team)
 	end
 
 	def new
@@ -116,10 +112,6 @@ class TeamsController < ApplicationController
 			error = user.errors.collect{|error, name| name}.join(", ") unless user.errors.empty?
 			render json: { :error => error }, :status => 400
 		end
-	end
-
-	def welcome
-		
 	end
 
 	private
