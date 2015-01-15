@@ -126,7 +126,7 @@ $(document).ready(function() {
 				buttonLabel: "Confirm that I am IN",
 				callback: function(result) {
 					// user pressed confirmation button
-					saveRVSPResponse(event_id, "in", responseElement);
+					if (result) saveRVSPResponse(event_id, "in", responseElement);
 				}
 			});
 		}
@@ -141,7 +141,7 @@ $(document).ready(function() {
 				buttonLabel: "Not sure yet, Remind me again",
 				callback: function(result) {
 					// user pressed confirmation button
-					saveRVSPResponse(event_id, "maybe", responseElement);
+					if (result) saveRVSPResponse(event_id, "maybe", responseElement);
 				}
 			});
 		}
@@ -156,7 +156,7 @@ $(document).ready(function() {
 				buttonLabel: "Confirm that I am Out",
 				callback: function(result) {
 					// user pressed confirmation button
-					saveRVSPResponse(event_id, "out", responseElement);
+					if (result) saveRVSPResponse(event_id, "out", responseElement);
 				}
 			});
 		}
