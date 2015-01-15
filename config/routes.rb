@@ -21,6 +21,7 @@ Rails.application.routes.draw do
 
   get "/dashboard", :to => "static#dashboard"
   get "/invitation_response", :to => "static#invitation_response"
+  post "/sms_response", :to => "static#sms_response"
   get "/welcome", :to => "static#welcome"
 
   # The priority is based upon order of creation: first created -> highest priority.
