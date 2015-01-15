@@ -1,4 +1,5 @@
 $(document).ready(function() {
+	applyValidationsToAddEventForm();
 
 	function refreshEventForm() {
 		$.ajax({
@@ -76,17 +77,14 @@ $(document).ready(function() {
 					$("#add-event-form").data("bootstrapValidator").revalidateField("time");
 			}
 		});
+
+		// Show and Hide Game Opponent Input
+		$(".toggles input[type=radio]").on("change", function () {
+			if (!this.checked) return
+			$(".collapse").not($("div." + $(this).attr("class"))).slideUp();
+			$(".collapse." + $(this).attr("class")).slideDown();
+		});
 	}
-
-	applyValidationsToAddEventForm();
-
-	// Show and Hide Game Opponent Input
-	$(".toggles input[type=radio]").on("change", function () {
-		if (!this.checked) return
-		$(".collapse").not($("div." + $(this).attr("class"))).slideUp();
-		$(".collapse." + $(this).attr("class")).slideDown();
-	});
-
 
 	// clearing old text from event-form
 	// renew event form
