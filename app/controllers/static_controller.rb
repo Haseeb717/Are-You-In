@@ -39,6 +39,7 @@ class StaticController < ApplicationController
 		user = nil?
 		begin
 			from = params[:From]
+			from = "0" + from[3..-1]
 			body = params[:Body]
 			raise "invalid parameters." if from.nil? || body.nil?
 
