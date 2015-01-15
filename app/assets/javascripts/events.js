@@ -1,5 +1,28 @@
 $(document).ready(function() {
 
+	function refreshEventForm() {
+		$.ajax({
+			type: "GET",
+			url: "/events/new",
+			dataType: "HTML",
+			success: function (data) {
+				// console.log(data);
+
+				// bootstrap dynamic content issue
+				$("#add_event").modal("hide");
+				$(".modal-backdrop").remove();
+				$(".modal-open").removeClass("modal-open");
+
+				$("#add_event").replaceWith(data);
+				applyValidationsToAddEventForm();
+
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				console.log(XMLHttpRequest.responseText);
+			}
+		});
+	}
+
 	function applyValidationsToAddEventForm() {
 		$("#add-event-form").bootstrapValidator({
 			feedbackIcons: {
@@ -26,16 +49,11 @@ $(document).ready(function() {
 				success: function (data) {
 					// console.log(data);
 
-					// checking if it is on team show page or team welcome page to add first event
-					if ($("#team_page").val() == undefined || $("#team_page").val() == null) {
-						$("#add_event").modal("hide");
-						$(".team-events-widget").html(data.design);
-						applyValidationToEditEventForm();
-					}
-					else {
-						// in case of adding first event to team, redirect it to team page
-						window.location.href = window.location.href.replace("welcome", "");
-					}
+					refreshEventForm();
+					$("#add_event").modal("hide");
+					$(".team-events-widget").html(data.design);
+					applyValidationToEditEventForm();
+
 				},
 				error: function(XMLHttpRequest, textStatus, errorThrown) {
 					console.log(XMLHttpRequest.responseText);

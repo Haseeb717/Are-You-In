@@ -2,6 +2,7 @@
 
 <!-- BEGIN CONTENT -->
 <div class="page-container row-fluid">
+	<%= render :partial => "layouts/side_panel" %>
 	<div class="page-content">				
 		<div class="content">
 			<div class="row">
@@ -11,10 +12,24 @@
 							<h2 class="text-center">Welcome
 								<span class="semi-bold text-success"><% current_user.name.titleize %></span>
 							</h2>
-							<h4 class="text-center muted m-l-10 m-r-10">First step is to create a Team.</h4>
-							<button type="button" data-toggle="modal" data-target="#add_team" class="btn btn-primary m-t-20 btn-cons">
-								<i class="fa fa-add"></i>&nbsp;Add Team
-							</button>
+							
+							<% if current_user.teams.count==0%>
+								<h4 class="text-center muted m-l-10 m-r-10">First step is to create a Team.</h4>
+								<button type="button" data-toggle="modal" data-target="#add_team" class="btn btn-primary m-t-20 btn-cons">
+									<i class="fa fa-add"></i>&nbsp;Add New Team
+								</button>
+								
+							<%elsif current_user.get_all_events.count==0 %>
+
+								<h4 class="text-center muted m-l-10 m-r-10">Congratulations! You have completed first step, Now create an event in your team.</h4>
+								<button type="button" data-toggle="modal" data-target="#add_event" class="btn btn-primary m-t-20 btn-cons">
+									<i class="fa fa-add"></i>&nbsp;Add New Event
+								</button>
+									
+
+							<%end%>
+
+
 						</div>
 					</div>
 				</div>
@@ -24,3 +39,4 @@
 </div>
 
 <%= render :partial => "teams/form", :locals => { :team => Team.new, :team_avatar => TeamAvatar.new } %>
+<%= render :partial => "events/form", :locals => { :event => Event.new } %>
