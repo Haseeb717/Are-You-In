@@ -24,11 +24,18 @@ $(document).ready(function() {
 				dataType: "JSON",
 				data: postData,
 				success: function (data) {
-					console.log(data);
+					// console.log(data);
 
-					$("#add_event").modal("hide");
-					$(".team-events-widget").html(data.design);
-					applyValidationToEditEventForm();
+					// checking if it is on team show page or team welcome page to add first event
+					if ($("#team_page").val() == undefined || $("#team_page").val() == null) {
+						$("#add_event").modal("hide");
+						$(".team-events-widget").html(data.design);
+						applyValidationToEditEventForm();
+					}
+					else {
+						// in case of adding first event to team, redirect it to team page
+						window.location.href = window.location.href.replace("welcome", "");
+					}
 				},
 				error: function(XMLHttpRequest, textStatus, errorThrown) {
 					console.log(XMLHttpRequest.responseText);
@@ -148,7 +155,7 @@ $(document).ready(function() {
 				response: response
 			},
 			success: function (data) {
-				console.log(data);
+				// console.log(data);
 				$(Element).html(data);
 
 				// bind popover effect on dynamic elements

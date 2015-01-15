@@ -7,6 +7,7 @@ class StaticController < ApplicationController
 	end
 
 	def dashboard
+		redirect_to welcome_path if current_user.teams.count == 0
 	end
 
 	def welcome

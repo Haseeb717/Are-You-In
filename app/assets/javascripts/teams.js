@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	// form validation fields
 	// insert new team on successfull validation
-	$(".add-team-form").bootstrapValidator({
+	$("#add-team-form").bootstrapValidator({
 		feedbackIcons: {
 			valid: "glyphicon glyphicon-ok",
 			invalid: "glyphicon glyphicon-remove",
