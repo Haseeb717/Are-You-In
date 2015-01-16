@@ -1,63 +1,176 @@
-<%= form_for(@user) do |f| %>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+<%= form_for(@user, :html => {:id => "update-user-form"}) do |f| %>
+	<input type="hidden" id="avatar" name="avatar" value="">
 
-      <ul>
-      <% @user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-  
-        <div class="modal-body">
-          <div class="row form-row">
-            <div class="col-md-6">
-              <%= f.label :first_name %><br>
-              <%= f.text_field :first_name %>
-            </div>
-            <div class="col-md-6">
-              <%= f.label :last_name %><br>
-              <%= f.text_field :last_name %>
-            </div>
-          </div>
-          <div class="row form-row">
-            <div class="col-md-6">
-              <%= f.label :phone %><br>
-              <%= f.text_field :phone %>
-            </div>
-            <div class="col-md-6">
-              <%= link_to 'Change Password', edit_user_registration_path %><br>
-              
-            </div>
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="grid simple">
+				<div class="grid-title no-border">
+					<h4>Edit <span class="semi-bold">Account</span></h4>
+				</div>
+						
+				<div class="grid-body no-border">
+					<div class="row">
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<div class="form-group">
+								<label class="form-label">First Name</label>
+								<div class="controls">
+									<input type="text" name="first_name" class="form-control" value="<%= @user.first_name.titleize if @user.first_name %>">
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<div class="form-group">
+								<label class="form-label">Last Name</label>
+								<div class="controls">
+								<input type="text" name="last_name" class="form-control" value="<%= @user.last_name.titleize if @user.last_name %>">
+								</div>
+							</div>
+						</div>
+					</div>
 
-          </div>
-          <div class="row form-row">
-            <div class="col-md-12">
-              <input id="male" type="checkbox" name="check" value="yes" checked="checked">
-              <label for="male">Recieve event sms messages on Phone Number</label>
-            </div>
-          </div>
-          
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary" >Update</button>
-        </div>
+					<div class="row">
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<div class="form-group">
+								<label class="form-label">Email</label>
+								<div class="controls">
+								<input type="email" name="email" class="form-control" value="<%= @user.email %>">
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<div class="form-group">
+								<label class="form-label">Phone</label>
+								<div class="controls">
+									<input type="text" name="phone" class="form-control" value="<%= @user.phone %>">
+								</div>
+							</div>
+						</div>
+					</div>
 
+					<div class="row">
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<div class="form-group">
+								<label class="form-label">Date of Birth</label>
+								<div class="controls">
+									<div class="input-append success date full-width no-padding">
+										<input type="text" class="datepicker" name="dob" class="form-control" value="<%= @user.dob.strftime('%e %B, %Y') if @user.dob %>">
+										<span class="add-on">
+											<span class="arrow"></span>
+											<i class="fa fa-th"></i>
+										</span>
+									</div>
+								</div>
+							</div> 
+						</div>
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<div class="form-group">
+								<label class="form-label">Gender</label>
+								<div class="controls">
+									<select class="source-nosearch" name="gender" style="width:100%">
+										<% GENDER.each do |gender| %>
+											<option value="<%= gender %>" <%= selected = "selected" if @user.gender and (@user.gender.downcase == gender.downcase) %> >
+												<%= gender.titleize %>
+											</option>
+										<% end %>
+									</select>
+								</div>
+							</div>
+						</div> 
+					</div>
 
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="form-group">
+							<label class="form-label">Password</label>
+							<span class="help">only needed if you update password</span>
+								<div class="controls">
+								<input type="password" name="password" class="form-control">
+								</div>
+							</div>
+						</div>
+					</div>
 
+					<div class="row">
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<div class="row">
+								<div class="col-md-4 col-xs-12">
+									<div class="form-group">
+										<label class="form-label">City</label>
+										<div class="controls">
+											<input type="text" name="city" class="form-control" value="<%= @user.city.titleize if @user.city %>">
+										</div>
+									</div>
+								</div>
+								
+								<div class="col-md-4 col-xs-12">
+									<div class="form-group">
+									<label class="form-label">Country</label>
+										<div class="controls">
+										<select class="source-nosearch" name="country" style="width:100%">
+											<% COUNTRIES.each do |country| %>
+												<option value="<%= country.first%>" <%= selected = "selected" if @user.country and @user.country.downcase == country.last.downcase %>>
+													<%= country.last %>
+												</option>
+											<% end %>
+										</select>
+										</div>
+									</div>
+								</div>
 
-  <!-- <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div> -->
+								<div class="col-md-4 col-xs-12">
+									<div class="form-group">
+										<label class="form-label">State</label>
+										<div class="controls">
+											<select class="source" style="width:100%" name="state">
+												<% STATES.each do |state| %>
+													<option value="<%= state.first%>" <%= selected = "selected" if @user.state and @user.state.downcase == state.first.downcase %>>
+														<%= state.last %>
+													</option>
+												<% end %>
+											</select>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="grid-title no-border">
+					<h4>Notification <span class="semi-bold">Options</span></h4>
+				</div>
+						
+				<div class="grid-body no-border">
+					<div class="row">
+						<div class="col-md-6 col-xs-12 m-b-15">
+							<div class="checkbox">
+								<input id="allow_sms" type="checkbox" name="allow_sms" value="true" <%= checked = "checked" if @user.allow_sms %>>
+								<label for="allow_sms">SMS</label>
+
+								<input id="allow_email" type="checkbox" name="allow_email" value="true" <%= checked = "checked" if @user.allow_email %>>
+								<label for="allow_email">E-Mail</label>
+							
+								<p>Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquan lorem ante, dapibus in, viverra quis, feugiat a, tellus. </p>
+							</div>
+						</div>
+						<div class="col-md-6 col-xs-12">
+							<div class="checkbox">
+								<input id="yes" type="checkbox" name="optionyes" value="yes" checked="checked">
+								<label for="yes">Terms and Conditions</label>
+								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, </p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="grid-body no-border">
+					<div class="row">
+						<div class="col-md-6 col-xs-6">
+							<button type="submit" class="btn btn-primary btn-cons">Save Settings</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 <% end %>

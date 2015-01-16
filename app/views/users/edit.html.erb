@@ -1,6 +1,68 @@
-<h1>Editing user</h1>
+<%= render :partial => "layouts/header" %>
 
-<%= render 'form' %>
+<!-- BEGIN CONTENT -->
+<div class="page-container row-fluid">
+	<%= render :partial => "layouts/side_panel" %>
 
-<%= link_to 'Show', @user %> |
-<%= link_to 'Back', users_path %>
+	<!-- BEGIN PAGE CONTAINER-->
+	<div class="page-content">
+		<div class="content">
+			<div class="row">
+				<div class="col-sm-12 col-md-12 col-lg-9">
+					<div class=" tiles white col-md-12 no-padding profile-pix">
+						<div class="overlayer top-right">
+							<div class="overlayer-wrapper">
+								<div class="padding-10 ">
+									<button type="button" class="btn btn-success btn-small" data-toggle="modal" data-target="#edit-picture">
+										<i class="fa fa-pencil"></i>&nbsp;&nbsp; Edit Picture
+									</button>
+								</div>
+							</div>
+						</div>
+
+						<div class="tiles green cover-pic-wrapper">
+							<img src="/assets/cover_pic.png" alt="">
+						</div>
+
+						<div class="tiles white">
+							<div class="row">
+								<div class="col-md-3 col-sm-2" >
+									<div class="user-profile-pic">
+										<% pic = @user.player_avatars.empty? ? "/users/missing.png" : @user.player_avatars.last.avatar(:original) %>
+										<img width="69" height="69" data-src-retina="<%= pic %>" data-src="<%= pic %>" src="<%= pic %>" alt="">
+									</div>
+								</div>
+								
+								<div class="col-md-8 col-sm-8 no-padding">
+									<div class="profile-name">
+										<h2><%= @user.name.titleize %></h2>
+										<h6>Member since <%= @user.created_at.strftime("%B %d, %Y") %></h6>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<%= render :partial => "users/form" %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="edit-picture" tabindex="-1" role="dialog" aria-labelledby="edit-picture" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<%= render :partial => "player_avatars/form", :locals => {:player_avatar => PlayerAvatar.new } %>
+			</div>
+			<div class="modal-body">
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal"> Close </button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,96 @@
+<% event ||= Event.new %>
+
+<div class="modal fade" id="add_event<%= event.id %>" tabindex="-1" role="dialog" aria-labelledby="add_event" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content event-modal">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					×
+				</button>
+				<i class="fa fa-calendar-o fa-7x"></i>
+				<h4 id="" class="semi-bold">Add an Event.</h4>
+			</div>
+
+			<%= form_for(event, :html => {:id => "add-first-event"}) do |f| %>
+				<div class="modal-body">
+					<div class="row form-row">
+						<div class="col-md-12 select-container">
+							<select name="team_id" id="team_id" class="source form-control" style="width:100%">
+								<option value="">Please Select Team</option>
+								<% current_user.teams.each do |team| %>
+									<option value="<%= team.id %>"><%= team.name.titleize %></option>
+								<% end %>
+							</select>
+						</div>
+
+						<div class="col-md-12">
+							<input type="text" class="form-control" name="title" placeholder="Event Title" value="<%= event.title.titleize if event.title %>">
+						</div>
+					</div>
+
+					<div class="row form-row">
+						<div class="col-md-12">
+							<div class="radio no-brd toggles">
+								<input id="practice<%=event.id%>" type="radio" name="category" value="practice" <%= checked = "checked" if event.category == "practice" %> >
+								<label for="practice<%=event.id%>">Practice</label>
+								<input id="game<%=event.id%>" type="radio" name="category" class="game" value="game" <%= checked = "checked" if event.category == "game" %> >
+								<label for="game<%=event.id%>">Game</label>								
+								<input id="pickup<%=event.id%>" type="radio" name="category" value="pickup" <%= checked = "checked" if event.category == "pickup" %> >
+								<label for="pickup<%=event.id%>">Pickup</label>		
+								<input id="other<%=event.id%>" type="radio" name="category" value="other" <%= checked = "checked" if event.category == "other" %> >
+								<label for="other<%=event.id%>">Other</label>
+							</div>
+						</div>
+					</div>
+
+					<div class="row form-row collapse game" <%= "style=display:block" if event.category == "game" %>>
+						<div class="col-md-12">
+							<input type="text" class="form-control" name="opponent" placeholder="Opponent" value="<%= event.opponent.titleize if event.opponent %>">
+						</div>
+					</div>
+
+					<div class="row form-row">
+						<div class="col-md-6">
+							<input type="text" name="date" class="datepicker form-control" placeholder="Date" value="<%= event.date.strftime('%e %B, %Y') if event.date %>">
+						</div>
+						<div class="col-md-6">
+							<input type="text" name="time" class="timepicker form-control" placeholder="Time" value="<%= event.time.strftime('%I:%M %p') if event.time %>" >
+						</div>
+
+					</div>
+					<div class="row form-row">
+						<div class="col-md-12">
+							<textarea id="text-editor" name="note" placeholder="Enter Note about this Event ..." class="form-control" rows="3"><%= event.note %></textarea>
+						</div>
+					</div>
+					<div class="row form-row">
+						<div class="col-md-12" id="event-message">
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<% if event.new_record? %>
+						<button type="button" class="btn btn-default" data-dismiss="modal">
+							Close
+						</button>
+						<button type="submit" class="btn btn-primary">Add Event</button>
+					<% else %>
+						<input type="hidden" class="event_id" name="event_id" value="<%= event.id %>">
+						<input type="hidden" class="team_id" name="team_id" value="<%= event.team.id %>">
+
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-danger event-remove" >
+							Remove Event
+						</button>
+						<button type="submit" class="btn btn-primary event-update">
+							Update Event
+						</button>
+					<% end %>
+				</div>
+			</div>
+		<% end %>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

@@ -1,16 +1,16 @@
-.edit_event .form-control-feedback, #add-event-form .form-control-feedback {
+#add-first-event .form-control-feedback, .edit_event .form-control-feedback, #add-event-form .form-control-feedback {
 	top: -35px;
 	right: 15px;
 	float: right;
 	color: #a94442;
 }
 
-.edit_event .help-block, #add-event-form .help-block {
+#add-first-event .help-block, .edit_event .help-block, #add-event-form .help-block {
 	color: #a94442;
 	margin-top: -10px;
 }
 
-.edit_event .glyphicon-ok, #add-event-form .glyphicon-ok {
+#add-first-event .glyphicon-ok, .edit_event .glyphicon-ok, #add-event-form .glyphicon-ok {
 	color: #5BA85F;
 }
 

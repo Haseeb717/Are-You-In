@@ -23,9 +23,30 @@ class UsersController < ApplicationController
 		respond_with(@user)
 	end
 
-	def update		
+	def update
+		# email and sms settings
+		@user.allow_email = false if user_params[:allow_email].nil?
+		@user.allow_sms = false if user_params[:allow_sms].nil?
+
 		@user.update(user_params)
-		redirect_to dashboard_path 
+		# adding player avatar
+		unless params[:avatar].nil? || params[:avatar].empty?
+			begin
+				avatar = PlayerAvatar.find(params[:avatar])
+				@user.player_avatars.collect{|avatar| avatar.destroy}
+				@user.player_avatars << avatar
+			rescue Exception => ex
+				
+			end
+		end
+
+		# updating user's password
+		unless params[:password].nil? || params[:password].empty?
+			@user.password = params[:password]
+			@user.password_confirmation = params[:password]
+			@user.save!
+		end
+		redirect_to user_path(@user)
 	end
 
 	def destroy
@@ -35,10 +56,10 @@ class UsersController < ApplicationController
 
 	private
 		def set_user
-			@user = User.find(current_user.id)
+			@user = current_user
 		end
 
 		def user_params
-			params.require(:user).permit(:name, :phone, :email, :gender, :password, :first_name, :last_name)
+			params.permit(:name, :first_name, :last_name, :dob, :phone, :gender, :city, :country, :state, :allow_email, :allow_sms)
 		end
 end
