@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :teams do
     member do
       post "add_player"
+      post "message"
     end
   end
   resources :team_avatars

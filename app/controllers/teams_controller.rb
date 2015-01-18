@@ -1,5 +1,5 @@
 class TeamsController < ApplicationController
-	before_action :set_team, only: [:show, :edit, :update, :destroy, :add_player]
+	before_action :set_team, only: [:show, :edit, :update, :destroy, :add_player, :message]
 	layout false, :only => :new
 
 	respond_to :html
@@ -9,13 +9,6 @@ class TeamsController < ApplicationController
 	end
 
 	def show
-		# redirct to create welcome Page to create first event
-		@team_avatar = @team.team_avatars.last || TeamAvatar.new
-		@event = Event.new
-
-		@player_avatar = PlayerAvatar.new
-		@player = User.new
-
 		respond_with(@team)
 	end
 
@@ -114,6 +107,42 @@ class TeamsController < ApplicationController
 		end
 	end
 
+	def message
+		begin
+			# confirming if user is part of the team
+			if current_user and @team.users.include?(current_user)
+				message = TeamMessage.new(message_params)
+				@team.team_messages << message
+
+				# checking if it is reply of some message
+				unless params[:parent].nil? and params[:parent].empty?
+					parent = TeamMessage.find(params[:parent])
+					parent.replies << message
+				end
+
+				# checking if it is reply to some specific user
+				unless params[:reply_to].nil? and params[:reply_to].empty?
+					# send message to this user
+					user = User.find(params[:reply_to])
+				else
+					@team.users.each do |user|
+						# send message to full team users
+					end
+				end
+				
+				message.save!
+			else
+
+			end
+		rescue Exception => ex
+			
+		end
+
+		# refreshing whole team feeds
+		design = render_to_string(:partial => "teams/team_feeds", :layout => false)
+		render json: { :design => design }, :status => 200
+	end
+
 	private
 		def set_team
 			@team = Team.find(params[:id])
@@ -121,6 +150,10 @@ class TeamsController < ApplicationController
 
 		def team_params
 			params.permit(:name, :sport, :city, :gender, :age, :age_from, :age_to, :public_contact_info)
+		end
+
+		def message_params
+			params.permit(:text, :user_id)
 		end
 
 		def player_params

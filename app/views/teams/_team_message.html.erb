@@ -1,0 +1,59 @@
+<div class="message-wrap">
+	<div class="user-profile">
+		<%= render :partial => "users/user_avatar", :locals => {:user => message.user} %>
+	</div>
+	<div class="message-wrapper">
+		<div class="heading">
+			<%= message.user.name.titleize if message.user.name %>
+		</div>
+		<div class="date"> <%= distance_of_time_in_words(message.created_at, Time.now) %> </div>
+		<div class="text-description">
+			<%= message.text %>
+		</div>
+		
+		<% if parent %>
+			<div class="feed-function">
+				<a class="reply-trigger" href="#">
+					<i class="fa fa-reply"></i>Reply
+				</a>
+				<a class="reply-all-trigger" href="#">
+					<i class="fa fa-reply-all"></i>Reply All
+				</a>
+				
+				<div class="reply-wrap" style="display:none;">
+					<div class="title-header">
+						<div class="controller"> 
+							<a href="javascript:;" class="remove reply-trigger"></a>
+						</div>
+					</div>
+
+					<form>
+						<input type="hidden" name="parent-message" class="parent-message" value="<%= message.id %>">
+						<input type="hidden" name="reply-user" class="reply-user" value="<%= message.user.id %>">
+						<textarea placeholder="text here..."></textarea>
+						<button type="button" class="btn btn-blue btn-small btn-reply">
+							Send to <%= message.user.name.titleize if message.user.name %>
+						</button>
+					</form>
+				</div>
+
+				<div class="reply-all-wrap" style="display:none;">
+					<div class="title-header">
+						<div class="controller"> 
+							<a href="javascript:;" class="remove reply-trigger"></a>
+						</div>
+					</div>
+
+					<form>
+						<input type="hidden" name="parent-message" class="parent-message" value="<%= message.id %>">
+						<textarea placeholder="text here..."></textarea>
+						<button type="button" class="btn btn-blue btn-small btn-reply-all">
+							Send to all
+						</button>
+					</form>
+				</div>
+			</div>
+		<% end %>
+	</div>
+	<div class="clearfix"></div>
+</div>

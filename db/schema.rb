@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150115135048) do
+ActiveRecord::Schema.define(version: 20150118112639) do
 
   create_table "event_invitations", force: true do |t|
     t.string   "token"
@@ -78,6 +78,15 @@ ActiveRecord::Schema.define(version: 20150115135048) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
+  end
+
+  create_table "team_messages", force: true do |t|
+    t.text     "text"
+    t.integer  "parent_id"
+    t.integer  "team_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "teams", force: true do |t|

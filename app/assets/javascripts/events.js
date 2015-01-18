@@ -183,6 +183,7 @@ $(document).ready(function() {
 		});
 	}
 
+	$(".run-count").popover({ placement : "top", html : "true" });
 
 	// remove event
 	// delete the event and refresh content list

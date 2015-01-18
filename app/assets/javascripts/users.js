@@ -70,7 +70,7 @@ $(document).ready(function() {
 				success: function (data) {
 					// update user picture
 					$(".user-profile-pic").html(data.design);
-					$(".profile-pic").html($(data.design).attr("height", "35").attr("width", "35"));
+					$(".profile-pic").html(data.design);
 
 					// hide modal
 					$("#edit-picture").modal("hide");

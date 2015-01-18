@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
 	has_many :event_invitations, :foreign_key => "sender_id", :dependent => :destroy
 	has_many :event_invitations, :foreign_key => "reciever_id", :dependent => :destroy
 	has_many :rsvps, :dependent => :destroy
+	has_many :team_messages, :dependent => :destroy
 
 	before_save do
 		# user name

@@ -7,4 +7,12 @@ class UserMailer < ActionMailer::Base
   		@password = password 
 		mail(:to => "#{reciever.name} <#{reciever.email}>", :subject => "Registration of Are-You-In")
 	end
+
+	def general_message_notification
+		
+	end
+
+	def reply_message_notification
+		
+	end
 end

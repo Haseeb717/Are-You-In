@@ -1,0 +1,35 @@
+<div class="tiles white com-widget">
+	<div class="tiles-body">
+		<div class="title-header">
+			<div class="controller"> <a href="javascript:;" class="reload"></a> </div>
+			<div class="tiles-title"> TEAM FEED </div>
+		</div>
+
+		<% @team.team_messages.parent_messages.each do |message| %>
+			<%= render :partial => "teams/team_message", :locals => {:message => message, :parent => true} %>
+			<% message.replies.each do |reply| %>
+				<%= render :partial => "teams/team_message", :locals => {:message => reply, :parent => false} %>
+			<% end %>
+		<% end %>
+	</div>
+</div>
+
+<div class="tiles white com-widget com-post">
+	<% @user = current_user %>
+	<div class="tiles-body">
+		<div class="message-wrap">
+			<div class="profile-img-wrapper pull-left">
+				<%= render :partial => "users/user_avatar", :locals => {:user => @user} %>
+			</div>
+			
+			<div class="inline pull-right" style="width:86%">
+				<div class="input-group transparent ">
+					<input type="hidden" name="user_id" id="user_id" value="<%= current_user.id %>" >
+					<input type="text" name="text" class="form-control" placeholder="Write a message" id="user-text">
+					<span class="input-group-addon"> <i class="fa fa-camera"></i> </span>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+</div>

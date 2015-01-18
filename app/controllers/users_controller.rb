@@ -49,7 +49,7 @@ class UsersController < ApplicationController
 			rescue Exception => ex
 			end
 		end
-		design = render_to_string(:partial => "users/user_avatar", :layout => false )
+		design = render_to_string(:partial => "users/user_avatar", :locals => {:user => @user}, :layout => false )
 		render json: { :design => design }, :status => 200
 	end
 
