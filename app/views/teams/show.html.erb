@@ -3,6 +3,7 @@
 <!-- BEGIN CONTENT -->
 <div class="page-container row-fluid team-page">
 	<%= render :partial => "layouts/side_panel" %>
+	<% team_avatar = @team.team_avatars.last || TeamAvatar.new %>
 
 	<!-- BEGIN PAGE CONTAINER-->
 	<div class="page-content">
@@ -12,7 +13,7 @@
 					<div class="row team-info">
 						<div class="col-xs-12 m-b-20">
 							<div class="widget-item team-profile-widget narrow-margin">
-								<%= render :partial => "teams/team_profile", :locals => {:team => @team, :team_avatar => @team_avatar} %>
+								<%= render :partial => "teams/team_profile", :locals => {:team => @team, :team_avatar => team_avatar} %>
 							</div>
 						</div>
 
@@ -55,112 +56,16 @@
 					</div>
 				</div>
 
-			<div class="col-md-3">
-				<div class="tiles white com-widget">
-				<div class="tiles-body">
-					<div class="title-header">
-					<div class="controller"> <a href="javascript:;" class="reload"></a> </div>
-					<div class="tiles-title"> TEAM FEED </div>
-					</div>
-					<div class="message-wrap">
-					<div class="user-profile"> <img src="/assets/profiles/c.jpg" alt="" data-src="/assets/profiles/c.jpg" data-src-retina="/assets/profiles/c2x.jpg" width="35" height="35"> </div>
-					<div class="message-wrapper">
-						<div class="heading"> David Nester</div>
-						<div class="date"> Just now </div>
-						<div class="text-description"> Photos are canceled, we will do team pictures on January 12th and individuals whenever. </div>
-						<div class="feed-function">
-						<a class="reply-trigger" href="#"><i class="fa fa-reply"></i>Reply</a>
-						<a class="reply-trigger" href="#"><i class="fa fa-reply-all"></i>Reply All</a>
-						<div class="reply-wrap" style="display:none;">
-							<div class="title-header">
-							<div class="controller"> <a href="javascript:;" class="remove reply-trigger"></a> </div>
-							</div>
-
-							<form>
-							<textarea>text here...</textarea>
-							<button type="button" class="btn btn-blue btn-small">Send to David</button>
-							</form>
-						</div>
-						</div>
-					</div>
-					<div class="clearfix"></div>
-					</div>
-					<div class="message-wrap">
-					<div class="user-profile"> <img src="/assets/profiles/h.jpg" alt="" data-src="/assets/profiles/h.jpg" data-src-retina="/assets/profiles/h2x.jpg" width="35" height="35"> </div>
-					<div class="message-wrapper">
-						<div class="heading">Jim Smith </div>
-						<div class="date"> Yesterday </div>
-						<div class="text-description"> This is a reminder that we practice today from 3 to 4:30 at loftis Field. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
-						<div class="feed-function">
-						<a class="reply-trigger" href="#"><i class="fa fa-reply"></i>Reply</a>
-						<a class="reply-trigger" href="#"><i class="fa fa-reply-all"></i>Reply All</a>
-						<div class="reply-wrap" style="display:none;">
-							<div class="title-header">
-							<div class="controller"> <a href="javascript:;" class="remove reply-trigger"></a> </div>
-							</div>
-
-							<form>
-							<textarea>text here...</textarea>
-							<button type="button" class="btn btn-blue btn-small">Send to All</button>
-							</form>
-						</div>
-						</div>
-					</div>
-					<div class="clearfix"></div>
-					</div>
-					<div class="message-wrap">
-					<div class="user-profile"> <img src="/assets/profiles/h.jpg" alt="" data-src="/assets/profiles/h.jpg" data-src-retina="/assets/profiles/h2x.jpg" width="35" height="35"> </div>
-					<div class="message-wrapper">
-						<div class="heading"> Anton Maurer </div>
-						<div class="date"> Yesterday </div>
-						<div class="text-description"> Great game yesterday. Keep it up! </div>
-						<div class="feed-function">
-						<a class="reply-trigger" href="#"><i class="fa fa-reply"></i>Reply</a>
-						<a class="reply-trigger" href="#"><i class="fa fa-reply-all"></i>Reply All</a>
-						<div class="reply-wrap" style="display:none;">
-							<div class="title-header">
-							<div class="controller"> <a href="javascript:;" class="remove reply-trigger"></a> </div>
-							</div>
-
-							<form>
-							<textarea>text here...</textarea>
-							<button type="button" class="btn btn-blue btn-small">Send To Anton</button>
-							</form>
-						</div>
-						</div>
-					</div>
-					<div class="clearfix"></div>
-					</div>
+				<div class="col-md-3 team-feed-widget">
+					<%= render :partial => "teams/team_feeds", :locals => {:teams => [@team], :allow_user_to_message => true} %>
 				</div>
-				</div>
-
-				<div class="tiles white com-widget com-post">
-				<div class="tiles-body">
-				<div class="message-wrap">
-				<div class="profile-img-wrapper pull-left"> <img src="/assets/profiles/avatar_small.jpg" alt="" data-src="/assets/profiles/avatar_small.jpg" data-src-retina="/assets/profiles/avatar_small2x.jpg" width="35" height="35"> </div>
-				<div class="inline pull-right" style="width:86%">
-					<div class="input-group transparent ">
-					<input type="text" class="form-control" placeholder="Write a message">
-					<span class="input-group-addon"> <i class="fa fa-camera"></i> </span> </div>
-				</div>
-				<div class="clearfix"></div>
-				</div>
-				</div>
-				</div>
-
 			</div>
-
-
-		</div>
-
 		</div>
 	</div>
-	<!-- END PAGE CONTAINER -->
 </div>
-<!-- END CONTENT -->
 
 <!-- for editing team -->
-<%= render :partial => "teams/form", :locals => { :team => @team, :team_avatar => @team_avatar } %>
+<%= render :partial => "teams/form", :locals => { :team => @team, :team_avatar => team_avatar } %>
 
 <%= render :partial => "teams/form", :locals => { :team => Team.new, :team_avatar => TeamAvatar.new } %>
 <%= render :partial => "events/form", :locals => { :event => Event.new} %>

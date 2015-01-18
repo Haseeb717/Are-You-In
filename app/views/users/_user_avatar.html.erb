@@ -1,0 +1,2 @@
+<% pic = user.player_avatars.empty? ? "/users/missing.png" : user.player_avatars.last.avatar(:original) %>
+<img width="35" height="35" data-src-retina="<%= pic %>" data-src="<%= pic %>" src="<%= pic %>" alt="">

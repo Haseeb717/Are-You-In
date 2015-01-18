@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   resources :teams do
     member do
       post "add_player"
+      post "message"
+      get "team_feeds"
     end
   end
   resources :team_avatars
@@ -16,7 +18,11 @@ Rails.application.routes.draw do
   resources :player_avatars
 
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks", :registrations => "registrations" }
-  resources :users
+  resources :users do
+    member do
+      put "update_avatar"
+    end
+  end
 
   get "/dashboard", :to => "static#dashboard"
   get "/invitation_response", :to => "static#invitation_response"

@@ -52,4 +52,8 @@ $(document).ready(function() {
 	});
 
 
+	// Return validation status from jQuery validate plugin.
+	function validate(formData, jqForm, options) { 
+		return $("#form-login").valid();
+	}
 });

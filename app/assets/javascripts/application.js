@@ -32,6 +32,8 @@
 
 //= require teams.js
 //= require team_avatars.js
+//= require users.js
 //= require events.js
 //= require players.js
 //= require player_avatars.js
+//= require team_messages.js

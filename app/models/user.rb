@@ -11,8 +11,26 @@ class User < ActiveRecord::Base
 	has_many :event_invitations, :foreign_key => "sender_id", :dependent => :destroy
 	has_many :event_invitations, :foreign_key => "reciever_id", :dependent => :destroy
 	has_many :rsvps, :dependent => :destroy
+	has_many :team_messages, :dependent => :destroy
 
-	before_save { |user| user.name = "#{user.first_name} #{user.last_name}" if user.name.nil? || user.name.empty? }
+	before_save do
+		# user name
+		self.first_name = self.first_name.downcase if self.first_name
+		self.last_name = self.last_name.downcase if self.last_name
+		self.name = "#{self.first_name} #{self.last_name}" if self.name.nil? || self.name.empty?
+		self.name = self.name.downcase if self.name
+
+		# other details
+		self.gender = self.gender.downcase if self.gender
+		self.gender = nil unless GENDER.include?(self.gender)
+
+		self.city = self.city.downcase if self.city
+		self.country = self.country.downcase if self.country
+		self.country = nil unless COUNTRIES.collect{|code| code.first.downcase}.include?(self.country)
+		self.state = self.state.downcase if self.state
+		self.state = nil unless STATES.collect{|code| code.first.downcase}.include?(self.state)
+	end
+
 	validates :phone, :uniqueness => {message: "Player with this phone already exists."}, :if =>  "phone.present?"
 	
 	attr_accessor :login

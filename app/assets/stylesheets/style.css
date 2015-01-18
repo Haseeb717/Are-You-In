@@ -7940,26 +7940,27 @@ font-weight: 600;
   margin-left:5px;
 }
 
-a.reply-trigger {
+a.reply-trigger, a.reply-all-trigger {
   text-transform:uppercase;
   font-size:11px;
   margin-right:6px;
 }
 
-.reply-wrap .title-header {
+.reply-wrap .title-header, .reply-all-wrap .title-header {
   padding:0 0 15px;
 }
 
-.reply-wrap {
+.reply-wrap, .reply-all-wrap {
   float:left;
   width:100%;
   margin:10px 0;
   display:block;
 }
 
-.reply-wrap textarea {
+.reply-all-wrap textarea, .reply-wrap textarea {
   width:100%;
   margin:0 0 8px 0;
+  resize: none;
 }
 
 
