@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-	before_action :set_user, only: [:show, :edit, :update, :destroy]
+	before_action :set_user, only: [:show, :edit, :update, :destroy, :update_avatar]
 	before_filter :authenticate_user!
 	respond_to :html
 
@@ -29,16 +29,6 @@ class UsersController < ApplicationController
 		@user.allow_sms = false if user_params[:allow_sms].nil?
 
 		@user.update(user_params)
-		# adding player avatar
-		unless params[:avatar].nil? || params[:avatar].empty?
-			begin
-				avatar = PlayerAvatar.find(params[:avatar])
-				@user.player_avatars.collect{|avatar| avatar.destroy}
-				@user.player_avatars << avatar
-			rescue Exception => ex
-				
-			end
-		end
 
 		# updating user's password
 		unless params[:password].nil? || params[:password].empty?
@@ -47,6 +37,20 @@ class UsersController < ApplicationController
 			@user.save!
 		end
 		redirect_to user_path(@user)
+	end
+
+	def update_avatar
+		# adding player avatar
+		unless params[:avatar].nil? || params[:avatar].empty?
+			begin
+				avatar = PlayerAvatar.find(params[:avatar])
+				@user.player_avatars.collect{|avatar| avatar.destroy}
+				@user.player_avatars << avatar
+			rescue Exception => ex
+			end
+		end
+		design = render_to_string(:partial => "users/user_avatar", :layout => false )
+		render json: { :design => design }, :status => 200
 	end
 
 	def destroy

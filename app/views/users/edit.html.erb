@@ -28,8 +28,7 @@
 							<div class="row">
 								<div class="col-md-3 col-sm-2" >
 									<div class="user-profile-pic">
-										<% pic = @user.player_avatars.empty? ? "/users/missing.png" : @user.player_avatars.last.avatar(:original) %>
-										<img width="69" height="69" data-src-retina="<%= pic %>" data-src="<%= pic %>" src="<%= pic %>" alt="">
+										<%= render :partial => "users/user_avatar" %>
 									</div>
 								</div>
 								
@@ -60,6 +59,7 @@
 			</div>
 			<div class="modal-body">
 				<div class="modal-footer">
+					<button type="button" class="btn btn-success update-avatar"> Update </button>
 					<button type="button" class="btn btn-default" data-dismiss="modal"> Close </button>
 				</div>
 			</div>

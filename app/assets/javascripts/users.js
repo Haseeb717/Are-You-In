@@ -52,10 +52,32 @@ $(document).ready(function() {
 	});
 
 	// adding user avatar on submit
-	$("#update-user-form").submit(function() {
+	$(document).on("click", ".update-avatar", function(event) {
 		if ($(".dz-remove").length > 0) {
-			$("#update-user-form #avatar").val($(".dz-remove").attr("id"));
-		}
+			
+			postData = "avatar=" + $(".dz-remove").attr("id");
+			user = $("#user").val();
+			// user id need to update user
+			if (user == undefined || user == null || user == "")
+				return;
+		
+			// Use Ajax to submit form data
+			$.ajax({
+				type: "PUT",
+				url: "/users/" + user + "/update_avatar",
+				dataType: "JSON",
+				data: postData,
+				success: function (data) {
+					// update user picture
+					$(".user-profile-pic").html(data.design);
+					$(".profile-pic").html($(data.design).attr("height", "35").attr("width", "35"));
 
+					// hide modal
+					$("#edit-picture").modal("hide");
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+				}
+			});
+		}
 	});
 });
