@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     member do
       post "add_player"
       post "message"
+      get "team_feeds"
     end
   end
   resources :team_avatars

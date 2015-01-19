@@ -1,0 +1,11 @@
+<%= @message.user.name.titleize %> has posted reply on <%= @message.parent.user.name.titleize %>'s comment.
+
+<div style="border-left:2px solid gray;margin: 15px;padding-left: 5px;line-height: 300%;">
+	<%= @message.parent.text %>
+</div>
+
+<div> <%= @message.text %> </div>
+
+<br>
+<br>
+<%= link_to "Go to #{@message.team.name.titleize}", team_url(@message.team), :class => "btn btn-primary" %>

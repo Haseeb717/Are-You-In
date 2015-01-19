@@ -1,5 +1,5 @@
 class TeamsController < ApplicationController
-	before_action :set_team, only: [:show, :edit, :update, :destroy, :add_player, :message]
+	before_action :set_team, only: [:show, :edit, :update, :destroy, :add_player, :message, :team_feeds]
 	layout false, :only => :new
 
 	respond_to :html
@@ -115,18 +115,22 @@ class TeamsController < ApplicationController
 				@team.team_messages << message
 
 				# checking if it is reply of some message
-				unless params[:parent].nil? and params[:parent].empty?
+				unless params[:parent].nil? or params[:parent].empty?
 					parent = TeamMessage.find(params[:parent])
-					parent.replies << message
+					parent.replies << message unless parent.parent
 				end
 
 				# checking if it is reply to some specific user
-				unless params[:reply_to].nil? and params[:reply_to].empty?
+				unless params[:reply_to].nil? or params[:reply_to].empty?
 					# send message to this user
 					user = User.find(params[:reply_to])
+					UserMailer.reply_message_notification(message, user).deliver!
 				else
 					@team.users.each do |user|
 						# send message to full team users
+						# confirming if it is reply or a new thread						
+						UserMailer.reply_message_notification(message, user).deliver! if parent
+						UserMailer.general_message_notification(message, user).deliver! unless parent
 					end
 				end
 				
@@ -141,6 +145,14 @@ class TeamsController < ApplicationController
 		# refreshing whole team feeds
 		design = render_to_string(:partial => "teams/team_feeds", :layout => false)
 		render json: { :design => design }, :status => 200
+	end
+
+	def team_feeds
+		begin
+			design = render_to_string(:partial => "teams/team_feeds", :layout => false)
+			render json: { :design => design }, :status => 200
+		rescue Exception => e
+		end
 	end
 
 	private

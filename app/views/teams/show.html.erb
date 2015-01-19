@@ -57,7 +57,7 @@
 				</div>
 
 				<div class="col-md-3 team-feed-widget">
-					<%= render :partial => "teams/team_feeds" %>
+					<%= render :partial => "teams/team_feeds", :locals => {:teams => [@team], :allow_user_to_message => true} %>
 				</div>
 			</div>
 		</div>
