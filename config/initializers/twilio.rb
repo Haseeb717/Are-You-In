@@ -1,0 +1,1 @@
+TWILIO_CLIENT = Twilio::REST::Client.new TWILIO_CONFIG[:account], TWILIO_CONFIG[:token]

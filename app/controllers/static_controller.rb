@@ -39,7 +39,6 @@ class StaticController < ApplicationController
 		user = nil?
 		begin
 			from = params[:From]
-			from = "0" + from[3..-1]
 			body = params[:Body]
 			raise "invalid parameters." if from.nil? || body.nil?
 
@@ -60,13 +59,14 @@ class StaticController < ApplicationController
 			end
 			# response = "Your response has been noted successfully"
 			twiml = Twilio::TwiML::Response.new do |r|
-				r.Message "Your response has been noted successfully"
+				r.Message "Your response for event #{event.title} of team #{event.team.name} has been noted successfully.
+				Timings of event is #{event.time}"
 			end
 			render :text => twiml.text
 		rescue Exception => ex
 			#response = "Your response is invalid"
 			twiml = Twilio::TwiML::Response.new do |r|
-				r.Message "We could not something...."
+				r.Message "Your response is invalid or you are not registered"
 			end
 			render :text => twiml.text
 		end
