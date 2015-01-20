@@ -30,6 +30,7 @@
 					<form>
 						<input type="hidden" name="parent-message" class="parent-message" value="<%= message.id %>">
 						<input type="hidden" name="reply-user" class="reply-user" value="<%= message.user.id %>">
+						<input type="hidden" name="team" class="team" value="<%= message.team.id %>">
 						<textarea placeholder="text here..."></textarea>
 						<button type="button" class="btn btn-blue btn-small btn-reply">
 							Send to <%= message.user.name.titleize if message.user.name %>
@@ -46,6 +47,7 @@
 
 					<form>
 						<input type="hidden" name="parent-message" class="parent-message" value="<%= message.id %>">
+						<input type="hidden" name="team" class="team" value="<%= message.team.id %>">
 						<textarea placeholder="text here..."></textarea>
 						<button type="button" class="btn btn-blue btn-small btn-reply-all">
 							Send to all

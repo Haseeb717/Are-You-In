@@ -142,14 +142,19 @@ class TeamsController < ApplicationController
 			
 		end
 
-		# refreshing whole team feeds
-		design = render_to_string(:partial => "teams/team_feeds", :layout => false)
+		# refreshing whole team or dashboard feeds
+		# also checking if dashboard or team page
+		unless params[:page].nil? or params[:page].empty?
+			design = render_to_string(:partial => "teams/team_feeds", :locals => {:teams => current_user.teams, :allow_user_to_message => false}, :layout => false)
+		else
+			design = render_to_string(:partial => "teams/team_feeds", :locals => {:teams => [@team], :allow_user_to_message => true}, :layout => false)
+		end
 		render json: { :design => design }, :status => 200
 	end
 
 	def team_feeds
 		begin
-			design = render_to_string(:partial => "teams/team_feeds", :layout => false)
+			design = render_to_string(:partial => "teams/team_feeds", :locals => {:teams => [@team], :allow_user_to_message => true}, :layout => false)
 			render json: { :design => design }, :status => 200
 		rescue Exception => e
 		end
