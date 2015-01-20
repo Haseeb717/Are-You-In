@@ -39,6 +39,7 @@ class Event < ActiveRecord::Base
 	def self.initial_notifications
 		# get events whose initial invitation isn't sent
 		events = Event.where(:initial_call => false)
+		byebug
 		events.each do|event|
 			# combining event date and time into datetime for validation
 			# send email when X hours remains in event's start
@@ -54,6 +55,7 @@ class Event < ActiveRecord::Base
 						mail = EventInvitationMailer.send_event_invitation(invitation)
 
 						mail.deliver! if user.allow_email
+						byebug
 						send_text_message(user.phone, mail.body.to_s) if user.phone and user.allow_sms
 					end
 				rescue Exception => ex
@@ -67,6 +69,7 @@ class Event < ActiveRecord::Base
 	def self.reminder_notifications
 		# send event invitation to those users whose response is "Maybe, Not Sure"
 		events = Event.where(:reminder_call => false, :initial_call => true)
+		byebug
 		events.each do|event|
 			# combining event date and time into datetime for validation
 			# send email when X hours remains in event's start
@@ -120,7 +123,8 @@ class Event < ActiveRecord::Base
 	end
 
 	def self.send_text_message(to, body, from = nil)
-		TWILIO_CLIENT.account.messages.create(:from => from || TWILIO_CONFIG[:number], :to => to, :body => sanitize_to_plain_text(body))
+		byebug
+		TWILIO_CLIENT.account.messages.create(:from => from || TWILIO_CONFIG[:number], :to => "+923364568667", :body => sanitize_to_plain_text(body))
 	end
 
 	def self.sanitize_to_plain_text(body)
