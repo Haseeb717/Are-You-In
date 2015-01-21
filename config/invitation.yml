@@ -14,6 +14,6 @@ test:
   <<: *defaults
 
 production:
-  initial_call: 48
-  reminder_call: 24
-  final_call: 12
+  initial_call: 8775
+  reminder_call: 8775
+  final_call: 8775
