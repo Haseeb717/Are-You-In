@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-	before_action :set_user, only: [:show, :edit, :update, :destroy, :update_avatar]
+	before_action :set_user, only: [:edit, :update, :destroy, :update_avatar]
 	before_filter :authenticate_user!
 	respond_to :html
 
@@ -8,6 +8,7 @@ class UsersController < ApplicationController
 	end
 
 	def show
+		@user = User.find(params[:id])
 		respond_with(@user)
 	end
 
