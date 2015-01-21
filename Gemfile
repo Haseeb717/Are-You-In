@@ -12,9 +12,12 @@ gem "paperclip", "~> 4.2"
 gem "bootstrap-sass", "~> 3.1.1"
 
 gem "font-awesome-rails"
-gem 'bitly'
+
+gem "twilio-ruby"
+gem "bitly"
+gem "sanitize"
+
 gem "mysql2", group: [:production]
-gem 'twilio-ruby'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', group: [:development, :test]
 # Use SCSS for stylesheets
@@ -47,5 +50,5 @@ gem 'spring',        group: :development
 # gem 'capistrano-rails', group: :development
 
 # Use debugger
-# gem 'debugger', group: [:development, :test]
-gem "byebug"
+gem 'debugger', group: [:development, :test]
+# gem "byebug"

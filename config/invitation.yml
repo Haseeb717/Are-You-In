@@ -3,9 +3,9 @@
 # final call in hours: to all users about people coming in or not or not sure, final notification
 
 defaults: &defaults
-  initial_call: 0
-  reminder_call: 0
-  final_call: 0
+  initial_call: 8775
+  reminder_call: 8775
+  final_call: 8775
 
 development:
   <<: *defaults

@@ -1,0 +1,15 @@
+defaults: &defaults
+  version: "3"
+  login: "ahmadaldaim"
+  key: "R_e8beda99652945afab01599b334ded19"
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  version: "3"
+  login: "ahmadaldaim"
+  key: "R_e8beda99652945afab01599b334ded19"

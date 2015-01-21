@@ -31,8 +31,8 @@ class User < ActiveRecord::Base
 		self.state = nil unless STATES.collect{|code| code.first.downcase}.include?(self.state)
 	end
 
-	validates :phone, :uniqueness => {message: "Player with this phone already exists."}, :if =>	"phone.present?"
-	validate :phone_number_with_code, :if =>	"phone.present?"
+	validates :phone, :uniqueness => {message: "Player with this phone already exists."}, :if => "phone.present?"
+	# validate :phone_number_with_code, :if => "phone.present?"
 	
 	attr_accessor :login
 
