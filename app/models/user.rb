@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
 	end
 
 	validates :phone, :uniqueness => {message: "Player with this phone already exists."}, :if => "phone.present?"
-	# validate :phone_number_with_code, :if => "phone.present?"
+	validate :phone_number_with_code, :if => "phone.present?"
 	
 	attr_accessor :login
 
