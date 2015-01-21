@@ -54,7 +54,7 @@ class Event < ActiveRecord::Base
 						mail = EventInvitationMailer.send_event_invitation(invitation)
 
 						mail.deliver! if user.allow_email
-						send_text_message(user.phone, mail.body.to_s) if user.phone and user.allow_sms
+						send_text_message(user.phone, mail.subject, mail.body.to_s) if user.phone and user.allow_sms
 					end
 				rescue Exception => ex
 				end
@@ -82,12 +82,11 @@ class Event < ActiveRecord::Base
 						mail = EventInvitationMailer.send_event_invitation(invitation)
 
 						mail.deliver! if user.allow_email
-						send_text_message(user.phone, mail.body.to_s) if user.phone and user.allow_sms
+						send_text_message(user.phone, mail.subject, mail.body.to_s) if user.phone and user.allow_sms
 					end
 				rescue Exception => ex
 				end
 			end
-			
 			event.update_attributes(:reminder_call => true)
 		end
 	end
@@ -110,7 +109,7 @@ class Event < ActiveRecord::Base
 						mail = EventInvitationMailer.invitation_final_report(invitation)
 
 						mail.deliver! if user.allow_email
-						send_text_message(user.phone, mail.body.to_s) if user.phone and user.allow_sms
+						send_text_message(user.phone, mail.subject, mail.body.to_s) if user.phone and user.allow_sms
 					end
 				rescue Exception => ex
 				end
@@ -119,8 +118,8 @@ class Event < ActiveRecord::Base
 		end
 	end
 
-	def self.send_text_message(to, body, from = nil)
-		TWILIO_CLIENT.account.messages.create(:from => from || TWILIO_CONFIG[:number], :to => to, :body => sanitize_to_plain_text(body))
+	def self.send_text_message(to, subject, body, from = nil)
+		TWILIO_CLIENT.account.messages.create(:from => from || TWILIO_CONFIG[:number], :to => to, :body => "#{subject}\n#{sanitize_to_plain_text(body)}")
 	end
 
 	def self.sanitize_to_plain_text(body)
@@ -128,6 +127,6 @@ class Event < ActiveRecord::Base
 		Nokogiri::HTML(body).xpath("//a").each do |tag|
 			body = body.gsub(tag.to_html, tag.text + "\n" + tag.attributes["href"].value)
 		end
-		body.gsub("\n ", "\n").gsub("\t", "").gsub(/[\n]+/, "\n");
+		body.squeeze(" ").gsub("\t", "").gsub("\n ", "\n").gsub(/[\n]+/, "\n");
 	end
 end
