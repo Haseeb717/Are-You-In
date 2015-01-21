@@ -176,6 +176,6 @@
 			</div>
 		</div>
 	</div>
-	<!-- END PAGE CONTAINER -->
 </div>
-<!-- END CONTENT -->
+
+<%= render :partial => "teams/form", :locals => { :team => Team.new, :team_avatar => TeamAvatar.new } %>

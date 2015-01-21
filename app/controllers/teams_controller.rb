@@ -124,13 +124,13 @@ class TeamsController < ApplicationController
 				unless params[:reply_to].nil? or params[:reply_to].empty?
 					# send message to this user
 					user = User.find(params[:reply_to])
-					UserMailer.reply_message_notification(message, user).deliver!
+					UserMailer.reply_message_notification(message, user).deliver! if user.allow_email
 				else
 					@team.users.each do |user|
 						# send message to full team users
-						# confirming if it is reply or a new thread						
-						UserMailer.reply_message_notification(message, user).deliver! if parent
-						UserMailer.general_message_notification(message, user).deliver! unless parent
+						# confirming if it is reply or a new thread
+						UserMailer.reply_message_notification(message, user).deliver! if user.allow_email and parent
+						UserMailer.general_message_notification(message, user).deliver! if user.allow_email and !parent
 					end
 				end
 				

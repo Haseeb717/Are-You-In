@@ -107,6 +107,8 @@
 									<label class="form-label">Country</label>
 										<div class="controls">
 										<select class="source-nosearch" name="country" style="width:100%">
+											<option value=""> Select Country </option>
+
 											<% COUNTRIES.each do |country| %>
 												<option value="<%= country.first%>" <%= selected = "selected" if @user.country and @user.country.downcase == country.last.downcase %>>
 													<%= country.last %>
@@ -122,6 +124,8 @@
 										<label class="form-label">State</label>
 										<div class="controls">
 											<select class="source" style="width:100%" name="state">
+												<option value=""> Select State </option>
+												
 												<% STATES.each do |state| %>
 													<option value="<%= state.first%>" <%= selected = "selected" if @user.state and @user.state.downcase == state.first.downcase %>>
 														<%= state.last %>
