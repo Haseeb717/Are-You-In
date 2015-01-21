@@ -33,7 +33,8 @@ $(document).ready(function() {
 		// phone errors
 		if (xhr.responseJSON.errors.phone != undefined) {
 			for(var i = 0; i < xhr.responseJSON.errors.phone.length; i++) {
-				errors = errors + "Phone " + xhr.responseJSON.errors.phone[i] + "<br/>";
+				// phone has customized error messages in user model
+				errors = errors + xhr.responseJSON.errors.phone[i] + "<br/>";
 			}
 		}
 

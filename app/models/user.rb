@@ -31,7 +31,8 @@ class User < ActiveRecord::Base
 		self.state = nil unless STATES.collect{|code| code.first.downcase}.include?(self.state)
 	end
 
-	validates :phone, :uniqueness => {message: "Player with this phone already exists."}, :if =>  "phone.present?"
+	validates :phone, :uniqueness => {message: "Player with this phone already exists."}, :if =>	"phone.present?"
+	validate :phone_number_with_code, :if =>	"phone.present?"
 	
 	attr_accessor :login
 
@@ -60,13 +61,26 @@ class User < ActiveRecord::Base
 	end
 
 	private
+	# login using email or mobile
 	def self.find_for_database_authentication(warden_conditions)
-      conditions = warden_conditions.dup
-      if login = conditions.delete(:login)
-        where(conditions).where(["phone = :value OR lower(email) = :value", { :value => login.downcase }]).first
-      else
-        where(conditions).first
-      end
-    end
+		conditions = warden_conditions.dup
+		if login = conditions.delete(:login)
+			where(conditions).where(["phone = :value OR lower(email) = :value", { :value => login.downcase }]).first
+		else
+			where(conditions).first
+		end
+	end
+
+	def phone_number_with_code
+		# extracting phone number by ignoring all special and normal charaters
+		number = self.phone.gsub(/[^\d]/, '')
+		if number.length == 10
+			self.phone = "+1" + number
+		elsif number.length == 11 and number.first == 1
+			self.phone = "+" + number
+		else
+			errors.add(:phone, "Please enter 10 digit valid phone number")
+		end
+	end
 
 end
