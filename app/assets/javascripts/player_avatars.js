@@ -44,19 +44,6 @@ $(document).ready(function() {
 						console.log(data.message);
 					}
 				});
-			},
-			// called when the upload was either successful or erroneous.
-			complete: function(file){
-				try {
-					$("button[type=submit]", $($(this)[0].element).parents(".modal"))
-					.removeAttr("disabled", "disabled");
-				}
-				catch(error) { }
-
-				// add remove file link
-				if (file._removeLink) {
-					return file._removeLink.textContent = this.options.dictRemoveFile;
-				}
 			}
 		});
 	}
