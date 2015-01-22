@@ -10,15 +10,19 @@
 			<div class="row">
 				<div class="col-sm-12 col-md-12 col-lg-9">
 					<div class=" tiles white col-md-12 no-padding profile-pix">
-						<div class="overlayer top-right">
-							<div class="overlayer-wrapper">
-								<div class="padding-10 ">
-									<a href="<%= settings_path %>" class="btn btn-success btn-small">
-										<i class="fa fa-pencil"></i>&nbsp;&nbsp; Edit Profile
-									</a>
+
+						<!-- edit profile button visible for current user only -->
+						<% if @user == current_user %>
+							<div class="overlayer top-right">
+								<div class="overlayer-wrapper">
+									<div class="padding-10 ">
+										<a href="<%= settings_path %>" class="btn btn-success btn-small">
+											<i class="fa fa-pencil"></i>&nbsp;&nbsp; Edit Profile
+										</a>
+									</div>
 								</div>
 							</div>
-						</div> 
+						<% end %>
 
 						<div class="tiles green cover-pic-wrapper">
 							<img src="/assets/cover_pic.png" alt="">
