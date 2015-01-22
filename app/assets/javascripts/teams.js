@@ -91,7 +91,11 @@ $(document).ready(function() {
 			}).on("success.form.bv", function(event) {
 				event.preventDefault();
 
-				team_id = $(this).attr("action").slice(-1);
+				// extacting team's id, required for form submission
+				team_id = $(".team_id", this).val();
+				if (team_id == undefined || team_id == null)
+					return;
+
 				avatar_form = $("form", $(this).parents(".team-modal")).eq(0);
 
 				// team image if any
