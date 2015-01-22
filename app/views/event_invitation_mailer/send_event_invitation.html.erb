@@ -15,8 +15,7 @@
 	<%= link_to "No", Bitly.client.shorten(invitation_response_url(:token => @invitation.token, :status => "out")).short_url %>
 </div>
 
-
-<div>
+<div style="display:none; display:none !important;">
 	If u want to reply on phone then send Event ID [space] your response.
 	Your response should be one of the following "in" , "maybe" , "out".Otherwise it not be considered
 </div>

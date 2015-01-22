@@ -2,6 +2,7 @@ defaults: &defaults
   version: "3"
   login: "ahmadaldaim"
   key: "R_e8beda99652945afab01599b334ded19"
+  access_token: "827ec1c5258d6919b2d7ea3b6c36bbb2fd386a10"
 
 development:
   <<: *defaults
@@ -13,3 +14,4 @@ production:
   version: "3"
   login: "ahmadaldaim"
   key: "R_e8beda99652945afab01599b334ded19"
+  access_token: "827ec1c5258d6919b2d7ea3b6c36bbb2fd386a10"
