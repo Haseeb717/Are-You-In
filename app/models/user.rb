@@ -76,8 +76,10 @@ class User < ActiveRecord::Base
 		number = self.phone.gsub(/[^\d]/, '')
 		if number.length == 10
 			self.phone = "+1" + number
-		elsif number.length == 11 and number.first == 1
+		elsif number.length == 11 and number.start_with?("1")
 			self.phone = "+" + number
+		elsif number.length == 12 and number.start_with?("+1")
+			self.phone = number
 		else
 			errors.add(:phone, "Please enter 10 digit valid phone number")
 		end

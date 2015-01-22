@@ -37,7 +37,13 @@ class UsersController < ApplicationController
 			@user.password_confirmation = params[:password]
 			@user.save!
 		end
-		redirect_to user_path(@user)
+
+		if @user.errors.empty?
+			redirect_to user_path(@user)
+		else
+			flash[:errors] = @user.errors.collect{|name, message| message}
+			redirect_to edit_user_path(@user)
+		end
 	end
 
 	def update_avatar

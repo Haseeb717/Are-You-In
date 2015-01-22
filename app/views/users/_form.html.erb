@@ -6,6 +6,12 @@
 			<div class="grid simple">
 				<div class="grid-title no-border">
 					<h4>Edit <span class="semi-bold">Account</span></h4>
+				
+					<% if flash[:errors] and !flash[:errors].empty? %>
+						<div id="devise-errors"> <ul>
+								<%= flash[:errors].collect{|error| content_tag(:li, " #{error}", :class => "fa fa-caret-right col-lg-12 text-danger") }.join().html_safe %>
+						</ul> </div>
+					<% end %>
 				</div>
 						
 				<div class="grid-body no-border">
