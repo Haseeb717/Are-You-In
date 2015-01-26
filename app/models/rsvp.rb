@@ -13,5 +13,17 @@ class Rsvp < ActiveRecord::Base
 		["in", "maybe", "out"]
 	end
 
+	def self.in_options
+		["okay","oka","in","done","yeah","sure","yup","yea","yes"]
+	end
+
+	def self.out_options
+		["no","sorry","out","note","nope","cant"]
+	end
+
+	def self.maybe_options
+		["maybe","when","try","may be","letsee","let see","hope so","may"]
+	end
+
 	# scope :rsvp, lambda { |user_id, team_id| where(:user_id => user_id, :team_id => team_id)  }
 end

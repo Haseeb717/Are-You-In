@@ -43,12 +43,15 @@ class StaticController < ApplicationController
 			raise "invalid parameters." if from.nil? || body.nil?
 
 			# getting event id and response status from message body
-			event_id, status = body.split(" ")[0..1]
+			event_id, status = body.split(" ", 2)[0..1]
 
 			# confirming if event exists
 			event = Event.find(event_id)
 			user = User.where(:phone => from).first
-			
+
+			status = "in" if Rsvp.in_options.include?(status.downcase)
+			status = "out" if Rsvp.out_options.include?(status.downcase)
+			status = "maybe" if Rsvp.maybe_options.include?(status.downcase)
 			# confirming user and response status is valid
 			if user and Rsvp.states.include?(status.downcase)
 				@rsvp = event.rsvps.user_rvsp(user).first_or_initialize
