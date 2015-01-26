@@ -14,15 +14,15 @@ class Rsvp < ActiveRecord::Base
 	end
 
 	def self.in_options
-		["okay","oka","in","done","yeah","sure","yup","yea","yes"]
+		["okay","oka","in","done","yeah","sure","yup","yea","yes","OK","ok","k","K"].collect{|status| status.downcase}
 	end
 
 	def self.out_options
-		["no","sorry","out","note","nope","cant"]
+		["no","sorry","out","note","nope","cant"].collect{|status| status.downcase}
 	end
 
 	def self.maybe_options
-		["maybe","when","try","may be","letsee","let see","hope so","may"]
+		["maybe","when","try","may be","letsee","let see","hope so","may"].collect{|status| status.downcase}
 	end
 
 	# scope :rsvp, lambda { |user_id, team_id| where(:user_id => user_id, :team_id => team_id)  }
