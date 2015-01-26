@@ -60,6 +60,15 @@ class User < ActiveRecord::Base
 		self.teams.include?(team)
 	end
 
+	def get_all_message_feeds(teams)
+		message_feeds = []
+		teams.each do |team|
+			message_feeds += team.team_messages
+		end
+
+		message_feeds
+	end
+
 	private
 	# login using email or mobile
 	def self.find_for_database_authentication(warden_conditions)

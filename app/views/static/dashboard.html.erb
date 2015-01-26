@@ -10,7 +10,7 @@
 		<div class="content dashboard m-b-10">
 			<div class="row">
 				<div class="col-md-4 col-sm-12 col-lg-3 m-b-15">
-					<select id="source" style="width:100%;">
+					<select id="source" class="team-filter" style="width:100%;">
 						<option value="">Select Team to Filter: Viewing All</option>
 						<% @teams.each do |team| %>
 							<option value="<%= team.id%>"> <%= team.name.titleize if team.name %> </option>
@@ -23,16 +23,19 @@
 				<div class="col-md-6 col-sm-12">
 					<div class="visibleoverflow transparent dashboard-event-widget">
 						<%= render :partial => "events/user_events", :locals => {:user_events => @events} %>
+						<%= "No event found." if @events.empty? %>
 					</div>
 				</div>
 
 				<div class="col-md-6 col-sm-12">
 					<div class="grid simple dashboard-schedule-widget">
-						<%= render :partial => "events/events_schedule", :locals => {:events => @events} %>	
-					</div> <!-- END Schedule -->
+						<%= render :partial => "events/events_schedule", :locals => {:events => @events} %>
+						<%= "No schedule found." if @events.empty? %>
+					</div>
 	
 					<div class="team-feed-widget">
-						<%= render :partial => "teams/team_feeds", :locals => {:teams => current_user.teams, :allow_user_to_message => false } %>
+						<%= render :partial => "teams/team_feeds", :locals => {:teams => @filter_teams, :allow_user_to_message => false } %>
+						<%= "No team feeds found." if current_user.get_all_message_feeds(@filter_teams).empty? %>
 					</div>
 				</div>
 			</div>

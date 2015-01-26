@@ -62,7 +62,7 @@ class UsersController < ApplicationController
 
 	def team_feeds
 		begin
-			design = render_to_string(:partial => "teams/team_feeds", :locals => {:teams => current_user.teams, :allow_user_to_message => true}, :layout => false)
+			design = render_to_string(:partial => "teams/team_feeds", :locals => {:teams => current_user.teams, :allow_user_to_message => false}, :layout => false)
 			render json: { :design => design }, :status => 200
 		rescue Exception => e
 		end

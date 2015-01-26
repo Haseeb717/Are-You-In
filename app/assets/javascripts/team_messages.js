@@ -21,6 +21,24 @@ $(document).ready(function() {
 		}
 	});
 
+	// on click on camera at right to message box
+	$(document).on("click", ".input-group-addon", function(event) {
+		team = $("#team_id").val();
+		user = $("#user_id").val();
+		text = $(this).siblings("#user-text").val().trim("");
+		parent = "";
+		reply = "";
+		page = "";
+
+		// confirming complete message
+		if (team == undefined || team == null || user == undefined ||
+				user == null || text == undefined || text == null || text == "")
+			return;
+
+		$(this).siblings("#user-text").attr("disabled", "disabled");
+		submitTeamMessage(team, user, text, parent, reply, page);
+	});
+
 	// user reply to specific message handler
 	$(document).on("click", ".btn-reply", function(event) {
 		team = $(this).siblings(".team").val();

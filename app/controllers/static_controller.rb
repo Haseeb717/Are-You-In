@@ -9,6 +9,20 @@ class StaticController < ApplicationController
 	end
 
 	def dashboard
+		if params[:team].nil? or params[:team].empty?
+			@events = current_user.get_all_events
+			@filter_teams = current_user.teams
+		else
+			begin
+				# if there is any team filter, then only get events for that specific team
+				team = Team.find(params[:team])
+				@events = team.events.sort_by(&:time).group_by(&:date)
+				@filter_teams = [team]
+			rescue Exception => ex
+				@events = current_user.get_all_events
+				@filter_teams = current_user.teams
+			end
+		end
 		redirect_to welcome_path if (current_user.teams.count==0 || current_user.get_all_events.count==0)
 	end
 
