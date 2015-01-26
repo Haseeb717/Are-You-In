@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   resources :users do
     member do
       put "update_avatar"
+      get "team_feeds"
     end
   end
 

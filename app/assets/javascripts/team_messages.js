@@ -61,16 +61,17 @@ $(document).ready(function() {
 	});
 
 	function submitTeamMessage(team, user, text, parent, reply, page) {
-		postData = "user_id=" + user + "&text=" + text + "&parent=" + parent + "&re";
-		postData = "user_id=USER&text=TEXT&parent=PARENT&reply_to=REPLY&page=PAGE".replace("USER", user)
-					.replace("TEXT", text).replace("PARENT", parent).replace("REPLY", reply)
-					.replace("PAGE", page);
-
 		$.ajax({
 			type: "POST",
 			url: "/teams/" + team + "/message",
 			dataType: "JSON",
-			data: postData,
+			data: {
+				user_id: user,
+				text: text,
+				parent: parent,
+				reply_to: reply,
+				page: page
+			},
 			success: function (data) {
 				// console.log(data);
 				$(".team-feed-widget").html(data.design);
@@ -82,14 +83,21 @@ $(document).ready(function() {
 		});
 	}
 
+	// reloading teams feed on right panel
 	$(document).on("click", ".reload-team-feeds", function(event) {
 		event.preventDefault();
 		team = $("#team_id").val();
+		user = $("#user_id").val();
+		dashboard = window.location.href.indexOf("dashboard") > 0;
 
-		// team id required for update
-		if (team == undefined || team == null)
-			return;
-
+		// checking for team page or dashboard
+		if (team != undefined && team != null)
+			update_team_feeds(team);
+		else if (dashboard && user != undefined && user != null)
+			update_user_team_feeds(user);
+	});
+	// update feeds on team page
+	function update_team_feeds(team) {
 		$.ajax({
 			type: "GET",
 			url: "/teams/" + team + "/team_feeds",
@@ -103,7 +111,23 @@ $(document).ready(function() {
 				console.log(XMLHttpRequest.responseText);
 			}
 		});
-	});
+	}
+	// update feeds on dashboard
+	function update_user_team_feeds(user) {
+		$.ajax({
+			type: "GET",
+			url: "/users/" + user + "/team_feeds",
+			dataType: "JSON",
+			success: function (data) {
+				// console.log(data);
+				$(".team-feed-widget").html(data.design);
+				shortifyFeedText();
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				console.log(XMLHttpRequest.responseText);
+			}
+		});
+	}
 
 	// toggle messaging div on team page
 	$(document).on("click", ".reply-trigger", function(event) {
