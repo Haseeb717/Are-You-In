@@ -80,4 +80,11 @@ $(document).ready(function() {
 			});
 		}
 	});
+
+	// filter dashboard content with respect to teams
+	$(document).on("change", ".dashboard .team-filter", function(event) {
+		team = $(this).val();
+		if (team == undefined || team == null) team = "";
+		window.location.href = "/dashboard?team=" + team;
+	});
 });

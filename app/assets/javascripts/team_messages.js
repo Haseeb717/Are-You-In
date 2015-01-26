@@ -35,7 +35,7 @@ $(document).ready(function() {
 				user == null || text == undefined || text == null || text == "")
 			return;
 
-		$(this).attr("disabled", "disabled");
+		$(this).siblings("#user-text").attr("disabled", "disabled");
 		submitTeamMessage(team, user, text, parent, reply, page);
 	});
 

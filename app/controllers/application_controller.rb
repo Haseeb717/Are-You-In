@@ -10,7 +10,6 @@ class ApplicationController < ActionController::Base
 
 	def header_information
 		@teams = current_user.teams
-		@events = current_user.get_all_events
 	end
 
 	protected

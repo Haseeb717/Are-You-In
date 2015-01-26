@@ -1,7 +1,11 @@
 <div class="tiles white com-widget">
 	<div class="tiles-body">
 		<div class="title-header">
-			<div class="controller"> <a href="#" class="reload reload-team-feeds"></a> </div>
+			<div class="controller">
+				<% unless current_user.get_all_message_feeds(teams).empty? %>
+					<a href="#" class="reload reload-team-feeds"></a>
+				<% end %>
+			</div>
 			<div class="tiles-title"> TEAM FEED </div>
 		</div>
 
