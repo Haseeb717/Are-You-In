@@ -77,7 +77,7 @@ class StaticController < ApplicationController
 			# response = "Your response has been noted successfully"
 			twiml = Twilio::TwiML::Response.new do |r|
 				r.Message "Your response for event #{event.title} of team #{event.team.name} has been noted successfully.
-				Timings of event is #{event.time}"
+				Timings of event is #{event.date.strftime('%A %d %B, %Y')} #{event.time.strftime('%I:%M %p')}"
 			end
 			render :text => twiml.text
 		rescue Exception => ex
