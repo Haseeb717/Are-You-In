@@ -13,7 +13,13 @@
 					<select id="source" class="team-filter" style="width:100%;">
 						<option value="">Select Team to Filter: Viewing All</option>
 						<% @teams.each do |team| %>
-							<option value="<%= team.id%>"> <%= team.name.titleize if team.name %> </option>
+							<% if @filter_teams.count == 1 and team == @filter_teams.first %>
+								<option value="<%= team.id%>" selected>
+									<%= team.name.titleize if team.name %>
+								</option>
+							<% else %>
+								<option value="<%= team.id%>"> <%= team.name.titleize if team.name %> </option>
+							<% end %>
 						<% end %>
 					</select>
 				</div>
