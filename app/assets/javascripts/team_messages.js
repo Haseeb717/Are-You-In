@@ -79,6 +79,14 @@ $(document).ready(function() {
 	});
 
 	function submitTeamMessage(team, user, text, parent, reply, page) {
+		team_filter = $(".team-filter").val();
+		allow_message = true;
+		// if there is team filter then get its feeds only
+		if (page == "dashboard" && team_filter != null && team_filter != "") {
+			page = "";
+			allow_message = false;
+		}
+
 		$.ajax({
 			type: "POST",
 			url: "/teams/" + team + "/message",
@@ -94,6 +102,10 @@ $(document).ready(function() {
 				// console.log(data);
 				$(".team-feed-widget").html(data.design);
 				shortifyFeedText();
+
+				// if there is team filter then get its feeds only
+				if (!allow_message) $(".com-post").remove();
+
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
 				console.log(XMLHttpRequest.responseText);
@@ -107,15 +119,18 @@ $(document).ready(function() {
 		team = $("#team_id").val();
 		user = $("#user_id").val();
 		dashboard = window.location.href.indexOf("dashboard") > 0;
+		team_filter = $(".team-filter").val();
 
 		// checking for team page or dashboard
 		if (team != undefined && team != null)
-			update_team_feeds(team);
+			update_team_feeds(team, true);
+		else if (dashboard && team_filter != undefined && team_filter != "")
+			update_team_feeds(team_filter, false);
 		else if (dashboard && user != undefined && user != null)
 			update_user_team_feeds(user);
 	});
 	// update feeds on team page
-	function update_team_feeds(team) {
+	function update_team_feeds(team, allow_message) {
 		$.ajax({
 			type: "GET",
 			url: "/teams/" + team + "/team_feeds",
@@ -123,6 +138,7 @@ $(document).ready(function() {
 			success: function (data) {
 				// console.log(data);
 				$(".team-feed-widget").html(data.design);
+				if (!allow_message) $(".com-post").remove();
 				shortifyFeedText();
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
