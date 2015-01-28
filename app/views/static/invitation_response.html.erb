@@ -75,20 +75,22 @@
                 <div class="col-md-4 col-sm-12 b-grey b-r">
 
                     <div class="run listit semi-bold text-center b-grey b-b no-margin p-t-20 p-b-10">
-                        <p class="event-ins in">
-                            <i class="fa fa-check"></i> 
-                            <span>I AM IN</span>
-                        </p>
-
-                        <p class="event-ins maybe">
-                            <i class="fa fa-question-circle"></i>
-                            <span>I AM OUT</span>
-                        </p>
-
-                        <p class="event-ins out">
-                            <i class="fa fa-times-circle"></i>
-                            <span>I AM A MAYBE</span>
-                        </p>
+                        <% if(@status == "in") %>
+                            <p class="event-ins in">
+                                <i class="fa fa-check"></i> 
+                                <span>I AM IN</span>
+                            </p>
+                        <% elsif(@status == "out") %>
+                            <p class="event-ins out">
+                                <i class="fa fa-times-circle"></i>
+                                <span>I AM A MAYBE</span>
+                            </p>
+                        <% else(@status == "maybe") %>
+                            <p class="event-ins maybe">
+                                <i class="fa fa-question-circle"></i>
+                                <span>I AM OUT</span>
+                            </p>
+                        <% end %>
 
                     </div>
 
@@ -101,7 +103,7 @@
                         <h5 class="text-center text-error">Monday, February 18th</h5>
 
                     </div>
-
+                    <% byebug %>
                     <div class="event-participants">
 
                         <h5>Who is in?</h5>
