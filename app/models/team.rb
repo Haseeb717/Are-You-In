@@ -1,5 +1,6 @@
 class Team < ActiveRecord::Base	
-	has_and_belongs_to_many :users
+	has_many :teams_users
+	has_many :users, through: :teams_users
 	has_many :team_avatars, :dependent => :destroy
 
 	belongs_to :admin, :class_name => "User", :foreign_key => "admin_id"

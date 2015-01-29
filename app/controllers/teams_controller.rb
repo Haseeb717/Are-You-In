@@ -88,6 +88,8 @@ class TeamsController < ApplicationController
 				else
 					@team.users << user unless @team.users.include?(user)
 					user.teams << @team unless user.teams.include?(@team)
+					team_user = TeamsUser.where(:user => user, :team =>@team).first
+					team_user.update_attributes(:first_name =>params["first_name"] , :last_name=>params["last_name"])
 				end
 				
 				unless params[:player_avatar_id] == "null" || params[:player_avatar_id] == "undefined"

@@ -5,7 +5,8 @@ class User < ActiveRecord::Base
 			:recoverable, :rememberable, :trackable, :validatable
 
 	has_many :identities, :dependent => :destroy
-	has_and_belongs_to_many :teams
+	has_many :teams_users
+	has_many :teams, through: :teams_users
 	has_many :team_avatars, :dependent => :destroy
 	has_many :player_avatars, :dependent => :destroy
 	has_many :event_invitations, :foreign_key => "sender_id", :dependent => :destroy

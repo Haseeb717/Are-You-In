@@ -20,8 +20,10 @@
 		</div>
 		<div class="friend-details-wrapper">
 			<div class="friend-name">
-				<%= player.name.titleize if player.name %>
-					<%= team.admin?(player) ? " (Organiser)" : "" %>
+				<% team_user = TeamsUser.where(:user_id => player.id , :team_id =>team.id).first %>
+				<%= team_user.first_name.nil? ? player.name.titleize : team_user.first_name + " " +
+				team_user.last_name %>
+				<%= team.admin?(player) ? " (Organiser)" : "" %>
 			</div>
 			<div class="friend-description">
 				<%= player.email %>
