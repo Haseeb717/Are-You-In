@@ -1,6 +1,6 @@
 <% event ||= Event.new %>
 
-<div class="modal fade" id="add_event<%= event.id %>" tabindex="-1" role="dialog" aria-labelledby="add_event" aria-hidden="true">
+<div class="modal fade" id="add_event<%= event.id.to_s %>" tabindex="-1" role="dialog" aria-labelledby="add_event" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content event-modal">
 			<div class="modal-header">

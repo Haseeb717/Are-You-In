@@ -86,4 +86,66 @@ $(document).ready(function() {
 			});
 		});
 	}
+
+	applyValidationToEditPlayerForm();
+	function applyValidationToEditPlayerForm() {
+		$(".edit_user").bootstrapValidator({
+			feedbackIcons: {
+				valid: "glyphicon glyphicon-ok",
+				invalid: "glyphicon glyphicon-remove",
+				validating: "glyphicon glyphicon-refresh"
+			},
+			fields: {
+				first_name: { validators: { notEmpty: { message: "First name is required" } } },
+				last_name: { validators: { notEmpty: { message: "Last name is required" } } },
+				email: { validators: { notEmpty: { message: "Email address is required" }, emailAddress: { message: "Email address is not valid" } } },
+				phone: { validators: { phone: { country: "US", message: "Phone number is not valid" } } },
+			}
+		}).on("success.form.bv", function(event) {
+			// Prevent form submission
+			event.preventDefault();
+			user_id = $(".user_id", this).val();
+
+			// event is required for this operation
+			if (user_id == undefined || user_id == null)
+				return;
+
+			var team_id = $("#team_id").val();
+
+			// can't process if team_id isn't there
+			if (team_id == null || team_id == undefined)
+				return;
+
+			avatar = $("#player-avatar .dz-remove").attr("id")
+			if (avatar == null || avatar == undefined)
+				avatar = null;
+
+			$("#add-player-form button[type=submit]").attr("disabled", "disabled");
+			postData = $("#add-player-form").serialize() + "&player_avatar_id=" + avatar + "&user_id=" + user_id;
+
+			$("#add-player-status").text("");
+
+			// Use Ajax to submit form data
+			$.ajax({
+				type: "PUT",
+				url: ,
+				dataType: "JSON",
+				data: postData,
+				success: function (data) {
+					// console.log(data);
+
+					// update players 
+					$(".friend-list").html(data.design);
+					// hide modal
+					refreshPlayerForm();
+					$("#add_player").modal("hide");
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					console.log(XMLHttpRequest.responseText);
+					$("#add-player-status").text(XMLHttpRequest.responseJSON.error);
+					$("#add_player form button[type=submit]").removeAttr("disabled");
+				}
+			});
+		});
+	}
 });

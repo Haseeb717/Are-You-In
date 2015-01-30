@@ -1,13 +1,15 @@
-<div class="modal fade" id="add_player" tabindex="-1" role="dialog" aria-labelledby="add_player" aria-hidden="true">
+<% player ||= Player.new %>
+<div class="modal fade" id="add_player<%= player.id %>" tabindex="-1" role="dialog" aria-labelledby="add_player" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 					<%= render :partial => "player_avatars/form", :locals => {:player_avatar => PlayerAvatar.new } %>
-				<h4 id="add_event" class="semi-bold">Add Player.</h4>
+				<h4 id="" class="semi-bold">Add Player.</h4>
 			</div>
-			<%= form_for(player,:html => { :id => "add-player-form", :class => "add-player-form"}) do |f| %>
+			<% form_id = player.new_record? ? "add-player-form" : "" %>
+			<%= form_for(player,:html => { :id => form_id}) do |f| %>
 				<div class="modal-body">
 					<div class="row form-row">
 						<div class="col-md-6">
@@ -30,18 +32,31 @@
 					<div class="row form-row">
 						<div class="col-md-12">
 							<div class="radio no-brd">
-								<input id="male-player" type="radio" name="gender" value="male">
-								<label for="male-player">Male</label>
-								<input id="female-player" type="radio" name="gender" value="female">
-								<label for="female-player">Female</label>
+								<input id="male-player<%=player.id%>" type="radio" name="gender" value="male" 
+								<%= checked = "checked" if player.gender == "male" %>>
+								<label for="male-player<%=player.id%>">Male</label>
+								<input id="female-player<%=player.id%>" type="radio" name="gender" value="female" 
+								<%= checked = "checked" if player.gender == "female" %>>
+								<label for="female-player<%=player.id%>">Female</label>
 							</div>
 						</div>
 					</div>
 					<div id="add-player-status" class="text-danger"></div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="submit" class="btn btn-primary" >Add Player</button>
+					<% if player.new_record? %>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-primary" >Add Player</button>
+					<% else %>
+						<input type="hidden" class="user_id" name="user_id" value="<%= player.id %>">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-danger player-remove" >
+							Remove Player
+						</button>
+						<button type="submit" class="btn btn-primary player-update">
+							Update Player
+						</button>
+					<% end %>
 				</div>
 			<% end %>
 		</div>
