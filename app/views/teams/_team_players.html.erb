@@ -11,6 +11,10 @@
 </div>
 
 <% team.users.each do |player| %>
+	<a data-toggle="modal" data-target="#add_event1" class="edit-player pull-right" href="#">
+		<i class="fa fa-pencil-square-o"></i>
+	</a>
+	
 	<% pic = player.player_avatars.empty? ? "/users/missing.png" : player.player_avatars.last.avatar(:thumb) %>
 	<a class="team-member" href="<%= user_path(player) %>">
 		<div class="friend-profile-pic">
@@ -21,7 +25,7 @@
 		<div class="friend-details-wrapper">
 			<div class="friend-name">
 				<%= player.name.titleize if player.name %>
-					<%= team.admin?(player) ? " (Organiser)" : "" %>
+				<%= team.admin?(player) ? " (Organiser)" : "" %>
 			</div>
 			<div class="friend-description">
 				<%= player.email %>
