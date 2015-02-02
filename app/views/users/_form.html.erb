@@ -1,4 +1,4 @@
-<%= form_for(@user, :html => {:id => "update-user-form"}) do |f| %>
+<%= form_for(@user, :html => {:id => "update-user-form" , :class=>"editusers"}) do |f| %>
 	<input type="hidden" id="user" name="user" value="<%= current_user.id %>">
 
 	<div class="row">

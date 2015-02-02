@@ -62,7 +62,7 @@ $(document).ready(function() {
 			postData = $("#add-player-form").serialize() + "&player_avatar_id=" + avatar;
 
 			$("#add-player-status").text("");
-
+			form = $(this);
 			// Use Ajax to submit form data
 			$.ajax({
 				type: "POST",
@@ -80,12 +80,56 @@ $(document).ready(function() {
 				},
 				error: function(XMLHttpRequest, textStatus, errorThrown) {
 					console.log(XMLHttpRequest.responseText);
-					$("#add-player-status").text(XMLHttpRequest.responseJSON.error);
+					$("#add-player-status",form).text(XMLHttpRequest.responseJSON.error);
 					$("#add_player form button[type=submit]").removeAttr("disabled");
 				}
 			});
 		});
 	}
+
+
+	$(document.body).on("click", ".player-remove", function(event) {
+		event.preventDefault();
+		user_id = $(this).siblings(".user_id").val();
+
+		// event is required for this operation
+		if (user_id == undefined || user_id == null)
+			return;
+
+		var team_id = $("#team_id").val();
+
+			// can't process if team_id isn't there
+		if (team_id == null || team_id == undefined)
+			return;
+		// checking if user is in dashboard or on teams page
+
+		$.ajax({
+			type: "DELETE",
+			url: "/teams/" + team_id+"/delete_player/",
+			dataType: "JSON",
+			data: {
+				user_id: user_id,
+
+			},
+			success: function (data) {
+				// console.log(data);
+
+				// bootstrap dynamic content issue
+				$(".friend-list").html(data.design);
+					// hide modal
+				applyValidationToEditPlayerForm();
+				$(".edit_user").modal("hide");
+
+				// bootstrap dynamic content issue
+				$(".modal-backdrop").remove();
+				$(".modal-open").removeClass("modal-open");
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				console.log(XMLHttpRequest.responseText);
+			}
+		});
+	});
+
 
 	applyValidationToEditPlayerForm();
 	function applyValidationToEditPlayerForm() {
@@ -146,7 +190,7 @@ $(document).ready(function() {
 				error: function(XMLHttpRequest, textStatus, errorThrown) {
 					console.log(XMLHttpRequest.responseText);
 
-					error = XMLHttpRequest.responseJSON.error;
+					// error = XMLHttpRequest.responseJSON.error;
 					$("#add-player-status", form).text(error);
 					$("button[type=submit]", form).removeAttr("disabled");
 					

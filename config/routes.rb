@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       post "message"
       get "team_feeds"
       put "update_player"
+      delete "delete_player"
     end
   end
   resources :team_avatars

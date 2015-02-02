@@ -1,5 +1,5 @@
 class TeamsController < ApplicationController
-	before_action :set_team, only: [:show, :edit, :update, :destroy, :add_player, :message, :team_feeds]
+	before_action :set_team, only: [:show, :edit, :update, :destroy, :add_player, :message, :team_feeds, :delete_player, :update_player]
 	layout false, :only => :new
 
 	respond_to :html
@@ -112,16 +112,35 @@ class TeamsController < ApplicationController
 	def update_player
 		team_user = nil
 		begin
-			@team = Team.where(:id =>params["id"]).first
-			team_user = TeamsUser.where(:user => params["user_id"], :team =>params["id"]).first
+			user = User.find(params["user_id"])
+			team_user = TeamsUser.where(:user => user, :team =>@team).first
 			if !team_user.nil?
-				team_user.update_attributes(:first_name =>params["first_name"] , :last_name=>params["last_name"])
+				team_user.update_attributes(update_player_params)
 				design = render_to_string(:partial => "teams/team_players", :locals => { :team => @team }, :layout => false )
 				render json: { :message => "Player has been successfully updated.", :design => design }, :status => 200
 			else
 				render json: { :error => "Sorry Player not updated." }, :status => 400
 			end
 		rescue Exception => ex
+			error = ex.message
+			error = team_user.errors.collect{|error, name| name}.join(", ") unless team_user.errors.empty?
+			render json: { :error => error }, :status => 400
+		end
+	end
+
+	def delete_player
+		team_user =nil
+		begin
+			user = User.find(params["user_id"])
+			team_user = TeamsUser.where(:user => user, :team =>@team).first
+			if !team_user.nil?
+				team_user.destroy
+				design = render_to_string(:partial => "teams/team_players", :locals => { :team => @team }, :layout => false )
+				render json: { :message => "Player has been successfully deleted.", :design => design }, :status => 200
+			else
+				render json: { :error => "Sorry Player not deleted." }, :status => 400
+			end
+		rescue Exception => e
 			error = ex.message
 			error = team_user.errors.collect{|error, name| name}.join(", ") unless team_user.errors.empty?
 			render json: { :error => error }, :status => 400
@@ -197,4 +216,9 @@ class TeamsController < ApplicationController
 		def player_params
 			params.permit(:first_name, :last_name, :email, :gender, :phone)
 		end
+
+		def update_player_params
+			params.permit(:first_name, :last_name)
+		end
 end
+

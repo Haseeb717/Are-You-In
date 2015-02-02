@@ -1,15 +1,15 @@
-#add-player-form .form-control-feedback , .edit_user .form-control-feedback{
+#add-player-form .form-control-feedback , .editusers .form-control-feedback , .edit_user .form-control-feedback{
 	top: -35px;
 	right: 15px;
 	float: right;
 	color: #a94442;
 }
 
-#add-player-form .help-block , .edit_user .help-block{
+#add-player-form .help-block , .editusers .help-block, .edit_user .help-block{
 	color: #a94442;
 	margin-top: -10px;
 }
 
-#add-player-form .glyphicon-ok , .edit_user .glyphicon-ok{
+#add-player-form .glyphicon-ok , .editusers .glyphicon-ok , .edit_user .glyphicon-ok{
 	color: #5BA85F;
 }

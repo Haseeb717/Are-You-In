@@ -20,11 +20,13 @@ class UsersController < ApplicationController
 	end
 
 	def create
+
 		@user = current_user
 		respond_with(@user)
 	end
 
 	def update
+		
 		# email and sms settings
 		@user.allow_email = false if user_params[:allow_email].nil?
 		@user.allow_sms = false if user_params[:allow_sms].nil?
