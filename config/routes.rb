@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       post "add_player"
       post "message"
       get "team_feeds"
+      put "update_player"
     end
   end
   resources :team_avatars

@@ -109,6 +109,25 @@ class TeamsController < ApplicationController
 		end
 	end
 
+	def update_player
+		team_user = nil
+		begin
+			@team = Team.where(:id =>params["id"]).first
+			team_user = TeamsUser.where(:user => params["user_id"], :team =>params["id"]).first
+			if !team_user.nil?
+				team_user.update_attributes(:first_name =>params["first_name"] , :last_name=>params["last_name"])
+				design = render_to_string(:partial => "teams/team_players", :locals => { :team => @team }, :layout => false )
+				render json: { :message => "Player has been successfully updated.", :design => design }, :status => 200
+			else
+				render json: { :error => "Sorry Player not updated." }, :status => 400
+			end
+		rescue Exception => ex
+			error = ex.message
+			error = team_user.errors.collect{|error, name| name}.join(", ") unless team_user.errors.empty?
+			render json: { :error => error }, :status => 400
+		end
+	end
+
 	def message
 		begin
 			# confirming if user is part of the team

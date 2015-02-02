@@ -116,19 +116,18 @@ $(document).ready(function() {
 			if (team_id == null || team_id == undefined)
 				return;
 
-			avatar = $("#player-avatar .dz-remove").attr("id")
-			if (avatar == null || avatar == undefined)
-				avatar = null;
+			
 
-			$("#add-player-form button[type=submit]").attr("disabled", "disabled");
-			postData = $("#add-player-form").serialize() + "&player_avatar_id=" + avatar + "&user_id=" + user_id;
+			$("button[type=submit]", this).attr("disabled", "disabled");
+			postData = $(this).serialize() + "&user_id=" + user_id;
 
-			$("#add-player-status").text("");
+			$("#add-player-status", this).text("");
+			form = $(this);
 
 			// Use Ajax to submit form data
 			$.ajax({
 				type: "PUT",
-				url: ,
+				url: "/teams/" + team_id + "/update_player",
 				dataType: "JSON",
 				data: postData,
 				success: function (data) {
@@ -137,13 +136,20 @@ $(document).ready(function() {
 					// update players 
 					$(".friend-list").html(data.design);
 					// hide modal
-					refreshPlayerForm();
-					$("#add_player").modal("hide");
+					applyValidationToEditPlayerForm();
+					$(".edit_user").modal("hide");
+
+					// bootstrap dynamic content issue
+					$(".modal-backdrop").remove();
+					$(".modal-open").removeClass("modal-open");
 				},
 				error: function(XMLHttpRequest, textStatus, errorThrown) {
 					console.log(XMLHttpRequest.responseText);
-					$("#add-player-status").text(XMLHttpRequest.responseJSON.error);
-					$("#add_player form button[type=submit]").removeAttr("disabled");
+
+					error = XMLHttpRequest.responseJSON.error;
+					$("#add-player-status", form).text(error);
+					$("button[type=submit]", form).removeAttr("disabled");
+					
 				}
 			});
 		});
