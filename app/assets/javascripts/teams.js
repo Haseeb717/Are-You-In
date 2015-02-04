@@ -74,6 +74,7 @@ $(document).ready(function() {
 			}
 			
 			$("#add-team-form #code").val(value);
+			$("#add-team-form").data("bootstrapValidator").revalidateField("code");
 		}		
 	});
 
