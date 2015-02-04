@@ -13,6 +13,10 @@ Rails.application.routes.draw do
       put "update_player"
       delete "delete_player"
     end
+
+    collection do
+      get "check_code"
+    end
   end
   resources :team_avatars
   

@@ -38,6 +38,9 @@
 							<div class="col-md-12">
 								<input type="text" name="city" id="city" class="form-control" placeholder="City" value="<%= team.city %>">
 							</div>
+							<div class="col-md-12">
+								<input type="text" name="code" id="code" class="form-control" value="<%= team.code %>" placeholder="Team Code" <%= disabled = "disabled" if !team.new_record? || team.code %>>
+							</div>
 						</div>
 						<div class="row form-row form-group">
 							<div class="col-md-12">
