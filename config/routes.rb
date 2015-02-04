@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     end
 
     collection do
+      post "join"
       get "check_code"
     end
   end

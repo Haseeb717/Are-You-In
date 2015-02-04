@@ -1,0 +1,37 @@
+<div class="modal fade" id="join-team" tabindex="-1" role="dialog" aria-labelledby="join-team" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content team-modal">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					×
+				</button>
+
+				<h4> Join Team </h4>
+			</div>
+
+			<div class="modal-body">
+				<form action="/teams/join" method="post" class="join-team-form">
+					<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+					<div class="col-md-12 form-group">
+						<input type="text" name="code" id="code" class="form-control" placeholder="Team Code">
+						<span id="join-team-error" class="text-danger"></span>
+					</div>
+
+					<div class="row">
+						<div class="col-md-offset-8 col-md-2 text-right">
+							<button type="button" class="btn btn-default" data-dismiss="modal">
+								Close
+							</button>
+						</div>
+						<div class="col-md-2">
+							<button type="submit" class="btn btn-primary">
+								Join
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
