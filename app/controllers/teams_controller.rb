@@ -73,6 +73,7 @@ class TeamsController < ApplicationController
 		user = nil
 		begin
 			if @team.admin?(current_user)
+				byebug
 				user = User.where(:email => player_params[:email]).first_or_initialize
 				if user.new_record?
 					user.assign_attributes(player_params)
@@ -112,14 +113,19 @@ class TeamsController < ApplicationController
 	def update_player
 		team_user = nil
 		begin
-			user = User.find(params["user_id"])
-			team_user = TeamsUser.where(:user => user, :team =>@team).first
-			if !team_user.nil?
-				team_user.update_attributes(update_player_params)
-				design = render_to_string(:partial => "teams/team_players", :locals => { :team => @team }, :layout => false )
-				render json: { :message => "Player has been successfully updated.", :design => design }, :status => 200
+			if @team.admin?(current_user)
+				user = User.find(params["user_id"])
+				team_user = TeamsUser.where(:user => user, :team =>@team).first
+				if !team_user.nil?
+					team_user.update_attributes(update_player_params)
+					design = render_to_string(:partial => "teams/team_players", :locals => { :team => @team }, :layout => false )
+					render json: { :message => "Player has been successfully updated.", :design => design }, :status => 200
+				else
+					render json: { :error => "Sorry Player not updated." }, :status => 400
+				end
 			else
-				render json: { :error => "Sorry Player not updated." }, :status => 400
+				byebug
+				render json: { :error => "Sorry, only admin can edit player" }, :status => 400
 			end
 		rescue Exception => ex
 			error = ex.message
