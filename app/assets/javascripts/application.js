@@ -37,3 +37,4 @@
 //= require players.js
 //= require player_avatars.js
 //= require team_messages.js
+//= require static

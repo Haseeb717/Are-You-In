@@ -10,7 +10,17 @@ $(document).ready(function() {
 		fields: {
 			name: { validators: { notEmpty: { message: "The team name is required" }, stringLength: { min: 5, message: "The length of team name should be greater or equal to 5." } } },
 			sport: { validators: { notEmpty: { message: "The sport is required" } } },
-			city: { validators: { notEmpty: { message: "The city is required" } } }
+			city: { validators: { notEmpty: { message: "The city is required" } } },
+			code: {
+				validators: {
+					notEmpty: { message: "The code is required" },
+					remote: {
+						message: "Team code already taken",
+						url: "/teams/check_code",
+						type: "GET"
+					}
+				}
+			}
 		}
 	}).on("success.form.bv", function(event) {
 		// Prevent form submission
@@ -50,6 +60,57 @@ $(document).ready(function() {
 			}
 		});
 	});
+
+	// team's code suggestion (team name random string characters)
+	$(document).on("blur", "#add-team-form #team_name", function(event) {
+		name = $("#add-team-form #team_name").val().replace(/ /g,'').toLowerCase();
+		suggestion = $("#add-team-form #code").val();
+		value = name;
+
+		if (value.length >= 5 && suggestion == "") {
+			while (true) {
+				if (checkTeamCode(value)) break;
+				value = name + randomeString(5);
+			}
+			
+			$("#add-team-form #code").val(value);
+			$("#add-team-form").data("bootstrapValidator").revalidateField("code");
+		}		
+	});
+
+	// return small alphabets string depend upon length
+	function randomeString(str_length) {
+		var text = "";
+		var possible = "abcdefghijklmnopqrstuvwxyz";
+		for(i = 0; i < str_length; i++) {
+			text += possible.charAt(Math.floor(Math.random() * possible.length));
+		}
+
+		return text;
+	}
+
+	// check if team with code exists
+	function checkTeamCode(code) {
+		result = false;
+
+		$.ajax({
+			type: "GET",
+			url: "/teams/check_code",
+			dataType: "JSON",
+			async: false,
+			data: { code: code },
+			success: function (data) {
+				console.log(data);
+
+				result = data.valid;
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				console.log(XMLHttpRequest.responseText);
+			}
+		});
+
+		return result;
+	}
 
 	// Delete Team
 	$(document.body).on("click", ".team-delete", function(event) {
@@ -151,6 +212,35 @@ $(document).ready(function() {
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
 				console.log(XMLHttpRequest.responseText);
+			}
+		});
+	});
+
+	// join team by enetring code
+	$(document).on("click", ".join-team-form button[type=submit]", function(event){
+		event.preventDefault();
+		postData = $(".join-team-form").serialize();
+		$(".join-team-form button[type=submit]").attr("disabled", "disabled");
+		$(".join-team-form #join-team-error").text();
+
+		$.ajax({
+			type: "POST",
+			url: "/teams/join",
+			dataType: "JSON",
+			data: postData,
+			success: function (data) {
+				console.log(data);
+				window.location = "/teams/" + data.team.id;				
+
+				// $(".join-team-form #code").val("");
+				// $("#join-team").modal("hide");
+				// $(".join-team-form button[type=submit]").removeAttr("disabled", "disabled");
+
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				console.log(XMLHttpRequest.responseText);
+				$(".join-team-form #join-team-error").text(XMLHttpRequest.responseJSON.error);
+				$(".join-team-form button[type=submit]").removeAttr("disabled", "disabled");
 			}
 		});
 	});

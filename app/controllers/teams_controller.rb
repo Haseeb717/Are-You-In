@@ -206,13 +206,36 @@ class TeamsController < ApplicationController
 		end
 	end
 
+	def check_code
+		begin
+			if Team.where(:code => params[:code]).count > 0
+				render json: { :valid => false }, :status => 200
+			else
+				render json: { :valid => true }, :status => 200
+			end
+		rescue Exception => ex
+			render json: { :valid => false }, :status => 200
+		end
+	end
+
+	def join
+		begin
+			team = Team.where(:code => params[:code]).first
+			current_user.teams << team unless current_user.teams.include?(team)
+
+			render json: { :message => "Team had been joined successfully.", :team => team }, :status => 200
+		rescue Exception => ex
+			render json: { :error => "Team with this code does not exists." }, :status => 400
+		end
+	end
+
 	private
 		def set_team
 			@team = Team.find(params[:id])
 		end
 
 		def team_params
-			params.permit(:name, :sport, :city, :gender, :age, :age_from, :age_to, :public_contact_info)
+			params.permit(:name, :sport, :city, :code, :gender, :age, :age_from, :age_to, :public_contact_info)
 		end
 
 		def message_params

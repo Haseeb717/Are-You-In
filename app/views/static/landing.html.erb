@@ -472,6 +472,10 @@
 						<%= f.password_field :password_confirmation, autocomplete: "off", :id => "reg_pass", :class => "form-control required", :placeholder => "Confirm Password" %>
 					</div>
 
+					<div class="form-field">
+						<input type="text" name="code" id="code" class="form-control" placeholder="Team Code">
+					</div>
+
 					<p> Already have an account?
 						<%= link_to "Login here", "#", :class => "forgot-pw switch toggle", :"gumby-trigger" => "#getstarted|#login" %>
 

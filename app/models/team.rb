@@ -10,6 +10,7 @@ class Team < ActiveRecord::Base
 	validates :name, :presence => true, :length => { :minimum => 5}
 	validates_presence_of :sport
 	validates :city, :presence => true
+	validates :code, :uniqueness => {message: "Team with this code already exists."}, :if => "code.present?"
 
 	before_save do
 		self.age = self.age.downcase if self.age
@@ -17,6 +18,7 @@ class Team < ActiveRecord::Base
 		self.sport = self.sport.downcase if self.sport
 		self.city = self.city.downcase if self.city
 		self.gender = self.gender.downcase if self.gender
+		self.code = self.code.gsub(/\s+/, "") if self.code
 
 		self.age_to = self.age_from = nil unless self.age == "youth"
 	end
