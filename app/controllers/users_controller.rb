@@ -28,7 +28,7 @@ class UsersController < ApplicationController
 	def update
 		
 		# email and sms settings
-		@user.allow_email = false if user_params[:allow_email].nil?
+		@uer.allow_email = false if user_params[:allow_email].nil?
 		@user.allow_sms = false if user_params[:allow_sms].nil?
 
 		@user.update(user_params)

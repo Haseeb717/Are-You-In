@@ -11,10 +11,11 @@
 </div>
 
 <% team.users.each do |player| %>
+	<% if team.admin?(current_user) %>
 	<a data-toggle="modal" data-target="#add_player<%=player.id%>" class="edit-player pull-right" href="#">
 		<i class="fa fa-pencil-square-o"></i>
 	</a>
-	
+	<% end %>
 	<% pic = player.player_avatars.empty? ? "/users/missing.png" : player.player_avatars.last.avatar(:thumb) %>
 	<a class="team-member" href="<%= user_path(player) %>">
 		<div class="friend-profile-pic">

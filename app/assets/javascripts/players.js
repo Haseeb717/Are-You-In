@@ -190,7 +190,7 @@ $(document).ready(function() {
 				error: function(XMLHttpRequest, textStatus, errorThrown) {
 					console.log(XMLHttpRequest.responseText);
 
-					// error = XMLHttpRequest.responseJSON.error;
+					error = XMLHttpRequest.responseJSON.error;
 					$("#add-player-status", form).text(error);
 					$("button[type=submit]", form).removeAttr("disabled");
 					
