@@ -73,7 +73,6 @@ class TeamsController < ApplicationController
 		user = nil
 		begin
 			if @team.admin?(current_user)
-				byebug
 				user = User.where(:email => player_params[:email]).first_or_initialize
 				if user.new_record?
 					user.assign_attributes(player_params)
@@ -124,7 +123,6 @@ class TeamsController < ApplicationController
 					render json: { :error => "Sorry Player not updated." }, :status => 400
 				end
 			else
-				byebug
 				render json: { :error => "Sorry, only admin can edit player" }, :status => 400
 			end
 		rescue Exception => ex

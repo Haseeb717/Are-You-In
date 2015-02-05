@@ -30,7 +30,6 @@ class User < ActiveRecord::Base
 		self.country = nil unless COUNTRIES.collect{|code| code.first.downcase}.include?(self.country)
 		self.state = self.state.downcase if self.state
 		self.state = nil unless STATES.collect{|code| code.first.downcase}.include?(self.state)
-		byebug
 	end
 
 	validate :phone_number_with_code, :if => "phone.present?"
