@@ -64,18 +64,27 @@ $(document).ready(function() {
 	// team's code suggestion (team name random string characters)
 	$(document).on("blur", "#add-team-form #team_name", function(event) {
 		name = $("#add-team-form #team_name").val().replace(/ /g,'').toLowerCase();
-		suggestion = $("#add-team-form #code").val();
-		value = name;
+		coded = false;
+		
+		if (name.length >= 5 && $("#add-team-form #code").val() == "") {
+			// looping for name, cutting first n digits
+			for (i = 5; i <= name.length; i++) {
+				value = name.substring(0, i);
 
-		if (value.length >= 5 && suggestion == "") {
-			while (true) {
-				if (checkTeamCode(value)) break;
-				value = name + randomeString(5);
+				if (checkTeamCode(value)) {
+					coded = true;
+					break;
+				}
 			}
-			
+
+			while (true && !coded) {
+				value = randomeString(6);
+				if (checkTeamCode(value)) break;
+			}
+
 			$("#add-team-form #code").val(value);
 			$("#add-team-form").data("bootstrapValidator").revalidateField("code");
-		}		
+		}
 	});
 
 	// return small alphabets string depend upon length
@@ -217,11 +226,50 @@ $(document).ready(function() {
 	});
 
 	// join team by enetring code
-	$(document).on("click", ".join-team-form button[type=submit]", function(event){
+	$(".join-team-form").bootstrapValidator({
+		feedbackIcons: {
+			valid: "glyphicon glyphicon-ok",
+			invalid: "glyphicon glyphicon-remove",
+			validating: "glyphicon glyphicon-refresh"
+		},
+		fields: {
+			code: {
+				validators: {
+					notEmpty: { message: "Team code is required" },
+					callback: {
+						message: "Team with this code does not exist",
+						callback: function (value, validator, $field) {
+							result = false;
+
+							// checking if code exist in database
+							$.ajax({
+								type: "GET",
+								url: "/teams/check_code",
+								dataType: "JSON",
+								async: false,
+								data: {
+									code: value
+								},
+								success: function (data) {
+									console.log(data);
+									result = !data.valid;
+
+								},
+								error: function(XMLHttpRequest, textStatus, errorThrown) {
+									console.log(XMLHttpRequest.responseText);
+								}
+							});
+
+							return result;
+						}
+					}
+				}
+			}
+		}
+	}).on("success.form.bv", function(event) {
+		// Prevent form submission
 		event.preventDefault();
-		postData = $(".join-team-form").serialize();
-		$(".join-team-form button[type=submit]").attr("disabled", "disabled");
-		$(".join-team-form #join-team-error").text();
+		postData = $(this).serialize();
 
 		$.ajax({
 			type: "POST",
@@ -230,12 +278,7 @@ $(document).ready(function() {
 			data: postData,
 			success: function (data) {
 				console.log(data);
-				window.location = "/teams/" + data.team.id;				
-
-				// $(".join-team-form #code").val("");
-				// $("#join-team").modal("hide");
-				// $(".join-team-form button[type=submit]").removeAttr("disabled", "disabled");
-
+				window.location = "/teams/" + data.team.id;
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
 				console.log(XMLHttpRequest.responseText);
