@@ -242,23 +242,25 @@ $(document).ready(function() {
 							result = false;
 
 							// checking if code exist in database
-							$.ajax({
-								type: "GET",
-								url: "/teams/check_code",
-								dataType: "JSON",
-								async: false,
-								data: {
-									code: value
-								},
-								success: function (data) {
-									console.log(data);
-									result = !data.valid;
+							if (value != "") {
+								$.ajax({
+									type: "GET",
+									url: "/teams/check_code",
+									dataType: "JSON",
+									async: false,
+									data: {
+										code: value
+									},
+									success: function (data) {
+										console.log(data);
+										result = !data.valid;
 
-								},
-								error: function(XMLHttpRequest, textStatus, errorThrown) {
-									console.log(XMLHttpRequest.responseText);
-								}
-							});
+									},
+									error: function(XMLHttpRequest, textStatus, errorThrown) {
+										console.log(XMLHttpRequest.responseText);
+									}
+								});
+							}
 
 							return result;
 						}
