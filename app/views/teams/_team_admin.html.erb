@@ -9,7 +9,8 @@
 		<div class="row">
 			<div class="user-comment-wrapper pull-left">
 				<div class="profile-wrapper">
-					<img src="/assets/profiles/avatar-male.png" alt="" data-src="/assets/profiles/avatar-male.png" data-src-retina="/assets/profiles/avatar-male.png" width="35" height="35">
+					<% pic= team.admin.player_avatars.empty? ? "/users/missing.png" : team.admin.player_avatars.last.avatar(:thumb) %>
+					<img src="<%= pic %>" alt="" data-src="<%= pic %>" data-src-retina="<%= pic %>" width="35" height="35">
 				</div>
 
 				<div class="comment">

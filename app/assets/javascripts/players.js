@@ -17,6 +17,7 @@ $(document).ready(function() {
 
 				$("#add_player").replaceWith(data);
 				applyValidationToAddPlayerForm();
+				window.applyDropZoneToPlayerAvatars();
 
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -118,6 +119,7 @@ $(document).ready(function() {
 				$(".friend-list").html(data.design);
 					// hide modal
 				applyValidationToEditPlayerForm();
+				window.applyDropZoneToPlayerAvatars();
 				$(".edit_user").modal("hide");
 
 				// bootstrap dynamic content issue
@@ -182,6 +184,8 @@ $(document).ready(function() {
 					// hide modal
 					applyValidationToEditPlayerForm();
 					$(".edit_user").modal("hide");
+
+					window.applyDropZoneToPlayerAvatars();
 
 					// bootstrap dynamic content issue
 					$(".modal-backdrop").remove();

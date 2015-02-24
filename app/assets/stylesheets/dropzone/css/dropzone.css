@@ -421,6 +421,27 @@
   -o-transition: opacity 0.3s ease-in-out;
   -ms-transition: opacity 0.3s ease-in-out;
   transition: opacity 0.3s ease-in-out;
+  background-image: url("/assets/addteamphoto.png");
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  position: absolute;
+  width: 140px;
+  height: 27px;
+  margin-left: 0;
+  margin-top: 0;
+  top: 10px;
+  left: 10px;
+}
+
+.dropzone.player-avatar .dz-default.dz-message {
+  opacity: 1;
+  -ms-filter: none;
+  filter: none;
+  -webkit-transition: opacity 0.3s ease-in-out;
+  -moz-transition: opacity 0.3s ease-in-out;
+  -o-transition: opacity 0.3s ease-in-out;
+  -ms-transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.3s ease-in-out;
   background-image: url("/assets/addplayerphoto.png");
   background-repeat: no-repeat;
   background-position: 0 0;

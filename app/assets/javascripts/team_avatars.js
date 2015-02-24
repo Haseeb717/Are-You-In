@@ -62,7 +62,48 @@ $(document).ready(function(){
 							console.log(data.message);
 						}
 					});
-				}
+				},
+				addedfile: function(file) {
+					$(".team-update",$(this.element).parent().siblings()).attr("disabled", "disabled");
+					var _this = this;
+			        file.previewElement = Dropzone.createElement(this.options.previewTemplate);
+			        file.previewTemplate = file.previewElement;
+			        this.previewsContainer.appendChild(file.previewElement);
+			        file.previewElement.querySelector("[data-dz-name]").textContent = file.name;
+			        file.previewElement.querySelector("[data-dz-size]").innerHTML = this.filesize(file.size);
+			        if (this.options.addRemoveLinks) {
+				        file._removeLink = Dropzone.createElement("<a class=\"dz-remove\" href=\"javascript:undefined;\">" + this.options.dictRemoveFile + "</a>");
+				        file._removeLink.addEventListener("click", function(e) {
+				            e.preventDefault();
+				            e.stopPropagation();
+				            if (file.status === Dropzone.UPLOADING) {
+				              return Dropzone.confirm(_this.options.dictCancelUploadConfirmation, function() {
+				                return _this.removeFile(file);
+				              });
+				            } 
+				            else {
+				              if (_this.options.dictRemoveFileConfirmation) {
+				                return Dropzone.confirm(_this.options.dictRemoveFileConfirmation, function() {
+				                  return _this.removeFile(file);
+				                });
+				              } else {
+				                return _this.removeFile(file);
+				              }
+				            }
+				        });
+				        file.previewElement.appendChild(file._removeLink);
+			        }
+			        return this._updateMaxFilesReachedClass();
+		      	},
+		      	uploadprogress: function(file, progress, bytesSent) {
+		      		return file.previewElement.querySelector("[data-dz-uploadprogress]").style.width = "" + progress + "%";
+      			},
+      			complete: function(file) {
+      				$(".team-update",$(this.element).parent().siblings()).removeAttr("disabled");
+      				if (file._removeLink) {
+          				return file._removeLink.textContent = this.options.dictRemoveFile;
+        			}
+      			}
 			});
 		});
 	}

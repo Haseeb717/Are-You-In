@@ -54,7 +54,7 @@ class User < ActiveRecord::Base
 		self.teams.each do |team|
 			events = events + team.events
 		end
-		events.uniq.sort_by(&:time).group_by(&:date)
+		events.uniq.sort_by{|e| [e.date,e.time]}.group_by(&:date)
 	end
 
 	def is_team_admin?(team)
