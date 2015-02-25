@@ -1,13 +1,13 @@
 <p> Hi <%= (@reciever.name || @reciever.first_name).titleize %> </p>
 <p>
-	You are being invited by <%= @sender.name.titleize %> to become a player of Are-You-in.
+	Your organizer <%= @sender.name.titleize %> added you to <%= @team.name %>.<br>
 	Your Login Information is:-
 	<ul>
-		<li>Email: <%= @reciever.email %></li>
+		<li>Login email: <%= @reciever.email %></li>
 		<li>Temporary Password: <%= @password %></li>
-		<li><%= link_to "sign-in", new_user_session_url %></li>
+		<li><%= link_to "Click here to sign in", new_user_session_url %></li>
 	</ul>
-	Other Information is
+	Your Information is
 	<ul>
 		<li>First Name: <%= @reciever.first_name %></li>
 		<li>Last Name: <%= @reciever.last_name %></li>

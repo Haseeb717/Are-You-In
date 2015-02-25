@@ -34,7 +34,8 @@ $(document).ready(function() {
 			fields: {
 				title: { validators: { notEmpty: { message: 'The event title is required' }, stringLength: { min: 5, message: "The length of event name should be greater or equal to 5." } } },
 				date: { validators: { notEmpty: { message: 'The event date is required' } } },
-				time: { validators: { notEmpty: { message: 'The event time is required' } } }
+				time: { validators: { notEmpty: { message: 'The event time is required' } } },
+				where: { validators: { notEmpty: { message: 'The event where is required' } } }
 			}
 		}).on("success.form.bv", function(event) {
 			// Prevent form submission
@@ -253,7 +254,8 @@ $(document).ready(function() {
 			fields: {
 				title: { validators: { notEmpty: { message: 'The event title is required' }, stringLength: { min: 5, message: "The length of event name should be greater or equal to 5." } } },
 				date: { validators: { notEmpty: { message: 'The event date is required' } } },
-				time: { validators: { notEmpty: { message: 'The event time is required' } } }
+				time: { validators: { notEmpty: { message: 'The event time is required' } } },
+				where: { validators: { notEmpty: { message: 'The event where is required' } } }
 			}
 		}).on("success.form.bv", function(event) {
 			// Prevent form submission

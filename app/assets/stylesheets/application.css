@@ -34,6 +34,6 @@
  *= require static.css
  *= require users.css
  *= require team_avatars.css
- *= require font-awesome
+ *= require font-awesome-4.3.0/css/font-awesome.css
  *= require_self
  */

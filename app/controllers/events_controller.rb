@@ -22,7 +22,6 @@ class EventsController < ApplicationController
 		begin
 			team = Team.find(params[:team_id])
 			@event = Event.new(event_params)
-
 			if team and team.admin?(current_user)
 				if @event.save
 					team.events << @event
@@ -95,6 +94,6 @@ class EventsController < ApplicationController
 	end
 
 	def event_params
-		params.permit(:title, :category, :opponent, :date, :time, :note, :team_id)
+		params.permit(:title, :category, :opponent, :date, :time, :note, :team_id, :where)
 	end
 end

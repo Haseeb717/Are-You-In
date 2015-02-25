@@ -80,7 +80,7 @@ class TeamsController < ApplicationController
 					user.assign_attributes(:password => password, :password_confirmation => password)
 					user.save!
 
-					UserMailer.registration_request(current_user, user, password).deliver!
+					UserMailer.registration_request(current_user, user, password,@team).deliver!
 				end
 				
 				if @team.users.include?(user) || user.teams.include?(@team)

@@ -1,11 +1,12 @@
 class UserMailer < ActionMailer::Base
   default :from => MAILER_CONFIG[:from]
   	
-  	def registration_request(sender, reciever, password)	
+  	def registration_request(sender, reciever, password,team)	
   		@sender = sender
   		@reciever = reciever
   		@password = password 
-		mail(:to => "#{reciever.name} <#{reciever.email}>", :subject => "Registration of Are-You-In")
+  		@team = team
+		mail(:to => "#{reciever.name} <#{reciever.email}>", :subject => "You were added to #{team.name}")
 	end
 
 	def general_message_notification(message, user)

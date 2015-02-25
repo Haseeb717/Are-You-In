@@ -52,6 +52,12 @@
 					</div>
 					<div class="row form-row">
 						<div class="col-md-12">
+							<input type="text" class="form-control" name="where" placeholder="Where" value="<%= event.where.titleize if event.where %>">
+						</div>
+					</div>
+
+					<div class="row form-row">
+						<div class="col-md-12">
 							<textarea id="text-editor" name="note" placeholder="Enter Note about this Event ..." class="form-control" rows="3"><%= event.note %></textarea>
 						</div>
 					</div>
