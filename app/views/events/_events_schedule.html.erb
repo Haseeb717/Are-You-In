@@ -16,13 +16,15 @@
 			<tbody>
 				<% events.each do |event| %>
 					<tr>
-						<td class="v-align-middle"> <%= event.team.name.titleize %> </td>
-						<td class="v-align-middle"> <%= event.date.strftime("%a %d/%m") %> </td>
-						<td class="v-align-middle"> <%= event.time.strftime("%H:%M") %> </td>
-						<td class="v-align-middle muted"><%= event.title.titleize %> </td>
-						<td class="muted"><%= event.team.city.titleize %> </td>
-						<td class="v-align-middle">62:48</td>
-						<td class="v-align-middle">W</td>
+						<% if event.status.nil? || (event.status.include?("cancel") && event.team.admin?(current_user)) %>
+							<td class="v-align-middle"> <%= event.team.name.titleize %> </td>
+							<td class="v-align-middle"> <%= event.date.strftime("%a %d/%m") %> </td>
+							<td class="v-align-middle"> <%= event.time.strftime("%H:%M") %> </td>
+							<td class="v-align-middle muted"><%= event.title.titleize %> </td>
+							<td class="muted"><%= event.team.city.titleize %> </td>
+							<td class="v-align-middle">62:48</td>
+							<td class="v-align-middle">W</td>
+						<% end %>
 					</tr>
 				<% end %>
 			 </tbody>

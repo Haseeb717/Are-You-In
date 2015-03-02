@@ -18,4 +18,22 @@ class EventInvitationMailer < ActionMailer::Base
 			:subject => "#{@invitation.event.title.titleize} Guest List"
 		)
 	end
+
+	def cancel_event(reciever,team,event)
+		@team = team
+		@event = event
+		name = (reciever.name || reciever.first_name).titleize
+  		mail(:to => "#{name} <#{reciever.email}>",
+			:subject => "Event cancel"
+		)
+	end
+
+	def weekly_events(reciever,events)
+		byebug
+		@events = events
+		name = (reciever.name || reciever.first_name).titleize
+		mail(:to => "#{name} <#{reciever.email}>",
+			:subject => "Weekly events list"
+		)
+	end
 end

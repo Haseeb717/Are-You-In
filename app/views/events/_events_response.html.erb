@@ -1,0 +1,14 @@
+<% response = event.rsvps.where(:user_id=>current_user.id).first.response if user.include? current_user.id %>
+<div>
+	<p class="run-question">
+		<%= "Your RSVP: #{response}" if  user.include? current_user.id %>
+	</p>
+	<div class="run-btns">
+		<div class="left source-code" style="display:block;">
+			<a data-toggle="modal" data-target="#change_event_response<%= event.id%>" href="#" style="color:rgb(91, 168, 95);">
+				Change
+			</a>
+		</div>
+	</div>
+</div>
+<%= render :partial => "events/rsvp_change_options", :locals => { :event => event } %>

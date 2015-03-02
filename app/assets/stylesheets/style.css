@@ -1909,14 +1909,12 @@ hr {
 .icon-custom-2x {
   font-size: 0.9em;
 }
-.fa-5x {
-  font-size: 5em;
-}
+
 .fa-6x {
-  font-size: 6em;
+  font-size: 6em !important;
 }
 .fa-7x {
-  font-size: 7em;
+  font-size: 7em !important;
 }
 [class^="icon-"],
 [class*=" icon-"],
@@ -8200,12 +8198,6 @@ p.run-question {
 .selected .in-btn {
   background:#5BA85F;
   color:#fff;
-}
-
-.maybe-btn {
-}
-
-.out-btn {
 }
 
 .in {

@@ -1,6 +1,5 @@
 <div class="event-wrap widget-item style-b">
 	<input type="hidden" class="event_id" name="event_id" value="<%= event.id %>">
-
 	<div class="row">
 		<div class="tiles white border-right sm-bottom-30">
 			<div class="controller pull-right">
@@ -10,7 +9,6 @@
 					</a>
 				<% end %>
 			</div>
-
 			<div class="col-md-6 col-lg-6 col-sm-5 col-xs-12 p-b-15 p-t-15">
 				<div>
 					<h2>
@@ -34,16 +32,13 @@
 					<a href="#">(map)</a>
 				</h5>
 			</div>
-
 			<div class="col-md-6 col-lg-6 col-sm-7 col-xs-12 p-b-15 p-t-15">
 				<div class="run listit">
 					<%= render :partial => "events/rsvp_list", :locals => { :event => event } %>
 				</div>
-				
-				<p class="run-question">Are you In?!</p>
-				<div class="run-btns">
-					<%= render :partial => "events/rsvp_questions", :locals => { :event => event } %>
-				</div>
+				<% a = event.rsvps.collect{|user| user.user_id} %>
+					<%= render :partial => "events/events_response", :locals => { :event => event, :user=>a } if  a.include? current_user.id %>
+					<%= render :partial => "events/rsvp_questions", :locals => { :event => event } unless  a.include? current_user.id %>
 			</div>
 		</div>
 	</div>

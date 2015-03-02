@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :events do
     member do
       post "rsvp"
+      post "cancel"
     end
   end
 

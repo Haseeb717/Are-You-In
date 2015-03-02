@@ -38,7 +38,8 @@ class Event < ActiveRecord::Base
 	# cron to send event invitations
 	def self.initial_notifications
 		# get events whose initial invitation isn't sent
-		events = Event.where(:initial_call => false)
+		events = Event.where(:initial_call => false, :status => nil)
+
 		events.each do|event|
 			# combining event date and time into datetime for validation
 			# send email when X hours remains in event's start
@@ -120,6 +121,21 @@ class Event < ActiveRecord::Base
 
 	def self.send_text_message(to, subject, body, from = nil)
 		TWILIO_CLIENT.account.messages.create(:from => from || TWILIO_CONFIG[:number], :to => to, :body => "#{subject}\n#{sanitize_to_plain_text(body)}")
+	end
+
+	def self.weekly_mail
+		teams = Team.all
+		teams.each do |team|
+			events = team.events.where(:date=>Time.now..Time.now.next_week,:status => nil)
+			unless events.empty?
+				users = team.users
+				users.each do |user|
+					mail = EventInvitationMailer.weekly_events(user,events)
+					mail.deliver! if user.allow_email
+				end
+			end
+			
+		end
 	end
 
 	def self.sanitize_to_plain_text(body)

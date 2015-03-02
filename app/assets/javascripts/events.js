@@ -111,11 +111,10 @@ $(document).ready(function() {
 	// Yes Maybe No, all three fire from here.
 	// callbacks are attached to save the response
 	$(document.body).on("click", ".run-btns button", function (event) {
-		event_id = $(".event_id", $(this).parents(".event-wrap")).val();
-		responseElement = $(this).parent().siblings(".listit");
+		event_id = $(".event_id", $(this).closest(".event-wrap")).val();
+		responseElement = $(this).parents().closest(".e_detail");
 		if (event_id == undefined || event_id == null || event_id == "")
 			return;
-
 		if ($(this).hasClass("in-btn")) {
 			// in case of participation
 			text = $(this).siblings(".toggle-in").text().trim();
@@ -126,6 +125,7 @@ $(document).ready(function() {
 				closable: true,
 				buttonLabel: "Confirm that I am IN",
 				callback: function(result) {
+					$("#change_event_response"+event_id).modal("hide");
 					// user pressed confirmation button
 					if (result) saveRVSPResponse(event_id, "in", responseElement);
 				}
@@ -141,6 +141,7 @@ $(document).ready(function() {
 				closable: true,
 				buttonLabel: "Not sure yet, Remind me again",
 				callback: function(result) {
+					$("#change_event_response"+event_id).modal("hide");
 					// user pressed confirmation button
 					if (result) saveRVSPResponse(event_id, "maybe", responseElement);
 				}
@@ -156,6 +157,7 @@ $(document).ready(function() {
 				closable: true,
 				buttonLabel: "Confirm that I am Out",
 				callback: function(result) {
+					$("#change_event_response"+event_id).modal("hide");
 					// user pressed confirmation button
 					if (result) saveRVSPResponse(event_id, "out", responseElement);
 				}
@@ -181,8 +183,7 @@ $(document).ready(function() {
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
 				console.log(XMLHttpRequest.responseText);
 			}
-		});
-	}
+		});	}
 
 	$(".run-count").popover({ placement : "top", html : "true" });
 
@@ -227,6 +228,51 @@ $(document).ready(function() {
 		});
 	});
 
+	// cancel event
+	// cancel the event and refresh content list
+	$(document.body).on("click", ".event-cancel", function(event) {
+		event.preventDefault();
+		event_id = $(this).siblings(".event_id").val();
+
+		// event is required for this operation
+		if (event_id == undefined || event_id == null)
+			return;
+
+		// checking if user is in dashboard or on teams page
+		dashboard = false;
+		if (window.location.href.indexOf("dashboard") >= 0) dashboard = true;
+		postData = "dashboard=" + dashboard+ "&status=" + "cancel";
+		$("#add_event" + event_id + " .event-cancel").attr("disabled", "disabled");
+		$("#add_event" + event_id + " .event-remove").attr("disabled", "disabled");
+		$("#add_event" + event_id + " .event-update").attr("disabled", "disabled");
+		$.ajax({
+			type: "POST",
+			url: "/events/" + event_id + "/cancel",
+			dataType: "JSON",
+			data: postData,
+			success: function (data) {
+				// console.log(data);
+
+				// bootstrap dynamic content issue
+				$("#add_event" + event_id).modal("hide");
+				$(".modal-backdrop").remove();
+				$(".modal-open").removeClass("modal-open");
+
+				// remove from UI, depending on page
+				if (dashboard)
+					$(".dashboard-event-widget").html(data.design);
+				else
+					$(".team-events-widget").html(data.design);
+				applyValidationToEditEventForm();
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				$("#add_event" + event_id + " .event-cancel").removeAttr("disabled");
+				$("#add_event" + event_id + " .event-remove").removeAttr("disabled");
+				$("#add_event" + event_id + " .event-update").removeAttr("disabled");
+				console.log(XMLHttpRequest.responseText);
+			}
+		});
+	});
 	// update event
 	// update the event and refresh content list
 	applyValidationToEditEventForm();

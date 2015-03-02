@@ -1,0 +1,31 @@
+<div class="modal" id="change_event_response<%= event.id %>" tabindex="-1" role="dialog" aria-labelledby="change_event_response" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content event-modal">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					×
+				</button>
+				<h4 id="" class="semi-bold">Change Response</h4>
+			</div>
+			<div class="modal-body">
+
+				<div class="run-btns">
+					<div class="toggle-in left source-code">
+						I confirm that I can came on <%= event.date.strftime("%A %B #{event.date.day.ordinalize}") if event.date %>, at <%= event.time.strftime('%I:%M %p') if event.time %> at <%= event.team.city if event.team %>.
+					</div>
+					<button class="btn in-btn btn-success" value="<%= event.id %>">In</button>
+					<div class="toggle-maybe left source-code">
+						I am not sure that I can came on <%= event.date.strftime("%A %B #{event.date.day.ordinalize}") if event.date %>, at <%= event.time.strftime('%I:%M %p') if event.time %> at <%= event.team.city if event.team %>.
+					</div>
+					<button class="btn maybe-btn btn-warning" value="<%= event.id %>">Maybe</button>
+					<div class="toggle-out left source-code">
+						I cannot attend event on <%= event.date.strftime("%A %B #{event.date.day.ordinalize}") if event.date %>, at <%= event.time.strftime('%I:%M %p') if event.time %> at <%= event.team.city if event.team %>.
+					</div>
+					<button class="btn out-btn btn-danger" value="<%= event.id %>" >Out</button>
+				</div>
+			</div>
+			<div class="modal-footer">
+			</div>
+		</div>
+	</div>
+</div>

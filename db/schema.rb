@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150225003431) do
+ActiveRecord::Schema.define(version: 20150225231200) do
 
   create_table "event_invitations", force: true do |t|
     t.string   "token"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 20150225003431) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "where"
+    t.string   "status"
   end
 
   create_table "identities", force: true do |t|
