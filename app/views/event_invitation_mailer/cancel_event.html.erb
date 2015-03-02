@@ -1,1 +1,28 @@
-<p> Event <%= @event.title %> of team <%= @team.name %> has been cancel </p>
+<p> Hi <%= (@reciever.name || @reciever.first_name).titleize %>, </p>
+<p> It is notify that <b><%= @team.admin.name %></b>  has canceled the following Event:</p>
+<div>
+	<span>
+		<span>Title:</span>
+		<%= @event.title.titleize %>
+	</span>
+	<br>
+	<span>
+		<span>Group:</span>
+		<%= @event.team.name.titleize %>
+	</span>
+	<br>
+	<span>
+		<span>Where:</span>
+		<%= @event.where if @event.where %>
+	</span>
+	<br>
+	<span>
+		<span>Time:</span> 
+		<span><%= @event.time.strftime("%I:%M") %></span>
+		<span>
+			<%= @event.time.strftime("%p") %>
+		</span>
+	</span>
+	<br>
+
+</div>

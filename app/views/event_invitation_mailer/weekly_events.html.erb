@@ -14,14 +14,6 @@
 			<% end %>
 			<div>
 				<span>
-					<span>Time:</span> 
-					<span><%= event.time.strftime("%I:%M") %></span>
-					<span>
-						<%= event.time.strftime("%p") %>
-					</span>
-				</span>
-				<br>
-				<span>
 					<span>Title:</span>
 					<%= event.title.titleize %>
 				</span>
@@ -36,7 +28,14 @@
 					<%= event.where if event.where %>
 				</span>
 				<br>
-
+				<span>
+					<span>Time:</span> 
+					<span><%= event.time.strftime("%I:%M") %></span>
+					<span>
+						<%= event.time.strftime("%p") %>
+					</span>
+				</span>
+				<br>
 			</div>
 		<% end %>
 	</div>

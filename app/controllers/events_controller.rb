@@ -97,7 +97,6 @@ class EventsController < ApplicationController
 				event.team.users.each do |user|
 					unless event.team.admin == user
 						mail = EventInvitationMailer.cancel_event(user,team,event)
-						byebug
 						mail.deliver! if user.allow_email
 					end
 				end

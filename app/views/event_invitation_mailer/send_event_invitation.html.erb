@@ -1,7 +1,7 @@
 <h5> Hi <%= (@invitation.reciever.name || @invitation.reciever.first_name).titleize %> </h5>
 
 <div>
-	You are being invited by <%= @invitation.sender.name.titleize %> to attend event <%= @invitation.event.title.titleize %> on <%= @invitation.event.date.strftime('%A %d %B, %Y') %> at <%= @invitation.event.team.city.titleize if @invitation.event.team.city %> at <%= @invitation.event.time.strftime('%I:%M %p') %>
+	You are being invited by <%= @invitation.sender.name.titleize %> to attend event <%= @invitation.event.title.titleize %> on <%= @invitation.event.date.strftime('%A %d %B, %Y') %> at <%= @invitation.event.where.titleize if @invitation.event.where %> at <%= @invitation.event.time.strftime('%I:%M %p') %>
 		Event ID is <%= @invitation.event.id %>
 </div>
 
