@@ -30,6 +30,7 @@ class EventInvitationMailer < ActionMailer::Base
 
 	def weekly_events(reciever,events)
 		byebug
+		@reciever = reciever
 		@events = events
 		name = (reciever.name || reciever.first_name).titleize
 		mail(:to => "#{name} <#{reciever.email}>",

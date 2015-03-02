@@ -1,5 +1,6 @@
 <% team.events.sort_by{|e| [e.date,e.time]}.group_by(&:date).each do |group| %>
 	<% date = group.first.strftime("%A, %b #{group.first.day.ordinalize}") %>
+	<% byebug %>
 	<% events = group.last %>
 	<div class="row">
 		<div class="cal-day">

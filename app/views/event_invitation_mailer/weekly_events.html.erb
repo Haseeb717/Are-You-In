@@ -1,6 +1,43 @@
-<p> Upcoming Events in this week are:- </p>
-<ul>
-	<% @events.each do |event| %>
-		<li><%= event.title %></li>
-	<% end %>
-</ul>
+<p> Hi <%= (@reciever.name || @reciever.first_name).titleize %>, </p>
+<p> Your next week's events are:  </p>
+<% @events.sort_by{|e| [e.date,e.time]}.group_by(&:date).each do |group| %>
+	<% date = group.first.strftime("%A, %b #{group.first.day.ordinalize}") %>
+	<% events = group.last %>
+	<div>
+		<% show_date = true %>
+		<% events.each do |event| %>
+			<% if show_date %>
+					<p><u><%= date %></u></p>
+					<% show_date = false %>
+			<% else %>
+				<br>
+			<% end %>
+			<div>
+				<span>
+					<span>Time:</span> 
+					<span><%= event.time.strftime("%I:%M") %></span>
+					<span>
+						<%= event.time.strftime("%p") %>
+					</span>
+				</span>
+				<br>
+				<span>
+					<span>Title:</span>
+					<%= event.title.titleize %>
+				</span>
+				<br>
+				<span>
+					<span>Group:</span>
+					<%= event.team.name.titleize %>
+				</span>
+				<br>
+				<span>
+					<span>Where:</span>
+					<%= event.where if event.where %>
+				</span>
+				<br>
+
+			</div>
+		<% end %>
+	</div>
+<% end %>
