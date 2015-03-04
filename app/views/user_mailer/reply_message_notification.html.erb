@@ -7,7 +7,7 @@
 <div> <%= @message.text %> </div>
 
 <br>
-<input type="text" value="<%= @message.team.id %>" class="team_id">
-<input type="text" value="<%= @parent %>" class="parent_id">
+<input type="hidden" class="team_id" value="<%= @message.team.id %>" >
+<input type="hidden" class="parent_id" value="<%= @parent %>" >
 <br>
 <%= link_to "Go to #{@message.team.name.titleize}", team_url(@message.team), :class => "btn btn-primary" %>
