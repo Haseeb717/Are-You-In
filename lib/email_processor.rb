@@ -5,9 +5,8 @@ class EmailProcessor
 	end	
 	
 	def process
-		puts "do something here"
-		puts "email subject"+@email.subject
-		puts "email raw body"+@email.raw_text
-		puts "email from"+@email.from    
+		puts "email raw html"+@email.raw_html
+		puts "email from"+@email.from[:email]
+		puts "email raw body"+@email.raw_body    
 	end
 end
