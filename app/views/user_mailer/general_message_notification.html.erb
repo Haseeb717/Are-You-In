@@ -6,4 +6,7 @@
 
 <br>
 <br>
+<%= link_to "Reply", Bitly.client.shorten().short_url %>
+
+<%= link_to "Reply_all", Bitly.client.shorten().short_url %>
 <%= link_to "Go to #{@message.team.name.titleize}", team_url(@message.team), :class => "btn btn-primary" %>

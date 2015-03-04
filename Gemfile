@@ -18,6 +18,9 @@ gem "twilio-ruby"
 gem "bitly"
 gem "sanitize"
 
+gem 'griddler'
+gem 'griddler-mandrill'
+
 gem "mysql2", group: [:production]
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', group: [:development, :test]

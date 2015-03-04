@@ -138,6 +138,9 @@ class Event < ActiveRecord::Base
 		end
 	end
 
+	def self.process_email
+	end
+	
 	def self.sanitize_to_plain_text(body)
 		body = Sanitize.fragment(body.to_s, :elements => ["a"], :attributes => {"a" => ["href"]})
 		Nokogiri::HTML(body).xpath("//a").each do |tag|

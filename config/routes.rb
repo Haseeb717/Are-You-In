@@ -43,7 +43,7 @@ Rails.application.routes.draw do
   get "/settings", :to => "users#edit"
   # You can have the root of your site routed with "root"
   root "static#landing"
-  
+  post '/email_processor' => 'griddler/emails#create'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
