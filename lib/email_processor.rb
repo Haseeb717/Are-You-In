@@ -32,11 +32,11 @@ class EmailProcessor
 					temp.replies << message
 				end
 				message.save!
-				puts "message is #{message}
+				puts "message is #{message}"
 			end
 
 		rescue Exception => e
-			puts "Exception"+" "+e.message
+			puts "Exception"+e.message
 		end
 	end
 
