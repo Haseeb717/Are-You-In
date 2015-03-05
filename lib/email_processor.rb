@@ -23,12 +23,15 @@ class EmailProcessor
 				puts "team id is #{team_id}"
 				team = Team.where(:id=>team_id).first
 				puts "team is #{team}"
-				message = TeamMessage.new(:id=>id,:text=>text,:team_id=>team_id,:user_id=>user_id)
-				puts "message is #{message}"
-				team.team_messages << message
 				if thread.parent_id.nil?
+					message = TeamMessage.new(:text=>text,:team_id=>team_id,:user_id=>user_id,:parent_id=>id)
+					puts "message is #{message}"
+					team.team_messages << message
 					thread.replies << message
 				else
+					message = TeamMessage.new(:text=>text,:team_id=>team_id,:user_id=>user_id,:parent_id=>thread.parent_id)
+					puts "message is #{message}"
+					team.team_messages << message
 					temp = TeamMessage.where(:id=>thread.parent_id).first
 					temp.replies << message
 				end
