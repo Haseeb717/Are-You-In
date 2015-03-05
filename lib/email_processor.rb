@@ -5,11 +5,12 @@ class EmailProcessor
 	end	
 	
 	def process
-		puts "abc"
-		puts "email raw html"+@email.raw_html
-		puts "email from"+@email.from[:email]
-		puts "email raw body"+@email.raw_body 
-
+		raw_html = @email.raw_html
+		id = raw_html.xpath('//input[name="parent_id"').first
+		puts "id is"+" "+id
+		from = @email.from[:email]
+		body = @email.body
+		puts body
 		# thread  = TeamMessage.where(id parent nil ) || TeamMessage.find(id).parent 
 
 
