@@ -157,7 +157,6 @@ class TeamsController < ApplicationController
 			if current_user and @team.users.include?(current_user)
 				message = TeamMessage.new(message_params)
 				@team.team_messages << message
-
 				# checking if it is reply of some message
 				unless params[:parent].nil? or params[:parent].empty?
 					parent = TeamMessage.find(params[:parent])
