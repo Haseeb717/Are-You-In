@@ -20,7 +20,8 @@ class EmailProcessor
 		 	puts "user is #{user_id}"
 			if thread
 				team_id = thread.team_id
-				team = Team.where(:id=>id).first
+				puts "team id is #{team_id}"
+				team = Team.where(:id=>team_id).first
 				puts "team is #{team}"
 				message = TeamMessage.new(:id=>id,:text=>text,:team_id=>team_id,:user_id=>user_id)
 				puts "message is #{message}"
