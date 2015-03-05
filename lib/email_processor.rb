@@ -5,42 +5,35 @@ class EmailProcessor
 	end	
 	
 	def process
-		puts "checking"
 		begin
 		 	text =  @email.body
 		 	from = @email.from[:email]
 		 	raw_html = @email.raw_html
 
-		 	id = Nokogiri::HTML(raw_html).xpath("//input[@name='parent_id']").first.attr("value")
-		 	puts "email id is #{id}"
+		 	team_message_id = Nokogiri::HTML(raw_html).xpath("//input[@name='parent_id']").first.attr("value")
+		 	team_message = TeamMessage.find(team_message_id)
+		 	parent = team_message.parent || team_message
 
-		 	thread = TeamMessage.where(:id=>id).first
-		 	puts "thread id is #{thread.id}"
-		 	user_id = User.where(:email=>from).first.id
-		 	puts "user is #{user_id}"
-			if thread
-				team_id = thread.team_id
-				puts "team id is #{team_id}"
-				team = Team.where(:id=>team_id).first
-				puts "team is #{team}"
-				if thread.parent_id.nil?
-					message = TeamMessage.new(:text=>text,:team_id=>team_id,:user_id=>user_id,:parent_id=>id)
-					puts "message is #{message}"
-					team.team_messages << message
-					thread.replies << message
-				else
-					message = TeamMessage.new(:text=>text,:team_id=>team_id,:user_id=>user_id,:parent_id=>thread.parent_id)
-					puts "message is #{message}"
-					team.team_messages << message
-					temp = TeamMessage.where(:id=>thread.parent_id).first
-					temp.replies << message
-				end
-				message.save!
-				puts "message is #{message}"
+		 	team = team_message.team
+		 	user = team.users.where(:email => from).first
+
+			if team_message and user
+				# creating new message
+				message = TeamMessage.new(:text => text)
+
+				# associate with team and respective user
+				team.team_messages << message
+				user.team_messages << message
+
+				# managing reply
+				message.parent = parent
+				team_message.replies << message
+
+				message.save!				
 			end
 
 		rescue Exception => e
-			puts "Exception"+e.message
+			puts "Exception #{e.message}"
 		end
 	end
 
