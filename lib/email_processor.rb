@@ -14,8 +14,8 @@ class EmailProcessor
 			puts raw_html
 			id = Nokogiri::HTML(raw_html).xpath("//input[@name='parent_id']").first.attr("value")
 			puts "id is"+" "+id
-			thread = TeamMessage.where(:id=>id).first
-			puts "thread id is"+" "+thread.id
+			# thread = TeamMessage.where(:id=>id).first
+			# puts "thread id is"+" "+thread.id
 			# user_id = User.where(:email=>from).first.id
 			# puts "user is"+" "+user_id
 			# unless thread.nil? or thread.empty?
