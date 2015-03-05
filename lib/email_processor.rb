@@ -11,6 +11,7 @@ class EmailProcessor
 			from = @email.from[:email]
 			puts "from "+from
 			raw_html = @email.raw_html
+			puts raw_html
 			id = Nokogiri::HTML(raw_html).xpath("//input[@name='parent_id']").first.attr("value")
 			puts "id is"+" "+id
 			thread = TeamMessage.where(:id=>id).first
