@@ -25,7 +25,9 @@ class EmailProcessor
 					temp = TeamMessage.where(:id=>thread.parent_id).first
 					temp.replies << message
 				end
+				message.save!
 			end
+
 		rescue Exception => e
 			puts "Exception"+" "+e
 		end
