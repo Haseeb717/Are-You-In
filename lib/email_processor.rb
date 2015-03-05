@@ -18,7 +18,7 @@ class EmailProcessor
 		 	puts "thread id is #{thread.id}"
 		 	user_id = User.where(:email=>from).first.id
 		 	puts "user is #{user_id}"
-			unless thread.nil? or thread.empty?
+			if thread
 				team_id = thread.team_id
 				team = Team.where(:id=>id).first
 				puts "team is #{team}"
