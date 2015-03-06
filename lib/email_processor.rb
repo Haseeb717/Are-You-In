@@ -13,7 +13,7 @@ class EmailProcessor
 		 	team_message_id = Nokogiri::HTML(raw_html).xpath("//input[@name='parent_id']").first.attr("value")
 		 	team_message = TeamMessage.find(team_message_id)
 		 	parent = team_message.parent || team_message
-		 	put "parent is #{parent}"
+		 	puts "parent is #{parent}"
 		 	team = team_message.team
 		 	user = team.users.where(:email => from).first
 
@@ -27,6 +27,7 @@ class EmailProcessor
 
 				# managing reply
 				message.parent = parent
+				puts "message parent is #{message.parent}"
 				team_message.replies << message
 
 				message.save!				
