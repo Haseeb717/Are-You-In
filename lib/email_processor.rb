@@ -26,7 +26,8 @@ class EmailProcessor
 				# managing reply
 				message.parent = parent
 				
-				message.save!				
+				message.save!
+				UserMailer.reply_message_notification(message, parent.user).deliver! if user.allow_email and parent				
 			end
 
 		rescue Exception => e
