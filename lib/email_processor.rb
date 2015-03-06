@@ -9,11 +9,9 @@ class EmailProcessor
 		 	text =  @email.body
 		 	from = @email.from[:email]
 		 	raw_html = @email.raw_html
-		 	puts "html is #{raw_html}"
 		 	team_message_id = Nokogiri::HTML(raw_html).xpath("//input[@name='parent_id']").first.attr("value")
 		 	team_message = TeamMessage.find(team_message_id)
 		 	parent = team_message.parent || team_message
-		 	puts "parent is #{parent.id}"
 		 	team = team_message.team
 		 	user = team.users.where(:email => from).first
 
