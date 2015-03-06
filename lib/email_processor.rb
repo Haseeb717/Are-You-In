@@ -25,9 +25,7 @@ class EmailProcessor
 
 				# managing reply
 				message.parent = parent
-				puts "message parent is #{message.parent.id}"
-				# team_message.replies << message
-
+				
 				message.save!				
 			end
 
