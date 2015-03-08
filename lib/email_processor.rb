@@ -6,7 +6,9 @@ class EmailProcessor
 	
 	def process
 		begin
-			puts "email to #{@email.to}"
+			puts "email to #{@email.from}"
+			puts "email cc #{@email.cc}"
+
 		 # 	text =  @email.body
 		 # 	from = @email.from[:email]
 		 # 	raw_html = @email.raw_html
