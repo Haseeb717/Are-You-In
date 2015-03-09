@@ -32,10 +32,12 @@ class EmailProcessor
 				
 				message.save!
 				puts "message save"
-				if replies_all?
+				if replies_all
 					team.users.each do |u|
-						puts "user is #{u}"
-						UserMailer.reply_message_notification(message, u).deliver! if u.allow_email and parent
+						unless u==user
+							puts "user is #{u}"
+							UserMailer.reply_message_notification(message, u).deliver! if u.allow_email and parent
+						end
 					end
 				else
 					UserMailer.reply_message_notification(message, parent.user).deliver! if user.allow_email and parent
@@ -44,7 +46,7 @@ class EmailProcessor
 			end
 
 		rescue Exception => e
-			puts "Exception #{e.message} #{e.backtrace}"
+			puts "Exception #{e.message}"
 		end
 	end
 
