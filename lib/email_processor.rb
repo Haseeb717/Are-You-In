@@ -6,14 +6,11 @@ class EmailProcessor
 	
 	def process
 		begin
-			puts "email cc #{@email.cc}"
-
-		 	text =  @email.body
+			text =  @email.body
 		 	from = @email.from[:email]
 		 	reply_cc = @email.cc
 		 	reply_to = @email.to
 		 	
-		 	puts "reply_to #{reply_to.count}"
 		 	raw_html = @email.raw_html
 		 	team_message_id = Nokogiri::HTML(raw_html).xpath("//input[@name='parent_id']").first.attr("value")
 		 	team_message = TeamMessage.find(team_message_id)
@@ -33,15 +30,12 @@ class EmailProcessor
 				message.parent = parent
 				
 				message.save!
-				puts "message save"
 				if reply_cc.empty? && reply_to.count==1
-					puts "reply"
 					UserMailer.reply_message_notification(message, parent.user).deliver! if user.allow_email and parent
 		
 				else
 					team.users.each do |u|
 						unless u==user
-							puts "user is #{u.email}"
 							UserMailer.reply_message_notification(message, u).deliver! if u.allow_email and parent
 						end
 					end

@@ -19,7 +19,7 @@ class UserMailer < ActionMailer::Base
 	def reply_message_notification(message, user)
 		@message = message
 		@user = user
-		dummy_address = "haseeb.ahmad717@gmail.com"
+		dummy_address = "notification+all@are-you.in"
 		mail(:to => "#{user.name} <#{user.email}>,<#{dummy_address}>", :subject => "#{message.team.name.titleize}: #{message.user.name.titleize} has posted new reply.")
 	end
 end
