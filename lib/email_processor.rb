@@ -31,7 +31,7 @@ class EmailProcessor
 				message.parent = parent
 				
 				message.save!
-				if replies_all.nil?
+				if replies_all
 					UserMailer.reply_message_notification(message, parent.user).deliver! if user.allow_email and parent
 				else
 					team.users.each do |user|
