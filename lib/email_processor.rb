@@ -32,15 +32,17 @@ class EmailProcessor
 				
 				message.save!
 				puts "message save"
-				if replies_all
+				if replies_all.empty?
+					puts "reply"
+					UserMailer.reply_message_notification(message, parent.user).deliver! if user.allow_email and parent
+		
+				else
 					team.users.each do |u|
 						unless u==user
-							puts "user is #{u}"
+							puts "user is #{u.email}"
 							UserMailer.reply_message_notification(message, u).deliver! if u.allow_email and parent
 						end
 					end
-				else
-					UserMailer.reply_message_notification(message, parent.user).deliver! if user.allow_email and parent
 				end
 				
 			end
