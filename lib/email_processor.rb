@@ -11,7 +11,7 @@ class EmailProcessor
 
 		 	text =  @email.body
 		 	from = @email.from[:email]
-		 	replies_all = @email.cc[:email]
+		 	replies_all = @email.cc
 		 	raw_html = @email.raw_html
 		 	team_message_id = Nokogiri::HTML(raw_html).xpath("//input[@name='parent_id']").first.attr("value")
 		 	team_message = TeamMessage.find(team_message_id)
@@ -31,18 +31,20 @@ class EmailProcessor
 				message.parent = parent
 				
 				message.save!
-				if replies_all
-					UserMailer.reply_message_notification(message, parent.user).deliver! if user.allow_email and parent
-				else
-					team.users.each do |user|
-						UserMailer.reply_message_notification(message, user).deliver! if user.allow_email and parent
+				puts "message save"
+				if replies_all?
+					team.users.each do |u|
+						puts "user is #{u}"
+						UserMailer.reply_message_notification(message, u).deliver! if u.allow_email and parent
 					end
+				else
+					UserMailer.reply_message_notification(message, parent.user).deliver! if user.allow_email and parent
 				end
-				UserMailer.reply_message_notification(message, parent.user).deliver! if user.allow_email and parent				
+				
 			end
 
 		rescue Exception => e
-			puts "Exception #{e.message}"
+			puts "Exception #{e.message} #{e.backtrace}"
 		end
 	end
 
