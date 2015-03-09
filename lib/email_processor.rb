@@ -6,7 +6,6 @@ class EmailProcessor
 	
 	def process
 		begin
-			puts "email to #{@email.from}"
 			puts "email cc #{@email.cc}"
 
 		 	text =  @email.body
@@ -14,9 +13,8 @@ class EmailProcessor
 		 	reply_cc = @email.cc
 		 	reply_to = @email.to
 		 	
-		 	reply_bcc = @email.bcc
-		 	puts "reply_bcc #{reply_bcc}"
-		 	puts "#{@email}"
+		 	puts "reply_bcc #{reply_to}"
+		 	puts "#{@email.methods}"
 		 # 	raw_html = @email.raw_html
 		 # 	team_message_id = Nokogiri::HTML(raw_html).xpath("//input[@name='parent_id']").first.attr("value")
 		 # 	team_message = TeamMessage.find(team_message_id)
