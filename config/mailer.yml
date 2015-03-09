@@ -13,7 +13,7 @@ test:
   <<: *defaults
 
 production:
-  from: "system@are-you.in"
+  from: "notification@are-you.in"
   address: "smtp.mandrillapp.com"
   port: 587
   domain: "mandrillapp.com"
