@@ -13,7 +13,7 @@ class EmailProcessor
 		 	from = @email.from[:email]
 		 	reply_cc = @email.cc
 		 	reply_to = @email.to
-		 	puts "reply_to" reply_to.count
+		 	
 		 	reply_bcc = @email.bcc
 		 	puts "reply_bcc #{reply_bcc}"
 		 	puts "#{@email}"
