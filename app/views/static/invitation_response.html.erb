@@ -98,9 +98,9 @@
                         <h4 class="semi-bold text-center text-error">
                         <%= @invitation.event.title if @invitation %></h4>
 
-                        <h1 class="semi-bold text-center text-error">8:30</h1>
+                        <h1 class="semi-bold text-center text-error"><%= @invitation.event.time.strftime("%I:%M%p") %></h1>
 
-                        <h5 class="text-center text-error">Monday, February 18th</h5>
+                        <h5 class="text-center text-error"><%= @invitation.event.date %></h5>
 
                     </div>
                     <div class="event-participants">

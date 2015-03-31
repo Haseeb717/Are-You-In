@@ -3,13 +3,15 @@
 		<% show_date = true %>
 		<% events.each do |event| %>
 			<% if event.status.nil? || (event.status.include?("cancel") && event.team.admin?(current_user)) %>
-				<% if show_date %>
-					<h3><%= date.strftime("%A, %b #{date.day.ordinalize}") %></h3>
-					<% show_date = false %>
+				<% if Time.now >= event.date %>
+					<% if show_date %>
+						<h3><%= date.strftime("%A, %b #{date.day.ordinalize}") %></h3>
+						<% show_date = false %>
+					<% end %>
+					<div class="e_detail">
+						<%= render :partial => "events/event_details", :locals => { :event => event } %>
+					</div>
 				<% end %>
-				<div class="e_detail">
-					<%= render :partial => "events/event_details", :locals => { :event => event } %>
-				</div>
 				<%= render :partial => "events/form", :locals => { :event => event } %>
 			<% end %>	
 		<% end %>

@@ -5,7 +5,12 @@
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 					<%= render :partial => "player_avatars/form", :locals => {:player_avatar => PlayerAvatar.new } %>
-				<h4 id="" class="semi-bold">Add Player.</h4>
+				<% if player.new_record? %>
+					<h4 id="" class="semi-bold">Add Player.</h4>
+				<% else %>
+					<h4 id="" class="semi-bold">Edit Player.</h4>
+				<% end %>
+				
 			</div>
 			<% form_id = player.new_record? ? "add-player-form" : "" %>
 			<%= form_for(player,:html => { :id => form_id}) do |f| %>
