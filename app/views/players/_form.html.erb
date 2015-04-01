@@ -16,6 +16,8 @@
 			<% form_id = player.new_record? ? "add-player-form" : "" %>
 			<%= form_for(player,:html => { :id => form_id}) do |f| %>
 				<% team_user = player.new_record? ? team_user = TeamsUser.new : TeamsUser.where(:user => player.id, :team =>team.id).first %>
+					<% team_user.first_name = player.name.split(' ',2).first if (team_user.first_name.nil? || team_user.first_name.empty?) && !player.name.nil? %>
+					<% team_user.last_name = player.name.split(' ',2).last if (team_user.last_name.nil? || team_user.last_name.empty?) && !player.name.nil? %>
 				<div class="modal-body">
 					<div class="row form-row">
 						<div class="col-md-6">

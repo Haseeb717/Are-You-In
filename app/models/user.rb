@@ -20,7 +20,8 @@ class User < ActiveRecord::Base
 		self.last_name = self.last_name.downcase if self.last_name
 		self.name = "#{self.first_name} #{self.last_name}" if self.name.nil? || self.name.empty?
 		self.name = self.name.downcase if self.name
-
+		
+		
 		# other details
 		self.gender = self.gender.downcase if self.gender
 		self.gender = nil unless GENDER.include?(self.gender)
