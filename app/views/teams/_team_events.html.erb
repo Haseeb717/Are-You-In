@@ -6,7 +6,7 @@
 			<% show_date = true %>
 			<% events.each do |event| %>
 				<% if event.status.nil? || (event.status.include?("cancel") && event.team.admin?(current_user)) %>
-					<% if Time.now >= event.date %>
+					<% if Time.now <= event.date %>
 						<% if show_date %>
 							<h3><%= date %></h3>
 							<% show_date = false %>
