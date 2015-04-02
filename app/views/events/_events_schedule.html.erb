@@ -17,15 +17,24 @@
 				<% events.each do |event| %>
 					<tr>
 						<% if event.status.nil? || (event.status.include?("cancel") && event.team.admin?(current_user)) %>
-							<% if Time.now.to_date <= event.date %>
-								<% if Time.now.strftime("%I:%M %p")<= event.time.strftime("%I:%M %p") %>
-									<td class="v-align-middle"> <%= event.team.name.titleize %> </td>
-									<td class="v-align-middle"> <%= event.date.strftime("%a %d/%m") %> </td>
-									<td class="v-align-middle"> <%= event.time.strftime("%H:%M") %> </td>
-									<td class="v-align-middle muted"><%= event.title.titleize %> </td>
-									<td class="muted"><%= event.where.titleize unless event.where.nil? %> </td>
-									<td class="v-align-middle">62:48</td>
-									<td class="v-align-middle">W</td>
+							<% if Time.now.to_date < event.date %>
+								<td class="v-align-middle"> <%= event.team.name.titleize %> </td>
+								<td class="v-align-middle"> <%= event.date.strftime("%a %d/%m") %> </td>
+								<td class="v-align-middle"> <%= event.time.strftime("%H:%M") %> </td>
+								<td class="v-align-middle muted"><%= event.title.titleize %> </td>
+								<td class="muted"><%= event.where.titleize unless event.where.nil? %> </td>
+								<td class="v-align-middle">62:48</td>
+								<td class="v-align-middle">W</td>
+							<% end %>
+							<% if Time.now.to_date == event.date %>
+									<% if Time.now.strftime("%I:%M %p")<= event.time.strftime("%I:%M %p") %>
+										<td class="v-align-middle"> <%= event.team.name.titleize %> </td>
+										<td class="v-align-middle"> <%= event.date.strftime("%a %d/%m") %> </td>
+										<td class="v-align-middle"> <%= event.time.strftime("%H:%M") %> </td>
+										<td class="v-align-middle muted"><%= event.title.titleize %> </td>
+										<td class="muted"><%= event.where.titleize unless event.where.nil? %> </td>
+										<td class="v-align-middle">62:48</td>
+										<td class="v-align-middle">W</td>
 								<% end %>
 							<% end %>
 						<% end %>
