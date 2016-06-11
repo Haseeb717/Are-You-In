@@ -48,15 +48,13 @@ $(document).ready(function() {
 				// console.log(data);
 
 				// redirect to team page
-				window.location = "/teams/" + data.team.id;
+				
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
 				// console.log(response);
 				response = JSON.parse(XMLHttpRequest.responseText);
 
-				$("#add-team-form .create").removeAttr("disabled");
-				$("#add-team-form .message").html(response.error);
-				$("#add-team-form .message").show();
+				
 			}
 		});
 	});
